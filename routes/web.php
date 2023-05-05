@@ -20,3 +20,7 @@ Route::get('/', function () {
 Route::get('/dasboard', function () {
     return view('admin.layouts.master');
 });
+
+Route::get('/categories', function () {
+    return view('admin.categories.index');
+});
