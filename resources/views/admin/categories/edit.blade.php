@@ -17,14 +17,14 @@
               <div class="col-12">
                 <label class="form-label">Tên</label>
                 <input type="text" class="form-control" value="{{$categories->name}}" name="name" >
-            
+                @error('name')
+            <div style="color: red">{{ $message }}</div>
+            @enderror
               </div > 
              <div class="col-12">
                <div class="d-grid"> <br>
                  <button class="btn btn-primary" type="submit">Cập Nhật</button> 
              <a href="{{ route('categories.index') }}" class="btn btn-primary">Quay Lại</a>
-
-
                </div>
              </div>
             </form>

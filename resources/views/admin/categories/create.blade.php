@@ -13,7 +13,7 @@
             @csrf
           <div class="col-12">
             <label class="form-label">Tên Thương Hiệu</label>
-            <input type="text" class="form-control" name="name" placeholder="Nhập" >
+            <input type="text" class="form-control" name="name" placeholder="..." >
             @error('name')
             <div style="color: red">{{ $message }}</div>
             @enderror
