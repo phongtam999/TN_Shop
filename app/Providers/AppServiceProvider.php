@@ -1,23 +1,102 @@
-<?php
-
+<?php 
 namespace App\Providers;
+<<<<<<< HEAD
 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+/* Service */
+/*Category*/
+// use App\Repositories\Interfaces\CategoryRepositoryInterface;
+// use App\Services\CategoryService;
+// use App\Services\Interfaces\CategoryServiceInterface;
+// use App\Repositories\Eloquents\CategoryRepository;
+/* Product */
+use App\Repositories\Interfaces\ProductRepositoryInterface;
+use App\Repositories\Eloquents\ProductRepository;
+use App\Services\Interfaces\ProductServiceInterface;
+use App\Services\ProductService;
+
+// use App\Services\Interfaces\UserServiceInterface;
+// use App\Services\UserService;
+
+// use Illuminate\Pagination\Paginator;
+=======
+use Illuminate\Support\ServiceProvider;
+
+/* CategoryService */
+use App\Services\Interfaces\CategoryServiceInterface;
+use App\Services\CategoryService;
+
+/* CategoryRepository */
+use App\Repositories\Interfaces\CategoryRepositoryInterface;
+use App\Repositories\Eloquents\CategoryRepository;
+
+
+
+
+
+
+
+>>>>>>> 50a953e1f8344e957ea9488721178604080e72a5
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
+     *
+     * @return void
      */
-    public function register(): void
+    public function register()
     {
-        //
+<<<<<<< HEAD
+        //Đăng ký category
+        // $this->app->singleton(CategoryServiceInterface::class, CategoryService::class);
+        // $this->app->singleton(CategoryRepositoryInterface::class, CategoryRepository::class);
+        //Đăng ký product
+        $this->app->singleton(ProductServiceInterface::class, ProductService::class);
+        $this->app->singleton(ProductRepositoryInterface::class, ProductRepository::class);
+
+        // // đăng ký group
+        // $this->app->singleton(GroupRepositoryInterface::class, GroupRepository::class);
+        // $this->app->singleton(GroupServiceInterface::class, GroupService::class);
+
+        // // đăng ký customer
+        // $this->app->singleton(CustomerRepositoryInterface::class, CustomerRepository::class);
+        // $this->app->singleton(CustomerServiceInterface::class, CustomerService::class);
+
+        // // đăng ký user
+        // $this->app->singleton(UserRepositoryInterface::class, UserRepository::class);
+        // $this->app->singleton(UserServiceInterface::class, UserService::class);
+        // // đăng ký order
+        // $this->app->singleton(OrderRepositoryInterface::class, OrderRepository::class);
+        // $this->app->singleton(OrderServiceInterface::class, OrderService::class);
+        //  // đăng ký Api products
+        //  $this->app->singleton(ApiProductRepositoryInterface::class, ApiProductRepository::class);
+        //  $this->app->singleton(ApiProductServiceInterface::class, ApiProductService::class);
+=======
+ 
+/*
+            Các interface không thể dùng để khởi tạo đối tượng
+            Binding interface với một lớp giúp chúng ta có thể dùng được
+            Tắt dòng binding là thấy tai hại liền :)
+        */
+        /* Binding Services*/
+        $this->app->singleton(CategoryServiceInterface::class, CategoryService::class);
+
+
+        
+        /* Binding Repositories*/
+        $this->app->singleton(CategoryRepositoryInterface::class, CategoryRepository::class);
+        
+>>>>>>> 50a953e1f8344e957ea9488721178604080e72a5
     }
 
     /**
      * Bootstrap any application services.
+     *
+     * @return void
      */
-    public function boot(): void
+    public function boot()
     {
         //
     }
