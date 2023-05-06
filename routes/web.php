@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,3 +25,5 @@ Route::get('/dasboard', function () {
 Route::get('/categories', function () {
     return view('admin.categories.index');
 });
+
+Route::resource('products', ProductController::class);
