@@ -31,18 +31,17 @@ class ProductService implements ProductServiceInterface
     public function destroy($id){
         return $this->productRepository->destroy($id);
     }
-    // public function trashedItems($request)
-    // {
-    //     return $this->productRepository->trashedItems($request);
-    // }
-    // public function force_destroy($id){
-    //     return $this->productRepository->force_destroy($id);
-    // }
-    // public function restoredelete($id){
-    //     return $this->productRepository->restoredelete($id);
-    // }
-    // public function edit($id){
-    //     return $this->productRepository->edit($id);
-    // }
+    public function getTrashed()
+    {
+        return $this->productRepository->getTrashed();
+    }
+    public function restore($id)
+    {
+        return $this->productRepository->restore($id);
+    }
+    public function deleteforever($id)
+    {
+        return $this->productRepository->deleteforever($id);
+    }
 
 }

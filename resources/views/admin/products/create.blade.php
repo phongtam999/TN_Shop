@@ -9,7 +9,7 @@
 <div class="col-12 col-lg-12 d-flex">
     <div class="card border shadow-none w-100">
       <div class="card-body">
-        <form class="row g-3" action="{{route('product.store')}}" method = 'post' enctype="multipart/form-data">
+        <form class="row g-3" action="{{route('products.store')}}" method = 'post' enctype="multipart/form-data">
             @csrf
           <div class="col-12">
             <label class="form-label">Tên</label>
@@ -67,7 +67,7 @@
          <div class="col-12">
            <div class="d-grid"> <br>
              <button class="btn btn-primary" type="submit">Thêm</button>
-        <a href="{{ route('product.index') }}" class="btn btn-primary">Quay lại</a>
+        <a href="{{ route('products.index') }}" class="btn btn-primary">Quay lại</a>
            </div>
          </div>
         </form>

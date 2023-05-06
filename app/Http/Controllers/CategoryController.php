@@ -107,11 +107,11 @@ class CategoryController extends Controller
         alert()->success('Thể loại đã vào thùng rác!');
         return redirect()->route('category.index');
     }
-    public function trash()
+    public function getTrashed()
     {
         $categories = $this->categoryService->getTrashed();
         // $softs = Category::onlyTrashed()->get();
-        return view('admin.categories.trash', compact('softs'));
+        return view('admin.categories.getTrashed', compact('softs'));
     }
     public function restore($id)
     {
