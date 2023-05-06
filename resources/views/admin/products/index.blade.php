@@ -41,12 +41,12 @@
                 <tbody id="myTable">
 
                     @foreach ($products as $key => $team)
-                        <tr>
-                            <th scope="row">{{ $key + 1 }}</th>
-                            <td>{{ $team->name }}</td>
-                            <td>{{ $team->quantity }}</td>
-                            <td>{{ $team->category->name }}</td>
-                            <td>{{number_format( $team->price).' VND'}}</td>
+                    <tr>
+                        <th scope="row">{{ $key + 1 }}</th>
+                        <td>{{ $team->name ?? '' }}</td>
+                        <td>{{ $team->amount ?? '' }}</td>
+                        <td>{{ $team->category->name ?? '' }}</td>
+                        <td>{{ number_format($team->price).'VNĐ' }}</td>
                             
                             <td><img width="90px" height="90px" src="{{ asset($team->image)}}" alt=""></td>
 

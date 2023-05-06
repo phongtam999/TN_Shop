@@ -9,6 +9,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 
 class ProductController extends Controller
@@ -45,14 +46,14 @@ class ProductController extends Controller
                 'name' => 'required',
                 'category_id' => 'required',
                 'price' => 'required',
-                'quantity' => 'required',
+                'amount' => 'required',
                 'description' => 'required',
                 'image' => 'required',
             ],
             [
                 'name.required' => 'Vui lòng điền đầy đủ thông tin!',
                 'description.required' => 'Vui lòng điền đầy đủ thông tin!',
-                'quantity.required' => 'Vui lòng điền đầy đủ thông tin!',
+                'amount.required' => 'Vui lòng điền đầy đủ thông tin!',
                 'price.required' => 'Vui lòng điền đầy đủ thông tin!',
                 'category_id.required' => 'Vui lòng điền đầy đủ thông tin!',
                 'image.required' => 'Vui lòng điền đầy đủ thông tin!',
@@ -61,7 +62,7 @@ class ProductController extends Controller
         $product = new Product();
         $product->name = $request->name;
         $product->price = $request->price;
-        $product->quantity = $request->quantity;
+        $product->amount = $request->amount;
         $product->description = $request->description;
         $product->category_id = $request->category_id;
         $fieldName = 'image';
@@ -76,7 +77,7 @@ class ProductController extends Controller
         }
         alert()->success('Thêm sản phẩm thành công!');
         $product->save();
-        return redirect()->route('product.index');
+        return redirect()->route('products.index');
     }
 
     /**
@@ -113,7 +114,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $product->name = $request->name;
         $product->price = $request->price;
-        $product->quantity = $request->quantity;
+        $product->amount = $request->amount;
         $product->description = $request->description;
         $product->category_id = $request->category_id;
         $fieldName = 'image';
@@ -122,7 +123,7 @@ class ProductController extends Controller
             $fileNameOrigin = pathinfo($fullFileNameOrigin, PATHINFO_FILENAME);
             $extenshion = $request->file($fieldName)->getClientOriginalExtension();
             $fileName = $fileNameOrigin . '-' . rand() . '_' . time() . '.' . $extenshion;
-            $path = 'storage/' . $request->file($fieldName)->storeAs('public/images', $fileName);
+            $path = 'storage/' . $request->file($fieldName)->storeAs('public/assets/images', $fileName);
             $path = str_replace('public/', '', $path);
             $product->image = $path;
         }
@@ -130,7 +131,7 @@ class ProductController extends Controller
 
         $product->save();
 
-        return redirect()->route('product.index');
+        return redirect()->route('products.index');
         //
     }
 
@@ -144,7 +145,7 @@ class ProductController extends Controller
         $products->delete();
         alert()->success('Sản phẩm đã vào thùng rác!');
 
-        return redirect()->route('product.index');
+        return redirect()->route('products.index');
         //
     }
     public function getTrashed()
@@ -158,11 +159,11 @@ class ProductController extends Controller
             $softs = Product::withTrashed()->find($id);
             $softs->restore();
             alert()->success('Khôi Phục Sản Phẩm Thành Công!');
-            return redirect()->route('product.index');
+            return redirect()->route('products.index');
         } catch (\exception $e) {
             Log::error($e->getMessage());
             toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
-            return redirect()->route('product.index');
+            return redirect()->route('products.index');
         }
     }
       //xóa vĩnh viễn
@@ -172,17 +173,17 @@ class ProductController extends Controller
               $softs = Product::withTrashed()->find($id);
               $softs->forceDelete();
             alert()->success('Xóa Vĩnh Viễn Thành Công!');
-              return redirect()->route('product.index');
+              return redirect()->route('products.index');
           } catch (\exception $e) {
               Log::error($e->getMessage());
               toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
-              return redirect()->route('product.index');
+              return redirect()->route('products.index');
           }
       }
       public function search(Request $request){
         $search = $request->input('search');
         if(!$search){
-            return redirect()->route('product.index');
+            return redirect()->route('products.index');
         }
         $products = Product::where('name','LIKE','%'.$search.'%')->paginate(2);
         return view('admin.products.index',compact('products'));
