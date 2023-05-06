@@ -26,9 +26,12 @@ Route::get('/dasboard', function () {
 
 //Đây là phần categories
 Route::get('categories/xuatexcel', [CategoryController::class, 'exportExcel'])->name('categories.export');
+Route::get('categories/trash', [CategoryController::class, 'getTrashed'])->name('categories.trash');
 Route::resource('categories', CategoryController::class);
 
 // Đây là phần Product
+Route::get('products/trash', [ProductController::class, 'getTrashed'])->name('products.trash');
+
 Route::get('products/xuatexcel', [ProductController::class, 'exportExcel'])->name('products.export');
 Route::resource('products', ProductController::class);
 Route::resource('products', ProductController::class);

@@ -87,7 +87,7 @@ class ProductController extends Controller
         }
     }
 
-    public function trash()
+    public function getTrash()
     {
         $items = $this->productService->getTrash();
         return view('admin.products.trash', compact('items'));
