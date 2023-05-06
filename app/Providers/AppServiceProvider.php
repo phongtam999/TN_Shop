@@ -1,5 +1,6 @@
 <?php 
 namespace App\Providers;
+<<<<<<< HEAD
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
@@ -19,6 +20,24 @@ use App\Services\ProductService;
 // use App\Services\UserService;
 
 // use Illuminate\Pagination\Paginator;
+=======
+use Illuminate\Support\ServiceProvider;
+
+/* CategoryService */
+use App\Services\Interfaces\CategoryServiceInterface;
+use App\Services\CategoryService;
+
+/* CategoryRepository */
+use App\Repositories\Interfaces\CategoryRepositoryInterface;
+use App\Repositories\Eloquents\CategoryRepository;
+
+
+
+
+
+
+
+>>>>>>> 50a953e1f8344e957ea9488721178604080e72a5
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,6 +48,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+<<<<<<< HEAD
         //Đăng ký category
         // $this->app->singleton(CategoryServiceInterface::class, CategoryService::class);
         // $this->app->singleton(CategoryRepositoryInterface::class, CategoryRepository::class);
@@ -53,7 +73,24 @@ class AppServiceProvider extends ServiceProvider
         //  // đăng ký Api products
         //  $this->app->singleton(ApiProductRepositoryInterface::class, ApiProductRepository::class);
         //  $this->app->singleton(ApiProductServiceInterface::class, ApiProductService::class);
+=======
+ 
+/*
+            Các interface không thể dùng để khởi tạo đối tượng
+            Binding interface với một lớp giúp chúng ta có thể dùng được
+            Tắt dòng binding là thấy tai hại liền :)
+        */
+        /* Binding Services*/
+        $this->app->singleton(CategoryServiceInterface::class, CategoryService::class);
+
+
+        
+        /* Binding Repositories*/
+        $this->app->singleton(CategoryRepositoryInterface::class, CategoryRepository::class);
+        
+>>>>>>> 50a953e1f8344e957ea9488721178604080e72a5
     }
+
     /**
      * Bootstrap any application services.
      *
@@ -61,7 +98,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Paginator::useBootstrapFive();
-        Paginator::useBootstrapFour();
+        //
     }
 }

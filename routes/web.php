@@ -27,9 +27,7 @@ Route::get('/dasboard', function () {
 //Đây là phần categories
 Route::get('categories/xuatexcel', [CategoryController::class, 'exportExcel'])->name('categories.export');
 Route::resource('categories', CategoryController::class);
-Route::get('/categories', function () {
-    return view('admin.categories.index');
-});
+
 // Đây là phần Product
 Route::get('products/xuatexcel', [ProductController::class, 'exportExcel'])->name('products.export');
 Route::resource('products', ProductController::class);

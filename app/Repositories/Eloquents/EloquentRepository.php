@@ -28,17 +28,29 @@ abstract class EloquentRepository implements RepositoryInterface
 
     public function all($request)
     {
+<<<<<<< HEAD
+=======
+        echo __METHOD__;
+>>>>>>> 50a953e1f8344e957ea9488721178604080e72a5
         $result = $this->model->all();
         return $result;
     }
 
     public function find($id)
     {
+<<<<<<< HEAD
+=======
+        echo __METHOD__;
+>>>>>>> 50a953e1f8344e957ea9488721178604080e72a5
         return $this->model->find($id);
     }
 
     public function store($data)
     {
+<<<<<<< HEAD
+=======
+        echo __METHOD__;
+>>>>>>> 50a953e1f8344e957ea9488721178604080e72a5
         return $this->model->store($data);
     }
 
