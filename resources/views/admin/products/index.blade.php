@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
-@include('sweetalert::alert')
+@livewire('livewire-ui-toast')
 <h1 class="offset-4">Danh sách sản phẩm</h1>
 <main class="page-content">
         <div class="container">
@@ -52,7 +52,7 @@
 
                             <td>
                                 
-                                <form  action="{{ route('product.destroy', $team->id) }}" method="POST">
+                                <form  action="{{ route('products.destroy', $team->id) }}" method="POST">
                                     @method('DELETE')
                                     @csrf
                                     @if (Auth::user()->hasPermission('Product_update'))
@@ -74,7 +74,7 @@
 
                 </tbody>
             </table>
-            {{$products->appends(request()->query())}}
+            {{-- {{$products->appends(request()->query())}} --}}
         </div>
     </main>
 @endsection

@@ -31,7 +31,6 @@ Route::get('/categories', function () {
     return view('admin.categories.index');
 });
 // Đây là phần Product
-// Route::get('products/search', [ProductController::class, 'search'])->name('products.search');
 Route::get('products/xuatexcel', [ProductController::class, 'exportExcel'])->name('products.export');
 Route::resource('products', ProductController::class);
 Route::resource('products', ProductController::class);

@@ -13,8 +13,8 @@
                     <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Thương Hiệu</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="#">Danh Sách </a></li>
-                    <li><a href="./layout-two-column.html">Thùng Rác</a></li>
+                    <li><a href="{{route('categories.index')}}">Danh Sách </a></li>
+                    <li><a href="{{route('categories.trash')}}">Thùng Rác</a></li>
                    
                 </ul>
            
@@ -22,8 +22,8 @@
                     <i class="icon-envelope menu-icon"></i> <span class="nav-text">Sản Phẩm</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="./email-inbox.html">Danh Sách</a></li>
-                    <li><a href="./email-read.html">Thùng Rác</a></li>
+                    <li><a href="{{route('products.index')}}">Danh Sách</a></li>
+                    <li><a href="{{route('products.trash')}}">Thùng Rác</a></li>
                 </ul>
             </li>
             <li>
@@ -52,10 +52,6 @@
                     
             </li>
 
-          
-          
-           
-    
            
         </ul>
         <li>
