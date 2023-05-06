@@ -1,175 +1,74 @@
 <?php
 namespace App\Repositories\Eloquents;
 
-use App\Models\Category;
 use App\Models\Product;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Repositories\Eloquents\EloquentRepository;
+
 class ProductRepository extends EloquentRepository implements ProductRepositoryInterface
 {
-    protected $model;
-
     public function getModel()
     {
         return Product::class;
     }
 
-    public function __construct()
+    /*
+    - Do CategoryRepository đã kế thừa EloquentRepository nên không cần triển khai
+    các phương thức trừu tượng của CategoryRepositoryInterface
+    - Có thể ghi đè phương thức ở đây
+    - Nếu muốn thêm phương thức mới cần:
+        + Khai báo thêm ở CategoryRepositoryInterface
+        + Triển khai lại ở đây
+    - Ví dụ: paginate() không có sẵn trong RepositoryInterface, để thêm chúng ta thêm:
+        + Khai báo paginate() ở CategoryRepositoryInterface
+        + Triển khai lại ở CategoryRepository
+    */
+    public function paginate($request)
     {
-        $this->setModel();
-    }
-    public function setModel()
-    {
-        $this->model = app()->make($this->getModel());
+        $result = $this->model->paginate();
+        return $result;
     }
 
     public function all($request)
     {
-        $key                    = $request->key;
-        $id                     = $request->id;
-        $name                   = $request->name;
-        $products = Product::select('*');
-      
-        if ($name) {
-            $products->where('name', 'LIKE', '%' . $name . '%');
-        }
-        if ($key) {
-            $products->orWhere('id', $key);
-            $products->orWhere('name', 'LIKE', '%' . $key . '%');
-        }
-        if ($id) {
-            $products->where('id', $id);
-        }
-
-        if (!empty($request->search)) {
-            $search = $request->search;
-            $products = $products->Search($search);
-        }
-
-        if (!empty($request->category_id)) {
-            $products->NameCate($request);
-               
-        }
-        return $products->orderBy('id', 'DESC')->paginate(5);
+        // echo __METHOD__;
+        // die();
+        // dd($this->model);
+        return Product::orderBy('id', 'DESC')->paginate(2);
     }
-
     public function find($id)
     {
-        return $this->model->find($id);
+        $product = Product::find($id);
+        return $product;
     }
-
-    public function show($id)
+    public function store($request)
     {
-        $products = $this->model->find($id);
-        return $products;
-    }
-
-    public function store($data)
-    {
-        // dd($data);
-        $products = $this->model;
-        $products->name = $data['name'];
-        $products->price = $data['price'];
-        $products->amount = $data['amount'];
-        $products->category_id = $data['category_id'];
-        $products->description = $data['description'];
-        if ($data->hasFile('image')) {
-            //lấy file
-            $get_image = $data->file('image');
-            //lấy tên file
-            $get_name_image = $get_image->getClientOriginalName();
-            $path = 'public/uploads/';
-            //xóa đuôi
-            $name_image = current(explode('.', $get_name_image));
-            //thay đuôi thành jpg
-            $new_image = $name_image . '.' . $get_image->getClientOriginalExtension();
-            //đưa ảnh vào thư mụa public/uploads
-            $get_image->move($path, $new_image);
-            //gán ảnh
-            $products->image = $new_image;
-            //lưu ảnh
-        }
-        $products->save();
-        if ($data['file_names']) {
-            foreach ($data['file_names'] as $key => $file_detail) {
-                $fileExtension = $file_detail->getClientOriginalExtension();
-                $newFileName =  $key . '.' . $fileExtension;
-                $file_detail->storeAs('public/images/product', $newFileName);
-                $products->image_products()->saveMany([
-                    new Image_product([
-                        'product_id' => $products->id,
-                        'image' => $detail_path,
-                    ]),
-                ]);
-            }
-        }
-        return $products;
+        $product = new Product();
+        $product->name = $request->name;
+        return $product->save();
     }
     public function update($request, $id)
     {
-        $products = $this->model->find($id);
-        // dd($request);
-        $products->name = $request->name;
-        $products->price = $request->price;
-        $products->amount = $request->amount;
-        $products->category_id = $request->category_id;
-        $products->description = $request->description;
-        // dd($products);
-        if ($request->hasFile('image')) {
-            //lấy file
-            $get_image = $request->file('image');
-            //lấy tên file
-            $get_name_image = $get_image->getClientOriginalName();
-            $path = 'public/uploads/';
-            //xóa đuôi
-            $name_image = current(explode('.', $get_name_image));
-            //thay đuôi thành jpg
-            $new_image = $name_image . '.' . $get_image->getClientOriginalExtension();
-            //đưa ảnh vào thư mụa public/uploads
-            $get_image->move($path, $new_image);
-            //gán ảnh
-            $products->image = $new_image;
-            //lưu ảnh
-        }
-        $products->save();
-        if ($request['file_names']) {
-            foreach ($request['file_names'] as $file_detail) {
-                $detail_path = 'storage/' . $file_detail->store('/images', 'public');
-                $products->image_products()->saveMany([
-                    new Image_product([
-                        'product_id' => $products->id,
-                        'image' => $detail_path,
-                    ]),
-                ]);
-            }
-        }
-        return $products;
+        $product = new Product();
+        $product = Product::find($id);
+        $product->name = $request->name;
+        return $product->save();
     }
-    public function delete($id)
-    {
-        return $this->model->where('id', $id)->delete();
-    }
-    public function getTrash()
-    {
-        $result = $this->model->onlyTrashed()->get();
-        return $result;
-    }
+    // public function getTrashed()
+    // {
+    //     $query = $this->model->onlyTrashed();
+    //     $query->orderBy('id', 'desc');
+    //     $category = $query->paginate(5);
+    //     return $category;
+    // }
     public function restore($id)
     {
-        $result = $this->model->withTrashed()->find($id)->restore();
-        return $result;
+        $product = $this->model->withTrashed()->findOrFail($id);
+        return  $product->restore();
     }
     public function deleteforever($id)
     {
-        // try {
-
-            $result = $this->model->onlyTrashed()->find($id);
-            Image_product::where('product_id', '=', $id)->delete();
-            $result->forceDelete();
-            return $result;
-        // } catch (\exception $e) {
-            // return redirect()->with('status','Xóa Vĩnh Viễn Không Thành Công!');
-        // }
-        
+        $product = $this->model->onlyTrashed()->findOrFail($id);
+        return $product->deleteforever();
     }
 }

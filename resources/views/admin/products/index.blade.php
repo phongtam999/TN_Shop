@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
-@livewire('livewire-ui-toast')
+
 <h1 class="offset-4">Danh sách sản phẩm</h1>
 <main class="page-content">
         <div class="container">
@@ -55,16 +55,16 @@
                                 <form  action="{{ route('products.destroy', $team->id) }}" method="POST">
                                     @method('DELETE')
                                     @csrf
-                                    @if (Auth::user()->hasPermission('Product_update'))
+                                    {{-- @if (Auth::user()->hasPermission('Product_update')) --}}
                                     <a class="btn btn-success" href="{{ route('products.edit', $team->id) }}" class="btn btn-primary">Sửa</a>
-                                    @endif
-                                    @if (Auth::user()->hasPermission('Product_view'))
+                                    {{-- @endif --}}
+                                    {{-- @if (Auth::user()->hasPermission('Product_view')) --}}
                                     <a class="btn btn-success" href="{{ route('products.show',$team->id) }}"class="btn btn-primary">Chi tiết</a>
-                                    @endif
-                                    @if (Auth::user()->hasPermission('Product_delete'))
+                                    {{-- @endif --}}
+                                    {{-- @if (Auth::user()->hasPermission('Product_delete')) --}}
                                      <button type="submit" class="btn btn-danger"
                                     onclick="return confirm('Bạn có muốn xóa')">Xóa</button>
-                                    @endif
+                                    {{-- @endif --}}
                                 </form>
                             </td>
                         </tr>

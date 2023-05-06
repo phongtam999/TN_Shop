@@ -43,7 +43,7 @@
              <div class="col-12">
                <div class="d-grid">  <br>
                  <button class="btn btn-primary" type="submit">Cập nhật</button>
-        <a href="{{ route('product.index') }}" class="btn btn-primary">Quay lại</a>
+        <a href="{{ route('products.index') }}" class="btn btn-primary">Quay lại</a>
                </div>
              </div>
             </form>
