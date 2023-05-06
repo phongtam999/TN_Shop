@@ -39,7 +39,6 @@ Scripts
 <script src="{{asset('assets/./plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js')}}"></script>
 
 
-
 <script src="{{asset('assets/./js/dashboard/dashboard-1.js')}}"></script>
 
 </body>
