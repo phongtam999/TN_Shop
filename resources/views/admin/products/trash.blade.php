@@ -33,5 +33,5 @@
     </tbody>
     
 </table>
-<a href="{{ route('product.index') }}" class="btn btn-info">Trở lại</a> <br>
+<a href="{{ route('products.index') }}" class="btn btn-info">Trở lại</a> <br>
 @endsection
