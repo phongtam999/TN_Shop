@@ -1,23 +1,66 @@
 @extends('admin.layouts.master')
 @section('content')
-<form>
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1">
-    </div>
-    <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+@include('sweetalert::alert')
+
+<main class="page-content">
+        <h1 class="offset-4">Danh Sách Thương Hiệu</h1>
+        <div class="container">
+            <table class="table">
+                <div class="col-6">
+                    <form class="navbar-form navbar-left" action="{{route('categories.index')}}" method="GET">
+                      
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="form-group">
+                                    <input type="text" name="search" class="form-control" placeholder="Search...">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <button type="submit" class="btn btn-info">Tìm Kiếm</button>
+                            </div>
+                        </div>
+                    </form>
+                    {{-- @if (Auth::user()->hasPermission('Category_create')) --}}
+                <a href="{{ route('categories.create') }}" class="btn btn-primary">Thêm Mới</a>
+                {{-- @endif  --}}
+                    </form>
+                </div>
+                <thead>
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Tên</th>
+                        <th adta-breakpoints="xs">Quản Lý</th>
+                    </tr>
+                </thead>
+                <tbody id="myTable">
+
+                    @foreach ($categories as $key => $team)
+                        <tr>
+                            <th scope="row">{{ $key + 1 }}</th>
+                            <td>{{ $team->name }}</td>
+                            <td>
+                              
+                                <form  action="#" method="POST">
+                                     {{-- @if (Auth::user()->hasPermission('Category_update')) --}}
+                                    <a href="{{ route('categories.edit', $team->id) }}" class="btn btn-primary">Sửa</a>
+                                  
+                                     
+                                     {{-- @if (Auth::user()->hasPermission('Category_delete')) --}}
+                                    <button type="submit" class="btn btn-danger"
+                                        onclick="return confirm('Bạn có muốn xóa')">Xóa</button>
+                                    {{-- @endif --}} 
+                                    @method('DELETE')
+                                    @csrf
+                                    
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
 
 
-
-
+                </tbody>
+            </table>
+            {{-- {{$categories->appends(request()->query())}} --}}
+        </div>
+    </main>
 @endsection

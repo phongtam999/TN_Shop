@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,6 @@ Route::get('/dasboard', function () {
     return view('admin.layouts.master');
 });
 
-Route::get('/categories', function () {
-    return view('admin.categories.index');
-});
+//Đây là phần categories
+Route::get('categories/xuatexcel', [CategoryController::class, 'exportExcel'])->name('categories.export');
+Route::resource('categories', CategoryController::class);
