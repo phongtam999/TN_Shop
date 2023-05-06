@@ -1,28 +1,28 @@
 @extends('admin.layouts.master')
 @section('content')
-{{-- @include('sweetalert::alert') --}}
+@include('sweetalert::alert')
 <h1 class="offset-4">Danh sách sản phẩm</h1>
 <main class="page-content">
         <div class="container">
             <table class="table">
                 <div class="col-6">
-                    {{-- <form class="navbar-form navbar-left" action="{{route('product.search')}}" method="GET"> --}}
-                        @csrf
+                    <form class="navbar-form navbar-left" action="{{route('products.index')}}" method="GET">
+                        
                         <div class="row">
                             <div class="col-8">
                                 <div class="form-group">
-                                    <input type="text" name="search" class="form-control" placeholder="Search...">
+                                    <input type="text" name="name" class="form-control" placeholder="Search...">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <button type="submit" class="btn btn-info">Tìm kiếm</button>
                             </div>
                         </div>
-                        {{-- <a class="btn btn-warning" href="{{route('product.xuat')}}">Xuất Excel</a> &nbsp &nbsp --}}
+                        <a class="btn btn-warning" href="{{route('products.export')}}">Xuất Excel</a> &nbsp &nbsp
                     </form>
-                    {{-- @if (Auth::user()->hasPermission('Product_update')) 
-                <a href="{{ route('product.create') }}" class="btn btn-primary">Thêm mới</a>
-                @endif --}}
+                    {{-- @if (Auth::user()->hasPermission('Product_update'))  --}}
+                <a href="{{ route('products.create') }}" class="btn btn-primary">Thêm mới</a>
+                {{-- @endif --}}
 
                     </form>
                 </div>
@@ -56,10 +56,10 @@
                                     @method('DELETE')
                                     @csrf
                                     @if (Auth::user()->hasPermission('Product_update'))
-                                    <a class="btn btn-success" href="{{ route('product.edit', $team->id) }}" class="btn btn-primary">Sửa</a>
+                                    <a class="btn btn-success" href="{{ route('products.edit', $team->id) }}" class="btn btn-primary">Sửa</a>
                                     @endif
                                     @if (Auth::user()->hasPermission('Product_view'))
-                                    <a class="btn btn-success" href="{{ route('product.show',$team->id) }}"class="btn btn-primary">Chi tiết</a>
+                                    <a class="btn btn-success" href="{{ route('products.show',$team->id) }}"class="btn btn-primary">Chi tiết</a>
                                     @endif
                                     @if (Auth::user()->hasPermission('Product_delete'))
                                      <button type="submit" class="btn btn-danger"
