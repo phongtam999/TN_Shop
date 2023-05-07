@@ -67,11 +67,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-<<<<<<< HEAD
-        Paginator::useBootstrapFive();        
-=======
         Paginator::useBootstrapFive();
->>>>>>> b36558e39c1850d196e9498d60f5ca395b7609d8
         Paginator::useBootstrapFour();
     }
 }
