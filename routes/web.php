@@ -25,9 +25,13 @@ Route::get('/dasboard', function () {
 
 
 //Đây là phần categories
-Route::get('categories/trash', [CategoryController::class, 'getTrashed'])->name('categories.trash');
+  // thùng rác 
+Route::get('categories/trash', [CategoryController::class, 'trash'])->name('categories.trash');
+  // khôi phục 
+  Route::get('categories/restore/{id}', [CategoryController::class, 'restore'])->name('categories.restore');
+  // xóa vĩnh viễn 
+  Route::get('categories/deleteforever/{id}', [CategoryController::class, 'deleteforever'])->name('categories.deleteforever');
 Route::get('categories/xuatexcel', [CategoryController::class, 'exportExcel'])->name('categories.export');
-Route::get('categories/trash', [CategoryController::class, 'getTrashed'])->name('categories.trash');
 Route::resource('categories', CategoryController::class);
 
 

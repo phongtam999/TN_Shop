@@ -12,7 +12,7 @@
         <div class="card border shadow-none w-100">
           <div class="card-body">
             <form class="row g-3" action="{{route('categories.update',[$categories->id])}}" method="POST">
-                @method('put')
+                @method('PUT')
                 @csrf
               <div class="col-12">
                 <label class="form-label">Tên</label>
