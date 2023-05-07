@@ -14,22 +14,31 @@
 
     </thead>
     <tbody>
-        @foreach($softs as $key => $soft)
-        <tr>
-            <td>{{ ++$key }}</td>
-            <td>{{ $soft->name }}</td>
-            <td>{{ $soft->amount }}</td>
-            <td>{{ $soft->category->name }}</td>
-            <td>{{number_format( $soft->price).' VND'}}</td>
-            <td>
-                <img src="{{ asset($soft->image)}}" alt="" width="90px" height="90px">
-            </td>
-            <td>
-                <a href="{{route('products.restore',[$soft->id])}}" class="btn btn-warning">Khôi phục</a>
-                <a href="{{route('products.deleteforever',[$soft->id])}}" onclick="return confirm('Bạn có chắc chắn xóa vĩnh viễn không?');" class="btn btn-secondary">Xóa vĩnh viễn</a>
-            </td>
-        </tr>
-        @endforeach
+      
+    @if($softs->count() > 0)
+    @foreach($softs as $key => $soft)
+
+    <tr>
+    <td>{{ ++$key }}</td>
+    <td>{{ $soft->name ?? '' }}</td>
+    <td>{{ $soft->amount ?? '' }}</td>
+    <td>{{ $soft->category->name ?? '' }}</td>
+    <td>{{ number_format($soft->price) . ' VND' }}</td>
+    <td>
+        <img src="{{ asset($soft->image) }}" alt="" width="90px" height="90px">
+    </td>
+    <td>
+        <a href="{{ route('products.restore', $soft->id) }}" class="btn btn-warning">Khôi phục</a>
+        <a href="{{ route('products.deleteforever', $soft->id) }}" onclick="return confirm('Bạn có chắc chắn xóa vĩnh viễn không?');" class="btn btn-secondary">Xóa vĩnh viễn</a>
+    </td>
+    </tr>
+    @endforeach
+    @else
+    <tr>
+        <td colspan="7" style="text-align: center; color: red; font-weight: bold; font-size: 20px;">Không có sản phẩm nào nằm trong thùng rác !!!</td>
+
+    </tr>
+    @endif
     </tbody>
     
 </table>

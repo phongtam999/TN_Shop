@@ -1,6 +1,7 @@
 @extends('admin.layouts.master')
 @section('content')
-    @include('sweetalert::alert')
+@include('sweetalert::alert')
+
 
     <h1 class="offset-4">Danh sách sản phẩm</h1>
     <main class="page-content">
@@ -50,11 +51,24 @@
                                 <div class="btn-group" role="group">
                                     <a class="btn btn-secondary" href="{{ route('products.edit', $product->id) }}">Sửa</a>
                                     <a class="btn btn-success" href="{{ route('products.show', $product->id) }}">Chi tiết</a>
+                                    @if ($product->deleted_at) {{-- Kiểm tra xem sản phẩm đã bị xóa chưa --}}
+                                    <form action="{{ route('products.restore', $product->id) }}" method="POST">
+                                        @method('PUT')
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary">Khôi phục</button>
+                                    </form>
+                                    <form action="{{ route('products.delete-forever', $product->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa vĩnh viễn?')">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger">Xóa vĩnh viễn</button>
+                                    </form>
+                                @else
                                     <form action="{{ route('products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Bạn có muốn xóa?')">
                                         @method('DELETE')
                                         @csrf
                                         <button type="submit" class="btn btn-danger">Xóa</button>
                                     </form>
+                                @endif
                                 </div>
                             </td>
                         </tr>

@@ -1,9 +1,11 @@
 <?php
+
 namespace App\Repositories\Eloquents;
 
 use App\Models\Product;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Repositories\Eloquents\EloquentRepository;
+use Illuminate\Http\Request;
 
 class ProductRepository extends EloquentRepository implements ProductRepositoryInterface
 {
@@ -12,17 +14,6 @@ class ProductRepository extends EloquentRepository implements ProductRepositoryI
         return Product::class;
     }
 
-    /*
-    - Do ProductRepository đã kế thừa EloquentRepository nên không cần triển khai
-    các phương thức trừu tượng của ProductRepositoryInterface
-    - Có thể ghi đè phương thức ở đây
-    - Nếu muốn thêm phương thức mới cần:
-        + Khai báo thêm ở ProductRepositoryInterface
-        + Triển khai lại ở đây
-    - Ví dụ: paginate() không có sẵn trong RepositoryInterface, để thêm chúng ta thêm:
-        + Khai báo paginate() ở ProductRepositoryInterface
-        + Triển khai lại ở ProductRepository
-    */
     public function paginate($request)
     {
         $result = $this->model->paginate(2);
@@ -31,44 +22,52 @@ class ProductRepository extends EloquentRepository implements ProductRepositoryI
 
     public function all($request)
     {
-        // echo __METHOD__;
-        // die();
-        // dd($this->model);
         return Product::orderBy('id', 'DESC')->paginate(2);
     }
+
     public function find($id)
     {
-        $category = Product::find($id);
-        return $category;
+        return Product::find($id);
     }
-    public function store($request)
+
+    public function store($data)
     {
-        $category = new Product();
-        $category->name = $request->name;
-        return $category->save();
+        $product = new Product();
+        $product->name = $data['name'];
+        $product->amount = $data['amount'];
+        $product->price = $data['price'];
+        $product->description = $data['description']; 
+        $product->image = $data['image'];// Thêm dòng này để cung cấp giá trị cho trường description
+        $product->save();
+    
+        return $product;
     }
+    
+
     public function update($request, $id)
     {
-        $category = new Product();
-        $category = Product::find($id);
-        $category->name = $request->name;
-        return $category->save();
+        $product = Product::find($id);
+        $product->name = $request->input('name');
+        $product->save();
+
+        return $product;
     }
-    // public function getTrashed()
-    // {
-    //     $query = $this->model->onlyTrashed();
-    //     $query->orderBy('id', 'desc');
-    //     $category = $query->paginate(5);
-    //     return $category;
-    // }
+
+    public function getTrashed()
+{
+    return $this->model->onlyTrashed()->orderBy('id', 'desc')->paginate(5);
+}
+
+
     public function restore($id)
     {
-        $category = $this->model->withTrashed()->findOrFail($id);
-        return  $category->restore();
+        $product = $this->model->withTrashed()->findOrFail($id);
+        return $product->restore();
     }
+
     public function deleteforever($id)
     {
-        $category = $this->model->onlyTrashed()->findOrFail($id);
-        return $category->deleteforever();
+        $product = $this->model->onlyTrashed()->findOrFail($id);
+        return $product->forceDelete();
     }
 }

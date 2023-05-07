@@ -33,7 +33,6 @@ Route::resource('categories', CategoryController::class);
 
 // Đây là phần Product
 Route::get('products/search', [ProductController::class, 'search'])->name('products.search');
-Route::get('products/xuatexcel', [ProductController::class, 'exportExcel'])->name('products.xuat');
 Route::get('products/trash', [ProductController::class, 'getTrashed'])->name('products.trash');
   // khôi phục 
   Route::get('products/restore/{id}', [ProductController::class, 'restore'])->name('products.restore');

@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ProductExport;
-use App\Imports\ProductsImport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use App\Services\Interfaces\ProductServiceInterface;
 
@@ -20,16 +19,17 @@ class ProductController extends Controller
     {
         $this->productService = $productService;
     }
-    
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
-{
-    $products = $this->productService->all($request);
-    $products = Product::paginate(2);
-    return view('admin.products.index',compact('products'));
-}
+    {
+        // $products = $this->productService->all($request);
+        $products = Product::paginate(2);
+        
+        return view('admin.products.index', compact('products'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -39,10 +39,9 @@ class ProductController extends Controller
         // $this->productService->store($request);
         $categories = Category::get();
         $param = [
-            'categories'=>$categories
+            'categories' => $categories
         ];
-        return view('admin.products.create',$param);
-        
+        return view('admin.products.create', $param);
     }
 
     /**
@@ -50,7 +49,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $this->productService->store($request);
+        // $this->productService->store($request);
         $validated = $request->validate(
             [
                 'name' => 'required',
@@ -96,10 +95,10 @@ class ProductController extends Controller
     public function show(string $id)
     {
         $productshow = Product::findOrFail($id);
-        $param =[
-            'productshow'=>$productshow,
+        $param = [
+            'productshow' => $productshow,
         ];
-        return view('admin.products.show',  $param );
+        return view('admin.products.show',  $param);
     }
 
     /**
@@ -114,7 +113,7 @@ class ProductController extends Controller
             'products' => $products,
             'categories' => $categories
         ];
-        return view('admin.products.edit',$param);
+        return view('admin.products.edit', $param);
     }
 
     /**
@@ -150,17 +149,25 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy( $id)
+    public function destroy($id)
     {
         $this->productService->destroy($id);
-        // $this->authorize('forceDelete', Product::class);
-        $products = Product::find($id);
-        $products->delete();
+        $product = Product::find($id);
+
+        if ($product) {
+            if ($product->delete()) { // Sử dụng phương thức delete() và kiểm tra giá trị trả về
+                return redirect()->route('products.index');
+            } else {
+                alert()->error('Không thể di chuyển sản phẩm vào thùng rác!');
+            }
+        }
         alert()->success('Sản phẩm đã vào thùng rác!');
 
-        return redirect()->route('products.index');
-        //
+        return redirect()->back();
     }
+
+
+
     public function getTrashed()
     {
         $products = $this->productService->getTrashed();
@@ -181,32 +188,33 @@ class ProductController extends Controller
             return redirect()->route('products.index');
         }
     }
-      //xóa vĩnh viễn
-      public function deleteforever($id)
-      {
-          try {
-              $softs = Product::withTrashed()->find($id);
-              $softs->forceDelete();
+    //xóa vĩnh viễn
+    public function deleteforever($id)
+    {
+        try {
+            $softs = Product::withTrashed()->find($id);
+            $softs->forceDelete();
             alert()->success('Xóa Vĩnh Viễn Thành Công!');
-              return redirect()->route('products.index');
-          } catch (\exception $e) {
-              Log::error($e->getMessage());
-              toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
-              return redirect()->route('products.index');
-          }
-      }
-      public function search(Request $request){
+            return redirect()->route('products.index');
+        } catch (\exception $e) {
+            Log::error($e->getMessage());
+            toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
+            return redirect()->route('products.index');
+        }
+    }
+    public function search(Request $request)
+    {
         $search = $request->input('name');
-        if(!$search){
+        if (!$search) {
             return redirect()->route('products.index');
         }
         $products = Product::where('name', 'LIKE', '%' . $search . '%')->paginate(2);
         return view('admin.products.index', compact('products'));
     }
-    
-    
-      public function exportExcel()
-      {
-          return Excel::download(new ProductExport, 'products.xlsx');
-      }
+
+
+    public function exportExcel()
+    {
+        return Excel::download(new ProductExport, 'products.xlsx');
+    }
 }
