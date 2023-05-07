@@ -45,7 +45,7 @@ class CategoryRepository extends EloquentRepository implements CategoryRepositor
     {
         $category = new Category();
         $category->name = $request->name;
-        return $category->save();
+        // return $category->save();
     }
     public function update($request, $id)
     {
@@ -54,13 +54,13 @@ class CategoryRepository extends EloquentRepository implements CategoryRepositor
         $category->name = $request->name;
         return $category->save();
     }
-    // public function getTrashed()
-    // {
-    //     $query = $this->model->onlyTrashed();
-    //     $query->orderBy('id', 'desc');
-    //     $category = $query->paginate(5);
-    //     return $category;
-    // }
+    public function getTrashed()
+    {
+        $query = $this->model->onlyTrashed(); // Khởi tạo biến $query với danh sách các bản ghi đã xóa
+        $query->orderBy('id', 'desc'); // Sắp xếp theo ID giảm dần
+        $categories = $query->paginate(5); // Phân trang kết quả
+        return $categories; // Trả về danh sách thể loại đã xóa
+    }
     public function restore($id)
     {
         $category = $this->model->withTrashed()->findOrFail($id);

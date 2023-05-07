@@ -35,28 +35,26 @@
                 <tbody id="myTable">
 
                     @foreach ($categories as $key => $team)
-                        <tr>
-                            <th scope="row">{{ $key + 1 }}</th>
-                            <td>{{ $team->name }}</td>
-                            <td>
-                              
-                                <form  action="#" method="POST">
-                                     {{-- @if (Auth::user()->hasPermission('Category_update')) --}}
-                                    <a href="{{ route('categories.edit', $team->id) }}" class="btn btn-primary">Sửa</a>
-                                  
-                                     
-                                     {{-- @if (Auth::user()->hasPermission('Category_delete')) --}}
-                                    <button type="submit" class="btn btn-danger"
-                                        onclick="return confirm('Bạn có muốn xóa')">Xóa</button>
-                                    {{-- @endif --}} 
-                                    @method('DELETE')
-                                    @csrf
-                                    
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-
+                    <tr>
+                        <th scope="row">{{ $key + 1 }}</th>
+                        <td>{{ $team->name }}</td>
+                        <td>
+                          
+                            @if (isset($team))
+                            <form action="{{ route('categories.destroy', $team->id) }}" method="POST">
+                                {{-- @if (Auth::user()->hasPermission('Category_update')) --}}
+                                <a href="{{ route('categories.edit', $team->id) }}" class="btn btn-primary">Sửa</a>
+                                {{-- @endif --}}
+                                {{-- @if (Auth::user()->hasPermission('Category_delete')) --}}
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa')">Xóa</button>
+                                {{-- @endif --}}
+                                @method('DELETE')
+                                @csrf
+                            </form>
+                        @endif
+                        </td>
+                    </tr>
+                @endforeach
 
                 </tbody>
             </table>
