@@ -15,7 +15,7 @@ class ProductService implements ProductServiceInterface
         $this->productRepository = $productRepository;
     }
 
-    /* Triển khai các phương thức trong PostServiceInterface */
+    /* Triển khai các phương thức trong CategoryServiceInterface */
     public function all($request){
         return $this->productRepository->all($request);
     }
@@ -43,5 +43,4 @@ class ProductService implements ProductServiceInterface
     {
         return $this->productRepository->deleteforever($id);
     }
-
 }

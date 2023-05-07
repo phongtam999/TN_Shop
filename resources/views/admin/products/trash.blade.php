@@ -25,8 +25,8 @@
                 <img src="{{ asset($soft->image)}}" alt="" width="90px" height="90px">
             </td>
             <td>
-                <a href="{{route('product.restore',[$soft->id])}}" class="btn btn-warning">Khôi phục</a>
-                <a href="{{route('product.deleteforever',[$soft->id])}}" onclick="return confirm('Bạn có chắc chắn xóa vĩnh viễn không?');" class="btn btn-secondary">Xóa vĩnh viễn</a>
+                <a href="{{route('products.restore',[$soft->id])}}" class="btn btn-warning">Khôi phục</a>
+                <a href="{{route('products.deleteforever',[$soft->id])}}" onclick="return confirm('Bạn có chắc chắn xóa vĩnh viễn không?');" class="btn btn-secondary">Xóa vĩnh viễn</a>
             </td>
         </tr>
         @endforeach

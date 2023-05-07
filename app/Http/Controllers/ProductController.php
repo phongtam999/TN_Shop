@@ -10,24 +10,33 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+use App\Services\Interfaces\ProductServiceInterface;
 
 
 class ProductController extends Controller
 {
+    protected $productService;
+    public function __construct(ProductServiceInterface $productService)
+    {
+        $this->productService = $productService;
+    }
+    
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $products = Product::paginate(2);
-        return view('admin.products.index',compact('products'));
-    }
+    public function index(Request $request)
+{
+    $products = $this->productService->all($request);
+    $products = Product::paginate(2);
+    return view('admin.products.index',compact('products'));
+}
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
+        // $this->productService->store($request);
         $categories = Category::get();
         $param = [
             'categories'=>$categories
@@ -41,6 +50,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $this->productService->store($request);
         $validated = $request->validate(
             [
                 'name' => 'required',
@@ -97,6 +107,7 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
+        $products = $this->productService->find($id);
         $products = Product::find($id);
         $categories = Category::all();
         $param = [
@@ -111,6 +122,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $this->productService->update($request, $id);
         $product = Product::findOrFail($id);
         $product->name = $request->name;
         $product->price = $request->price;
@@ -140,7 +152,8 @@ class ProductController extends Controller
      */
     public function destroy( $id)
     {
-        $this->authorize('forceDelete', Product::class);
+        $this->productService->destroy($id);
+        // $this->authorize('forceDelete', Product::class);
         $products = Product::find($id);
         $products->delete();
         alert()->success('Sản phẩm đã vào thùng rác!');
@@ -150,11 +163,13 @@ class ProductController extends Controller
     }
     public function getTrashed()
     {
+        $products = $this->productService->getTrashed();
         $softs = Product::onlyTrashed()->get();
         return view('admin.products.trash', compact('softs'));
     }
     public function restore($id)
     {
+        $this->productService->restore($id);
         try {
             $softs = Product::withTrashed()->find($id);
             $softs->restore();
@@ -181,15 +196,17 @@ class ProductController extends Controller
           }
       }
       public function search(Request $request){
-        $search = $request->input('search');
+        $search = $request->input('name');
         if(!$search){
             return redirect()->route('products.index');
         }
-        $products = Product::where('name','LIKE','%'.$search.'%')->paginate(2);
-        return view('admin.products.index',compact('products'));
-      }
+        $products = Product::where('name', 'LIKE', '%' . $search . '%')->paginate(2);
+        return view('admin.products.index', compact('products'));
+    }
+    
+    
       public function exportExcel()
       {
-          return Excel::download(new ProductExport, 'product.xlsx');
+          return Excel::download(new ProductExport, 'products.xlsx');
       }
 }

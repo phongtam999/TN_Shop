@@ -60,7 +60,7 @@
 
                 </tbody>
             </table>
-            {{-- {{$categories->appends(request()->query())}} --}}
+            {{$categories->appends(request()->query())}}
         </div>
     </main>
 @endsection

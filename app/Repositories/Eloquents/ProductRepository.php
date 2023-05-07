@@ -13,19 +13,19 @@ class ProductRepository extends EloquentRepository implements ProductRepositoryI
     }
 
     /*
-    - Do CategoryRepository đã kế thừa EloquentRepository nên không cần triển khai
-    các phương thức trừu tượng của CategoryRepositoryInterface
+    - Do ProductRepository đã kế thừa EloquentRepository nên không cần triển khai
+    các phương thức trừu tượng của ProductRepositoryInterface
     - Có thể ghi đè phương thức ở đây
     - Nếu muốn thêm phương thức mới cần:
-        + Khai báo thêm ở CategoryRepositoryInterface
+        + Khai báo thêm ở ProductRepositoryInterface
         + Triển khai lại ở đây
     - Ví dụ: paginate() không có sẵn trong RepositoryInterface, để thêm chúng ta thêm:
-        + Khai báo paginate() ở CategoryRepositoryInterface
-        + Triển khai lại ở CategoryRepository
+        + Khai báo paginate() ở ProductRepositoryInterface
+        + Triển khai lại ở ProductRepository
     */
     public function paginate($request)
     {
-        $result = $this->model->paginate();
+        $result = $this->model->paginate(2);
         return $result;
     }
 
@@ -38,21 +38,21 @@ class ProductRepository extends EloquentRepository implements ProductRepositoryI
     }
     public function find($id)
     {
-        $product = Product::find($id);
-        return $product;
+        $category = Product::find($id);
+        return $category;
     }
     public function store($request)
     {
-        $product = new Product();
-        $product->name = $request->name;
-        return $product->save();
+        $category = new Product();
+        $category->name = $request->name;
+        return $category->save();
     }
     public function update($request, $id)
     {
-        $product = new Product();
-        $product = Product::find($id);
-        $product->name = $request->name;
-        return $product->save();
+        $category = new Product();
+        $category = Product::find($id);
+        $category->name = $request->name;
+        return $category->save();
     }
     // public function getTrashed()
     // {
@@ -63,12 +63,12 @@ class ProductRepository extends EloquentRepository implements ProductRepositoryI
     // }
     public function restore($id)
     {
-        $product = $this->model->withTrashed()->findOrFail($id);
-        return  $product->restore();
+        $category = $this->model->withTrashed()->findOrFail($id);
+        return  $category->restore();
     }
     public function deleteforever($id)
     {
-        $product = $this->model->onlyTrashed()->findOrFail($id);
-        return $product->deleteforever();
+        $category = $this->model->onlyTrashed()->findOrFail($id);
+        return $category->deleteforever();
     }
 }
