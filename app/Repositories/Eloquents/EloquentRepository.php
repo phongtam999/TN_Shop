@@ -42,7 +42,6 @@ abstract class EloquentRepository implements RepositoryInterface
     public function store($data)
     {
         echo __METHOD__;
-
         return $this->model->store($data);
     }
 

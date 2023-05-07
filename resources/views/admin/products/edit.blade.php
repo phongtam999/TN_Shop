@@ -9,7 +9,7 @@
     <div class="col-12 col-lg-12 d-flex">
         <div class="card border shadow-none w-100">
           <div class="card-body">
-            <form class="row g-3" action="{{route('product.update',[$products->id])}}" method="POST" enctype="multipart/form-data">
+            <form class="row g-3" action="{{route('products.update',[$products->id])}}" method="POST" enctype="multipart/form-data">
                 @method('put')
                 @csrf
               <div class="col-12">
@@ -30,7 +30,7 @@
               </div >
               <div class="col-12">
                 <label class="form-label">Số lượng</label>
-                <input type="text" class="form-control" value="{{$products->quantity}}" name="quantity" >
+                <input type="text" class="form-control" value="{{$products->amount}}" name="amount" >
               </div >
               <div class="col-12">
                 <label class="form-label">Mô tả</label>
