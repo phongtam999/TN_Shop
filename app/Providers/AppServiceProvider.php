@@ -16,6 +16,9 @@ use App\Repositories\Eloquents\UserRepository;
 /* CustomerRepositories */
 use App\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Repositories\Eloquents\CustomerRepository;
+/* OrderRepositories */
+use App\Repositories\Interfaces\OrderRepositoryInterface;
+use App\Repositories\Eloquents\OrderRepository;
 /*-------------------------------------------------------------------*/
 
 /* 2: Phần use Service */
@@ -31,6 +34,9 @@ use App\Services\Interfaces\CustomerServiceInterface;
 /*UsersService*/
 use App\Services\Interfaces\UserServiceInterface;
 use App\Services\UserService;
+/*OrderService*/
+use App\Services\Interfaces\OrderServiceInterface;
+use App\Services\OrderService;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -38,31 +44,18 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         
-        //Đăng ký product
-        $this->app->singleton(ProductServiceInterface::class, ProductService::class);
-        $this->app->singleton(ProductRepositoryInterface::class, ProductRepository::class);
-
-        //Đăng ký user
-        $this->app->singleton(UserServiceInterface::class, UserService::class);
-        $this->app->singleton(UserRepositoryInterface::class, UserRepository::class);
-
-
-
-        /* Binding Services*/
-        $this->app->singleton(CategoryServiceInterface::class, CategoryService::class);
-        /* Binding Repositories*/
-        $this->app->singleton(CategoryRepositoryInterface::class, CategoryRepository::class);
-
         /*Đăng ký ServiceInterface */
         $this->app->singleton(CategoryServiceInterface::class, CategoryService::class);
         $this->app->singleton(ProductServiceInterface::class, ProductService::class);
         $this->app->singleton(CustomerServiceInterface::class, CustomerService::class);
-
+        $this->app->singleton(OrderServiceInterface::class, OrderService::class);
+        $this->app->singleton(UserServiceInterface::class, UserService::class);
        /*Đăng ký Repositories */
         $this->app->singleton(CategoryRepositoryInterface::class, CategoryRepository::class);
         $this->app->singleton(ProductRepositoryInterface::class, ProductRepository::class);
         $this->app->singleton(CustomerRepositoryInterface::class, CustomerRepository::class);
-       
+        $this->app->singleton(OrderRepositoryInterface::class, OrderRepository::class);
+        $this->app->singleton(UserRepositoryInterface::class, UserRepository::class);    
     }
    
     public function boot()
