@@ -32,7 +32,7 @@
                     <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Khách Hàng</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="./app-profile.html">Danh Sách Khách Hàng</a></li>
+                    <li><a href="{{route('customers.index')}}">Danh Sách Khách Hàng</a></li>
                 </ul>
             </li>
             <li>
