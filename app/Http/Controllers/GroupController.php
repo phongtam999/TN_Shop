@@ -1,28 +1,36 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Services\Interfaces\GroupServiceInterface;
+use App\Http\Requests\StoreGroupRequest;
+use App\Http\Requests\UpdateGroupRequest;
 use App\Models\Group;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+// use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+
+// use Illuminate\Support\Facades\Auth;
 
 class GroupController extends Controller
 {
+    protected $groupService;
+
+    public function __construct(GroupServiceInterface $groupService)
+    {
+        $this->groupService = $groupService;
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         // $this->authorize('viewAny',Group::class);
-        $groups = Group::paginate(4);
-        $users= User::get();
-        $param = [
-            'groups' => $groups,
-            'users' => $users
-        ];
-        return view('admin.groups.index', $param );
+        $groups = $this->groupService->paginate($request);
+        return view('admin.groups.index',compact('groups'));
+       
     }
 
     /**
@@ -30,29 +38,26 @@ class GroupController extends Controller
      */
     public function create()
     {
-        $this->authorize('create',Group::class);
+        // $this->authorize('create',Group::class);
         return view('admin.groups.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreGroupRequest $request)
     {
-        $validated = $request->validate(
-            [
-                'name' => 'required',
-            ],
-            [
-                'name.required' => 'Bạn không được để trống!',
-            ]
-        );
-        $group = new Group();
-        $group->name = $request->name;
-        $group->save();
-        alert()->success('Thêm thành công!');
-        return redirect()->route('group.index');
+        try {
+            $this->groupService->store($request);
+            toast('Thêm Quyền Thành Công!', 'success', 'top-right');
+            return redirect()->route('groups.index');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
+            return redirect()->route('groups.index');
+        }
     }
+    
 
     /**
      * Display the specified resource.
@@ -67,71 +72,65 @@ class GroupController extends Controller
      */
     public function edit(string $id)
     {
-        $this->authorize('update',Group::class);
-        $group = Group::find($id);
+        
+        // $this->authorize('update',Group::class);
+        $group = $this->groupService->find($id);
         return view('admin.groups.edit', compact('group') );
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateGroupRequest $request, $id)
     {
-        $group = Group::find($id);
-        $group->name = $request->name;
-        $group->save();
-        $notification = [
-            'message' => 'Chỉnh Sửa Thành Công!',
-            'alert-type' => 'success'
-        ];
-        alert()->success('Cập nhật thành công!');
-
-        return redirect()->route('group.index');
+        try {
+            $this->groupService->update($request, $id);
+            toast('Sửa Quyền Thành Công!', 'success', 'top-right');
+            return redirect()->route('groups.index');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
+            return redirect()->route('groups.index');
+        }
     }
+    
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        $group = Group::find($id);
-        $group->delete();
-        alert()->success('Xóa nhân viên thành công!');
-
-        return redirect()->back();
+        try {
+            $this->groupService->forceDelete($id);
+            toast('Nhóm Quyền Đã Được Xóa!', 'success', 'top-right');
+            return redirect()->route('groups.index');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            toast('Có lỗi xảy ra!', 'error', 'top-right');
+            return redirect()->route('groups.index');
+        }
     }
+    
+    
     public function detail($id)
     {
-        $group=Group::find($id);
-
-        $current_user = Auth::user();
-        $userRoles = $group->roles->pluck('id', 'name')->toArray();
-        // dd($userRoles);
-        $roles = Role::all()->toArray();
-        $group_names = [];
-        /////lấy tên nhóm quyền
-        foreach ($roles as $role) {
-            $group_names[$role['group_name']][] = $role;
-        }
-        $params = [
-            'group' => $group,
-            'userRoles' => $userRoles,
-            'roles' => $roles,
-            'group_names' => $group_names,
-        ];
-        return view('admin.groups.detail',$params);
+        
+        $group =  $this->groupService->detail($id);
+        return view('admin.groups.detail', $group);
     }
     public function group_detail(Request $request,$id)
     {
-        $notification = [
-            'message' => 'Cấp Quyền Thành Công!',
-            'alert-type' => 'success'
-        ];
-        $group= Group::find($id);
-        $group->roles()->detach();
-        $group->roles()->attach($request->roles);
-        alert()->success('Cấp quyền thành công!');
-
-        return redirect()->route('group.index')->with($notification);;
+        try {
+            $this->groupService->group_detail($id, $request);
+            toast('Cấp Quyền Thành Công!', 'success', 'top-right');
+            return redirect()->route('groups.index');
+        } catch (\exception $e) {
+            Log::error($e->getMessage());
+            toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
+            return redirect()->route('groups.index');
+        }
     }
+ 
+
+   
 }
