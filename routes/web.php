@@ -5,7 +5,10 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerController;
+
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\GroupController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -58,3 +61,8 @@ Route::resource('groups', GroupController::class);
 // Đây là phần Customer
 Route::get('customers/search', [CustomerController::class, 'search'])->name('customers.search');
 Route::resource('customers', CustomerController::class);
+// Đây là Orderssearch
+Route::get('orders/search', [OrderController::class, 'search'])->name('orders.search');
+Route::get('orders/xuat', [OrderController::class, 'exportOrder'])->name('orders.xuat');
+Route::resource('orders', OrderController::class);
+

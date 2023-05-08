@@ -8,7 +8,6 @@
             <table class="table">
                 <div class="col-6">
                     <form class="navbar-form navbar-left" action="{{route('customers.search')}}" method="GET">
-                        @csrf
                         <div class="row">
                             <div class="col-8">
                                 <div class="form-group">
