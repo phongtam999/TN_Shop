@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerController;
 
@@ -35,7 +36,6 @@ Route::get('categories/trash', [CategoryController::class, 'trash'])->name('cate
 Route::get('categories/xuatexcel', [CategoryController::class, 'exportExcel'])->name('categories.export');
 Route::resource('categories', CategoryController::class);
 
-
 // Đây là phần Product
 Route::get('products/search', [ProductController::class, 'search'])->name('products.search');
 Route::get('products/trash', [ProductController::class, 'getTrashed'])->name('products.trash');
@@ -45,8 +45,10 @@ Route::get('products/trash', [ProductController::class, 'getTrashed'])->name('pr
   Route::get('products/deleteforever/{id}', [ProductController::class, 'deleteforever'])->name('products.deleteforever');
 Route::get('products/xuatexcel', [ProductController::class, 'exportExcel'])->name('products.export');
 Route::resource('products', ProductController::class);
-//bang customer
+
+// Đây là phần User
+Route::get('users/search', [UserController::class, 'search'])->name('users.search');
+Route::resource('users', UserController::class);
+// Đây là phần Customer
 Route::get('customers/search', [CustomerController::class, 'search'])->name('customers.search');
-
 Route::resource('customers', CustomerController::class);
-

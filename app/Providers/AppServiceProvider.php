@@ -10,6 +10,9 @@ use App\Repositories\Interfaces\CategoryRepositoryInterface;
 /* ProductRepositories */
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Repositories\Eloquents\ProductRepository;
+// User Repository
+use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\Eloquents\UserRepository;
 /* CustomerRepositories */
 use App\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Repositories\Eloquents\CustomerRepository;
@@ -25,18 +28,31 @@ use App\Services\Interfaces\ProductServiceInterface;
 /*CustomerService*/
 use App\Services\CustomerService;
 use App\Services\Interfaces\CustomerServiceInterface;
-
-
-// use App\Services\Interfaces\UserServiceInterface;
-// use App\Services\UserService;
-// use Illuminate\Pagination\Paginator;
-// use Illuminate\Support\ServiceProvider;
+/*UsersService*/
+use App\Services\Interfaces\UserServiceInterface;
+use App\Services\UserService;
 
 
 class AppServiceProvider extends ServiceProvider
 {
     public function register()
     {
+        
+        //Đăng ký product
+        $this->app->singleton(ProductServiceInterface::class, ProductService::class);
+        $this->app->singleton(ProductRepositoryInterface::class, ProductRepository::class);
+
+        //Đăng ký user
+        $this->app->singleton(UserServiceInterface::class, UserService::class);
+        $this->app->singleton(UserRepositoryInterface::class, UserRepository::class);
+
+
+
+        /* Binding Services*/
+        $this->app->singleton(CategoryServiceInterface::class, CategoryService::class);
+        /* Binding Repositories*/
+        $this->app->singleton(CategoryRepositoryInterface::class, CategoryRepository::class);
+
         /*Đăng ký ServiceInterface */
         $this->app->singleton(CategoryServiceInterface::class, CategoryService::class);
         $this->app->singleton(ProductServiceInterface::class, ProductService::class);

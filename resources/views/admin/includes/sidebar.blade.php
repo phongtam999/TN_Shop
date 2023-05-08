@@ -49,7 +49,7 @@
                     <i class="icon-grid menu-icon"></i><span class="nav-text">Nhân Viên</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="./ui-accordion.html">Danh Sách</a></li>
+                    <li><a href="{{route('users.index')}}">Danh Sách</a></li>
                     
             </li>
 
