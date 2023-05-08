@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +46,9 @@ Route::get('products/trash', [ProductController::class, 'getTrashed'])->name('pr
 Route::get('products/xuatexcel', [ProductController::class, 'exportExcel'])->name('products.export');
 Route::resource('products', ProductController::class);
 
-
 // Đây là phần User
 Route::get('users/search', [UserController::class, 'search'])->name('users.search');
 Route::resource('users', UserController::class);
+// Đây là phần Customer
+Route::get('customers/search', [CustomerController::class, 'search'])->name('customers.search');
+Route::resource('customers', CustomerController::class);
