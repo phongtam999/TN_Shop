@@ -60,7 +60,7 @@
                 <i class="icon-notebook menu-icon"></i><span class="nav-text">Nhóm Nhân Viên</span>
             </a>
             <ul aria-expanded="false">
-                <li><a href="./page-login.html">Danh Sách</a></li>
+                <li><a href="{{route('groups.index')}}">Danh Sách</a></li>
                     </ul>
                 </li>
             </ul>

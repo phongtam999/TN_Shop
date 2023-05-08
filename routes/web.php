@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\GroupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,11 @@ Route::resource('products', ProductController::class);
 // Đây là phần User
 Route::get('users/search', [UserController::class, 'search'])->name('users.search');
 Route::resource('users', UserController::class);
+// Đây là phần Group
+Route::get('groups/detail/{id}', [GroupController::class, 'detail'])->name('groups.detail');
+Route::put('groups/group_detail/{id}', [GroupController::class, 'group_detail'])->name('groups.group_detail');
+Route::get('groups/search', [GroupController::class, 'search'])->name('groups.search');
+Route::resource('groups', GroupController::class);
 // Đây là phần Customer
 Route::get('customers/search', [CustomerController::class, 'search'])->name('customers.search');
 Route::resource('customers', CustomerController::class);
