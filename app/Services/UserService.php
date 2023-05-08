@@ -1,36 +1,40 @@
 <?php
-
 namespace App\Services;
 
 use App\Services\Interfaces\UserServiceInterface;
-
-use App\Repositories\Interfaces\PostRepositoryInterface;
-
+use App\Repositories\Interfaces\UserRepositoryInterface;
 
 class UserService implements UserServiceInterface
 {
-    protected $postRepository;
+    protected $userRepository;
 
-    public function __construct(PostRepositoryInterface $postRepository)
+    public function __construct(UserRepositoryInterface $userRepository)
     {
-        $this->postRepository = $postRepository;
+        $this->userRepository = $userRepository;
     }
 
-    /* Triển khai các phương thức trong PostServiceInterface */
-    public function all($request){
-        // dd(__METHOD__);
-        return $this->postRepository->all($request);
+    public function all($request)
+    {
+        return $this->userRepository->all($request);
     }
-    public function find($id){
-        return $this->postRepository->find($id);
+
+    public function find($id)
+    {
+        return $this->userRepository->find($id);
     }
-    public function store($request){
-        return $this->postRepository->store($request);
+
+    public function store($request)
+    {
+        return $this->userRepository->store($request);
     }
-    public function update($request, $id){
-        return $this->postRepository->update($request,$id);
+
+    public function update($request, $id)
+    {
+        return $this->userRepository->update($request, $id);
     }
-    public function destroy($id){
-        return $this->postRepository->destroy($id);
+
+    public function destroy($id)
+    {
+        return $this->userRepository->destroy($id);
     }
 }
