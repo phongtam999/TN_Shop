@@ -4,6 +4,9 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 /* 1: Phần use Repositories */
+// GroupRepository
+use App\Repositories\Interfaces\GroupRepositoryInterface;
+use App\Repositories\Eloquents\GroupRepository;
 /*CategoryRepository */
 use App\Repositories\Eloquents\CategoryRepository;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
@@ -31,6 +34,10 @@ use App\Services\Interfaces\CustomerServiceInterface;
 /*UsersService*/
 use App\Services\Interfaces\UserServiceInterface;
 use App\Services\UserService;
+// GroupService
+use App\Services\GroupService;
+use App\Services\Interfaces\GroupServiceInterface;
+
 
 
 class AppServiceProvider extends ServiceProvider
@@ -45,6 +52,11 @@ class AppServiceProvider extends ServiceProvider
         //Đăng ký user
         $this->app->singleton(UserServiceInterface::class, UserService::class);
         $this->app->singleton(UserRepositoryInterface::class, UserRepository::class);
+
+        //Đăng ký group
+        $this->app->singleton(GroupServiceInterface::class, GroupService::class);
+        $this->app->singleton(GroupRepositoryInterface::class, GroupRepository::class);
+
 
 
 
