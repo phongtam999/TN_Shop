@@ -184,6 +184,7 @@
                                 </div>
                             </div>
                         </li>
+                        
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
                                 <span class="activity active"></span>
@@ -200,6 +201,7 @@
                                                 <i class="icon-envelope-open"></i> <span>Đăng Ký</span> <div class="badge gradient-3 badge-pill gradient-1">3</div>
                                             </a>
                                         </li>
+                                        
                                         <hr class="my-2">
                                         <li>
                                             <a href="{{route('login')}}"><i class="icon-lock"></i> <span>Đăng Nhập</span></a>
@@ -212,3 +214,4 @@
                     </ul>
                 </div>
             </div>
+        </div>
