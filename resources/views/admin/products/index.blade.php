@@ -63,11 +63,11 @@
                                         <button type="submit" class="btn btn-danger">Xóa vĩnh viễn</button>
                                     </form>
                                 @else
-                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Bạn có muốn xóa?')">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button type="submit" class="btn btn-danger">Xóa</button>
-                                    </form>
+                                <form action="{{ route('products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Bạn có muốn xóa?')">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger btn-lg">Xóa</button>
+                                </form>
                                 @endif
                                 </div>
                             </td>
