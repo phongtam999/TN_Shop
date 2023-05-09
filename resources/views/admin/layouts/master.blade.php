@@ -28,6 +28,7 @@
         <!--**********************************
             Footer start
         ***********************************-->
+      @include('admin.includes.footer') 
       @include('admin.includes.footer')
 
 <!--**********************************
