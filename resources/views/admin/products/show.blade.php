@@ -44,7 +44,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Số lượng: </td>
-                                                <td>{{ $productshow->quantity}} Chiếc</td>
+                                                <td>{{ $productshow->amount}} Chiếc</td>
                                             </tr>
                                             <tr>
                                                 <td>Giá tiền: </td>

@@ -10,6 +10,7 @@
 
     </thead>
     <tbody>
+        @if($softs->count() > 0)
         @foreach($softs as $key => $soft)
         <tr>
             <td>{{ ++$key }}</td>
@@ -21,6 +22,11 @@
             </td>
         </tr>
         @endforeach
+        @else
+        <tr>
+            <td colspan="7" style="text-align: center; color: red; font-weight: bold; font-size: 20px;">Thùng rác trống !!!</td>
+        </tr>
+        @endif
     </tbody>
     
 </table>

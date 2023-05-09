@@ -42,8 +42,8 @@
           </div >
           <div class="col-12">
             <label class="form-label">Số lượng</label>
-            <input type="text" class="form-control" name="quantity" placeholder="số lượng" >
-            @error('quantity')
+            <input type="text" class="form-control" name="amount" placeholder="số lượng" >
+            @error('amount')
             <div class="text text-danger">{{ $message }}</div>
             
           @enderror

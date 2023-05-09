@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Category extends Model
 {
     use HasFactory;
-    // use SoftDeletes;
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
     // public function products(){
     // return $this->hasMany(Product::class, 'category_id','id');
     protected $fillable = ['id','name'];
