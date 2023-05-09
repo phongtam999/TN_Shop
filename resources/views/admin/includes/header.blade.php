@@ -188,9 +188,8 @@
                                 </div>
                             </div>
                         </li>
-                        
                         <li class="icons dropdown">
-                            <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
+                            <div class="user-img c-pointer position-relative" data-toggle="dropdown">
                                 <span class="activity active"></span>
                                 <img src="{{asset('assets/images/user/1.png')}}" height="40" width="40" alt="">
                             </div>
@@ -198,24 +197,25 @@
                                 <div class="dropdown-content-body">
                                     <ul>
                                         <li>
-                                            <a href="#"><i class="icon-user"></i> <span>Trang Cá Nhân</span></a>
+                                            {{-- <a href="{{route('users.profile')}}"><i class="icon-user"></i> <span>Trang Cá Nhân</span></a> --}}
                                         </li>
-                                        <li>
+                                        {{-- <li>
                                             <a href="javascript:void()">
                                                 <i class="icon-envelope-open"></i> <span>Đăng Ký</span> <div class="badge gradient-3 badge-pill gradient-1">3</div>
                                             </a>
-                                        </li>
-                                        
+                                        </li> --}}
                                         <hr class="my-2">
                                         <li>
                                             <a href="{{route('login')}}"><i class="icon-lock"></i> <span>Đăng Nhập</span></a>
                                         </li>
-                                        <li><a href="#"><i class="icon-key"></i> <span>Đăng Xuất</span></a></li>
+                                        <li>
+                                            <form action="{{ route('logout') }}" method="POST">
+                                                @csrf
+                                                <button type="submit">Đăng xuất</button>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
                         </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+                        

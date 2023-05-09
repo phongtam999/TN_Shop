@@ -32,6 +32,8 @@ Route::get('/dasboard', function () {
 //login
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/postlogin', [AuthController::class, 'postlogin'])->name('postlogin');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
 // quên mật khẩu gửi đến mail
 Route::get('/forgot_password', [AuthController::class, 'forgot_password'])->name('forgot_password');
 Route::post('/post_forgot_password', [AuthController::class, 'post_forgot_password'])->name('post_forgot_password');
@@ -57,6 +59,7 @@ Route::get('products/xuatexcel', [ProductController::class, 'exportExcel'])->nam
 Route::resource('products', ProductController::class);
 
 // Đây là phần User
+Route::get('users/profile', [UserController::class, 'show'])->name('users.profile');
 Route::get('users/search', [UserController::class, 'search'])->name('users.search');
 Route::resource('users', UserController::class);
 // Đây là phần Group

@@ -201,7 +201,7 @@
                  </div>
                  <div class="nho-dang-nhap">
                      <!-- <label><input type="checkbox" name=""> Nhớ Đăng Nhập</label> -->
-                     <a href="#">Quên Mật Khẩu</a>
+                     <a href="{{route('forgot_password')}}">Quên Mật Khẩu</a>
                  </div>
                  <div class="input-form">
                      <input type="submit" value="Đăng Nhập">

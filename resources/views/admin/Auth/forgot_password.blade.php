@@ -180,6 +180,11 @@
             }
         </style>
          <div class="form">
+            <input type="email" id="form3Example3" class="form-control form-control-lg"
+            placeholder="Nhập email" name="email" value="{{ old('email') }}" />
+          @error('email')
+          <div class="alert alert-danger">{{ $message }}</div>
+      @enderror
              <h2 style="color:red">Lấy Lại Mật Khẩu</h2>
              <form action="{{route('post_forgot_password')}}" method="POST" >
                 @csrf
