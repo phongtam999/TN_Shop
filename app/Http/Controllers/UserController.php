@@ -54,6 +54,7 @@ class UserController extends Controller
 
         return view('admin.users.adminpass', $param);
     }
+    
 
     public function create()
     {
@@ -69,15 +70,35 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         try {
-            $users = $this->userService->store($request);
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->address = $request->address;
+            $user->phone = $request->phone;
+            $user->birthday = $request->birthday;
+            $user->gender = $request->gender;
+            $user->group_id = $request->group_id;
+            $fieldName = 'image';
+            if ($request->hasFile($fieldName)) {
+                $fullFileNameOrigin = $request->file($fieldName)->getClientOriginalName();
+                $fileNameOrigin = pathinfo($fullFileNameOrigin, PATHINFO_FILENAME);
+                $extenshion = $request->file($fieldName)->getClientOriginalExtension();
+                $fileName = $fileNameOrigin . '-' . rand() . '_' . time() . '.' . $extenshion;
+                $path = 'storage/' . $request->file($fieldName)->storeAs('public/images/users', $fileName);
+                $path = str_replace('public/', '', $path);
+                $user->image = $path;
+                
+            }
+            $user->save();
+
             toast('Thêm Nhân Viên Thành Công!', 'success', 'top-right');
             return redirect()->route('users.index');
-        } catch (\exception $e) {
+        } catch (\Exception $e) {
             Log::error($e->getMessage());
             toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
             return redirect()->route('users.index');
         }
-       
     }
 
     public function show(string $id)

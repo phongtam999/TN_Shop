@@ -12,6 +12,18 @@
         -webkit-border-radius: 50%;
         
     }
+    .text-center {
+    text-align: center;
+    }
+    .text-danger {
+    color: #ff5e5e !important;
+    text-align: right;
+}
+    .search-input {
+    width: 250px;
+    
+}
+
     </style>
     
 
@@ -22,21 +34,23 @@
                 <header class="page-title-bar">
                     <div class="row">
                         <div class="col-md-6 text-center">
-                            <div class="d-flex justify-content-center flex-column align-items-center">
-                                <h1 class="mb-3">Nhân Sự</h1>
+                            <div class="container">
+                                <div class="text-center">
+                                    <h1 class="text-danger">Nhân Sự</h1>
+                                </div>
+                            </div>
+                            
                                 <form class="navbar-form" action="{{ route('users.search') }}" method="GET">
                                     <div class="input-group justify-content-center">
-                                        <input type="text" name="search" class="form-control" placeholder="Search...">
+                                        <input type="text" name="search" class="form-control search-input" placeholder="Search...">
                                         <div class="input-group-append">
                                             <button type="submit" class="btn btn-info">Tìm kiếm</button>
                                         </div>
                                     </div>
                                 </form>
-                                <a href="{{ route('users.create') }}" class="btn btn-info mt-3">
-                                    <i class="fa fa-user-plus"></i> Đăng ký tài khoản nhân sự
-                                </a>
                             </div>
                         </div>
+                        
                 </header>
                 <hr>
                 <div>
@@ -69,18 +83,32 @@
                                 <td><a href=""><img id="avt" src="{{ asset($user->image) }}" alt=""></a></td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->phone }}</td>
-                                <td>{{ $user->group->name }}</td>
                                 <td>
-                                    {{-- @if (Auth::user()->hasPermission('User_update')) --}}
-                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning">Sửa</a>
-                                    {{-- @endif --}}
-                                    {{-- @if (Auth::user()->hasPermission('User_forceDelete')) --}}
-                                    <a data-href="{{ route('users.destroy', $user->id) }}" id="{{ $user->id }}" class="btn btn-info deleteIcon">Xóa</a>
-                                    {{-- @endif --}}
+                                    @if ($user->group)
+                                        {{ $user->group->name }}
+                                    @else
+                                        Chưa có chức vụ
+                                    @endif
                                 </td>
-                                
-                                </tr>
-                                @endforeach
+                                <td>
+                                    <a href="{{ route('users.show', $user->id) }}" class="btn btn-info">Xem</a>
+                                    <style>
+                                        .white-text {
+                                            color: white;
+                                        }
+                                        .green-button {
+                                            background-color: green;
+                                        }
+                                    </style>
+                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning green-button">
+                                        <span class="white-text">Sửa</span>
+                                    </a>
+                                    <a data-href="{{ route('users.destroy', $user->id) }}" id="{{ $user->id }}" class="btn btn-danger delete-button" style="color: white;">Xóa</a>
+                                </td>
+                            </tr>
+                            
+                        @endforeach
+                        
                             </tbody>
                         </table>
                         {{ $users->appends(request()->query())->links() }}
