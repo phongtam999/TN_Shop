@@ -64,4 +64,5 @@ protected $table = 'users';
     {
         return $this->hasMany(Product::class, 'user_id', 'id');
     }
+   
 }
