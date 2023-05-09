@@ -1,54 +1,104 @@
+@extends('admin.layouts.master')
+@section('content')
 <div class="container-fluid mt-3">
+    <style>
+        .row {
+  margin: 0 -15px;
+}
+
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.card .d-inline-block h2 {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.card .d-inline-block p {
+  font-size: 14px;
+  margin-bottom: 0;
+  opacity: 0.7;
+}
+
+.card .float-right i {
+  font-size: 48px;
+  opacity: 0.1;
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+    </style>
+
     <div class="row">
-        <div class="col-lg-3 col-sm-6">
-            <div class="card gradient-1">
-                <div class="card-body">
-                    <h3 class="card-title text-white">Products Sold</h3>
-                    <div class="d-inline-block">
-                        <h2 class="text-white">4565</h2>
-                        <p class="text-white mb-0">Jan - March 2019</p>
-                    </div>
-                    <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span>
-                </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="card gradient-1">
+            <div class="card-body">
+              <h3 class="card-title text-white">Products Sold</h3>
+              <div class="d-inline-block">
+                <h2 class="text-white">5775</h2>
+                <p class="text-white mb-0">Jan - March 2023</p>
+              </div>
+              <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span>
             </div>
+          </div>
         </div>
-        <div class="col-lg-3 col-sm-6">
-            <div class="card gradient-2">
-                <div class="card-body">
-                    <h3 class="card-title text-white">Net Profit</h3>
-                    <div class="d-inline-block">
-                        <h2 class="text-white">$ 8541</h2>
-                        <p class="text-white mb-0">Jan - March 2019</p>
-                    </div>
-                    <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
-                </div>
+      
+        <div class="col-lg-3 col-md-6">
+          <div class="card gradient-2">
+            <div class="card-body">
+              <h3 class="card-title text-white">Net Profit</h3>
+              <div class="d-inline-block">
+                <h2 class="text-white">$ 8541</h2>
+                <p class="text-white mb-0">Jan - March 2023</p>
+              </div>
+              <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
             </div>
+          </div>
         </div>
-        <div class="col-lg-3 col-sm-6">
-            <div class="card gradient-3">
-                <div class="card-body">
-                    <h3 class="card-title text-white">New Customers</h3>
-                    <div class="d-inline-block">
-                        <h2 class="text-white">4565</h2>
-                        <p class="text-white mb-0">Jan - March 2019</p>
-                    </div>
-                    <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
-                </div>
+      
+        <div class="col-lg-3 col-md-6">
+          <div class="card gradient-3">
+            <div class="card-body">
+              <h3 class="card-title text-white">New Customers</h3>
+              <div class="d-inline-block">
+                <h2 class="text-white">5775</h2>
+                <p class="text-white mb-0">Jan - March 2023</p>
+              </div>
+              <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
             </div>
+          </div>
         </div>
-        <div class="col-lg-3 col-sm-6">
-            <div class="card gradient-4">
-                <div class="card-body">
-                    <h3 class="card-title text-white">Customer Satisfaction</h3>
-                    <div class="d-inline-block">
-                        <h2 class="text-white">99%</h2>
-                        <p class="text-white mb-0">Jan - March 2019</p>
-                    </div>
-                    <span class="float-right display-5 opacity-5"><i class="fa fa-heart"></i></span>
-                </div>
+      
+        <div class="col-lg-3 col-md-6">
+          <div class="card gradient-4">
+            <div class="card-body">
+              <h3 class="card-title text-white">Old Customers </h3>
+              <div class="d-inline-block">
+                <h2 class="text-white">99%</h2>
+                <p class="text-white mb-0">Jan - March 2023</p>
+              </div>
+              <span class="float-right display-5 opacity-5"><i class="fa fa-heart"></i></span>
             </div>
+          </div>
         </div>
-    </div>
+      </div>
 
     <div class="row">
         <div class="col-lg-12">
@@ -544,3 +594,4 @@
             
         </div>
 </div>
+@endsection

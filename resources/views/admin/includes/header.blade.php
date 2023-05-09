@@ -198,7 +198,7 @@
                                 <div class="dropdown-content-body">
                                     <ul>
                                         <li>
-                                            <a href="app-profile.html"><i class="icon-user"></i> <span>Trang Cá Nhân</span></a>
+                                            <a href="#"><i class="icon-user"></i> <span>Trang Cá Nhân</span></a>
                                         </li>
                                         <li>
                                             <a href="javascript:void()">
@@ -208,9 +208,9 @@
                                         
                                         <hr class="my-2">
                                         <li>
-                                            <a href="page-lock.html"><i class="icon-lock"></i> <span>Đăng Nhập</span></a>
+                                            <a href="{{route('login')}}"><i class="icon-lock"></i> <span>Đăng Nhập</span></a>
                                         </li>
-                                        <li><a href="page-login.html"><i class="icon-key"></i> <span>Đăng Xuất</span></a></li>
+                                        <li><a href="#"><i class="icon-key"></i> <span>Đăng Xuất</span></a></li>
                                     </ul>
                                 </div>
                             </div>
