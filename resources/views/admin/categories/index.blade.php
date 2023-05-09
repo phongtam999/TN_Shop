@@ -55,7 +55,6 @@
                         </td>
                     </tr>
                 @endforeach
-
                 </tbody>
             </table>
             {{$categories->appends(request()->query())}}

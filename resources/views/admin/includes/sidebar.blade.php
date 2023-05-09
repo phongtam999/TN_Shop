@@ -1,9 +1,9 @@
-<div class="nk-sidebar">           
+
+<div class="nk-sidebar">          
     <div class="nk-nav-scroll">
         <ul class="metismenu" id="menu">
-            {{-- <li class="nav-label">Trang Chủ</li> --}}
             <li>
-                <a class="has-arrow" href="#" aria-expanded="false">
+                <a class="has-arrow" href="{{route('dashboard')}}" aria-expanded="false">
                     <i class="icon-speedometer menu-icon"></i><span class="nav-text">Trang Chủ</span>
                 </a>
              
@@ -67,3 +67,10 @@
         </li>
     </div>
 </div>
+
+
+
+
+
+
+

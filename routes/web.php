@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\AuthController;
 
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\GroupController;
@@ -26,9 +27,14 @@ Route::get('/', function () {
 });
 
 Route::get('/dasboard', function () {
-    return view('admin.layouts.master');
-});
-
+    return view('admin.includes.main');
+})->name('dashboard');;
+//login
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/postlogin', [AuthController::class, 'postlogin'])->name('postlogin');
+// quên mật khẩu gửi đến mail
+Route::get('/forgot_password', [AuthController::class, 'forgot_password'])->name('forgot_password');
+Route::post('/post_forgot_password', [AuthController::class, 'post_forgot_password'])->name('post_forgot_password');
 
 //Đây là phần categories
   // thùng rác 
@@ -65,4 +71,6 @@ Route::resource('customers', CustomerController::class);
 Route::get('orders/search', [OrderController::class, 'search'])->name('orders.search');
 Route::get('orders/xuat', [OrderController::class, 'exportOrder'])->name('orders.xuat');
 Route::resource('orders', OrderController::class);
+
+
 
