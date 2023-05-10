@@ -1,3 +1,14 @@
+@include('sweetalert::alert')
+@if (session('success'))
+    <script>
+        swal({
+            title: "Đăng nhập thành công!",
+            icon: "success",
+        });
+    </script>
+@endif
+
+
 <style>
     *{
      margin:0;
@@ -165,12 +176,21 @@
          font-weight: 500;
      }
  }
+ .success-message {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
 
  </style>
  <section>
      <!--Bắt Đầu Phần Hình Ảnh-->
      <div class="img-bg">
-         <img src="https://scontent.fdad3-5.fna.fbcdn.net/v/t1.15752-9/334178742_886493155894588_2625150453647535954_n.png?_nc_cat=109&ccb=1-7&_nc_sid=ae9488&_nc_ohc=-HVxGynExAQAX8IUM_W&_nc_ht=scontent.fdad3-5.fna&oh=03_AdTH2KoU4Z3dOhYSY96e_QqKjsDlxInYWr8jg5MUTUxtHA&oe=6480413A">
+        <img src="https://scontent.fdad3-4.fna.fbcdn.net/v/t39.30808-6/346297540_1331351057444308_70201087808299246_n.jpg?stp=cp6_dst-jpg&_nc_cat=104&ccb=1-7&_nc_sid=730e14&_nc_ohc=tul6CmrV9XcAX8h-bjW&_nc_ht=scontent.fdad3-4.fna&oh=00_AfBvPVr_z2khzogO-32GFSNsj-8Kb13dK84FPo6CkPHepg&oe=64601C9C" style="width: 173%; height: 100%; object-fit: cover; object-position: center;">
+
+
      </div>
     
      <!--Kết Thúc Phần Hình Ảnh-->
@@ -183,9 +203,21 @@
         </style>
          <div class="form">
              <h2 style="color:red">Trang Đăng Nhập</h2>
-             <form action="{{ route('postlogin') }}" method="POST" >
+             <form action="{{ route('checkLogin') }}" method="POST" >
                 @csrf
-                 <div class="input-form">
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        @if(session('success'))
+                            Swal.fire({
+                                title: "Đăng nhập thành công!",
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 2000 // Thời gian hiển thị thông báo (2 giây)
+                            });
+                        @endif
+                    });
+                </script>
+                         <div class="input-form">
                      <span style="color:blue">Email</span>
                      <input type="text" name="email">
                      @if ($errors->any())
@@ -201,7 +233,7 @@
                  </div>
                  <div class="nho-dang-nhap">
                      <!-- <label><input type="checkbox" name=""> Nhớ Đăng Nhập</label> -->
-                     <a href="#">Quên Mật Khẩu</a>
+                     <a href="{{route('forgot_password')}}">Quên Mật Khẩu</a>
                  </div>
                  <div class="input-form">
                      <input type="submit" value="Đăng Nhập">
@@ -210,5 +242,6 @@
          </div>
      </div>
      <!--Kết Thúc Phần Nội Dung-->
+     
     
  </section>

@@ -6,7 +6,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\AuthController;
-
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\GroupController;
 
@@ -30,8 +29,12 @@ Route::get('/dasboard', function () {
     return view('admin.includes.main');
 })->name('dashboard');;
 //login
+
+  
+  
 Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/postlogin', [AuthController::class, 'postlogin'])->name('postlogin');
+Route::post('/checkLogin', [AuthController::class, 'postLogin'])->name('checkLogin');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // quên mật khẩu gửi đến mail
 Route::get('/forgot_password', [AuthController::class, 'forgot_password'])->name('forgot_password');
 Route::post('/post_forgot_password', [AuthController::class, 'post_forgot_password'])->name('post_forgot_password');
