@@ -40,7 +40,7 @@
                     <i class="icon-graph menu-icon"></i> <span class="nav-text">Đơn Đặt Hàng</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="./chart-flot.html">Danh sách</a></li>
+                    <li><a href="{{route('orders.index')}}">Danh sách</a></li>
                    
                 </ul>
             </li>
