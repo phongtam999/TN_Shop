@@ -7,5 +7,7 @@ interface CategoryServiceInterface extends ServiceInterface{
     public function getTrashed();
     public function deleteforever($id);
     public function restore($id);
+    public function search($data);
+    public function paginate($request);
 
 }

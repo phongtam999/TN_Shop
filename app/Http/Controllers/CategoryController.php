@@ -20,16 +20,16 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
+        // $this->authorize('viewAny', Category::class);
         $categories = $this->categoryService->all($request);
         $categories = Category::paginate(5);
         return view('admin.categories.index', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+  
     public function create( Request $request)
     {
+        $this->authorize('create', Category::class);
         $this->categoryService->store($request);
         $categories = Category::all();
         return view('admin.categories.create',compact('categories'));
@@ -57,6 +57,7 @@ class CategoryController extends Controller
 
     public function edit(string $id)
     {
+        $this->authorize('update', Category::class);
         $item = $this->categoryService->find($id);
         $categories = Category::find($id);
         return view('admin.categories.edit',compact('categories'));
@@ -75,6 +76,7 @@ class CategoryController extends Controller
 
     public function destroy(string $id)
     {
+        $this->authorize('delete', Category::class);
         $category = Category::find($id);
         if (!$category) {
             return redirect()->back()->with('error', 'Không tìm thấy thương hiệu!');
@@ -92,6 +94,7 @@ class CategoryController extends Controller
     }
     public function restore($id)
     {
+        $this->authorize('restore',Category::class);
         try {
             $this->categoryService->restore($id);
             $softs = Category::withTrashed()->find($id);
