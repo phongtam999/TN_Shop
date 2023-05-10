@@ -71,4 +71,7 @@ class CategoryRepository extends EloquentRepository implements CategoryRepositor
         $category = $this->model->onlyTrashed()->findOrFail($id);
         return $category->deleteforever();
     }
+    public function search($data){
+        return $this->model->search($data);
+    }
 }

@@ -9,8 +9,6 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Illuminate\Support\Collection;
 
-
-
 class ProductExport implements FromCollection,WithHeadings
 {
     /**

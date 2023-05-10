@@ -19,6 +19,9 @@ class CategoryService implements CategoryServiceInterface
     public function all($request){
         return $this->categoryRepository->all($request);
     }
+    public function paginate($request){
+        return $this->categoryRepository->paginate($request);
+    }
     public function find($id){
         return $this->categoryRepository->find($id);
     }
@@ -42,5 +45,8 @@ class CategoryService implements CategoryServiceInterface
     public function deleteforever($id)
     {
         return $this->categoryRepository->deleteforever($id);
+    }
+    public function search($data){
+        return $this->repository->search($data);
     }
 }
