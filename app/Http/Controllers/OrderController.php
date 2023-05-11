@@ -18,6 +18,7 @@ class OrderController extends Controller
 
 public function index(Request $request)
 {
+$this->authorize('viewAny', Order::class);
 $orders = $this->orderService->all($request);
 $items = Order::paginate(5);
 return view('admin.orders.index', compact('items'));
@@ -41,6 +42,7 @@ public function store(Request $request)
 */
 public function show(string $id)
 {
+$this->authorize('view', Order::class);
 $items=DB::table('orderdetail')
 ->join('orders','orderdetail.order_id','=','orders.id')
 ->join('products','orderdetail.product_id','=','products.id')

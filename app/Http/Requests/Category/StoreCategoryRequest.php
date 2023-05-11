@@ -37,7 +37,7 @@ class StoreCategoryRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name'=>'Tên Thương Hiệu'
+            'name'=>'Tên Danh Mục'
         ];
     }
 }

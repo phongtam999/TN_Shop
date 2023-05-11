@@ -2,7 +2,7 @@
 @section('content')
 @include('sweetalert::alert')
 <main class="page-content">
-        <h1 class="offset-4">Danh Sách Thương Hiệu</h1>
+        <h1 class="offset-4">Danh Sách Danh Mục</h1>
         <div class="container">
             <table class="table">
                 <div class="col-6">
@@ -15,7 +15,7 @@
                                 </div>
                             </div>
                             <div class="col-4">
-                                <button type="submit" class="btn btn-info">Tìm Kiếm</button>
+                                <button type="submit" class="btn btn-success">Tìm Kiếm</button>
                             </div>
                             <div class="col-md-6">
                                 <a href="{{ route('categories.create') }}" class="btn btn-primary">Thêm mới</a>
@@ -31,7 +31,7 @@
                     <tr>
                         <th scope="col">STT</th>
                         <th scope="col">Tên</th>
-                        <th adta-breakpoints="xs">Quản Lý</th>
+                        <th adta-breakpoints="xs">Hành Động</th>
                     </tr>
                 </thead>
                 <tbody id="myTable">

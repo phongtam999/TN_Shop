@@ -25,7 +25,8 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        // $products = $this->productService->all($request);
+        // $this->authorize('viewAny', Product::class);
+        $products = $this->productService->all($request);
         $products = Product::paginate(2);
         
         return view('admin.products.index', compact('products'));
@@ -36,7 +37,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        // $this->productService->store($request);
+        $this->authorize('create', Product::class);
+        $this->productService->store($request);
         $categories = Category::get();
         $param = [
             'categories' => $categories
@@ -49,7 +51,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->productService->store($request);
+        $this->productService->store($request);
         $validated = $request->validate(
             [
                 'name' => 'required',
@@ -94,6 +96,8 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
+        $this->authorize('view', Product::class);
+        $products = $this->productService->find($id);
         $productshow = Product::findOrFail($id);
         $param = [
             'productshow' => $productshow,
@@ -106,6 +110,7 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
+        $this->authorize('update', Product::class);
         $products = $this->productService->find($id);
         $products = Product::find($id);
         $categories = Category::all();
@@ -151,6 +156,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete', Product::class);
         $this->productService->destroy($id);
         $product = Product::find($id);
 
@@ -189,6 +195,7 @@ class ProductController extends Controller
     //xóa vĩnh viễn
     public function deleteforever($id)
     {
+        $this->authorize('deleteforever', Product::class);
         try {
             $softs = Product::withTrashed()->find($id);
             $softs->forceDelete();
