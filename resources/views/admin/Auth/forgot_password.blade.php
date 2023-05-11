@@ -162,23 +162,28 @@
          margin: 30px 0 10px;
          font-weight: 500;
      }
+
+     
  }
 
  </style>
  <section>
      <!--Bắt Đầu Phần Hình Ảnh-->
      <div class="img-bg">
-         <img src="https://scontent.fhan2-4.fna.fbcdn.net/v/t1.6435-9/96521437_2751254875003425_2156156398151401472_n.jpg?stp=dst-jpg_p843x403&_nc_cat=105&ccb=1-7&_nc_sid=e3f864&_nc_ohc=y9gUFyoLNvkAX_0Drvh&_nc_ht=scontent.fhan2-4.fna&oh=00_AfAhhc9h8_fi9HnQX0n0KP737b457tDkcqGnDVof1GlmZg&oe=640C4888">
+         <img src="https://scontent.fdad3-4.fna.fbcdn.net/v/t39.30808-6/331866838_3144003475891433_2442355929580334998_n.jpg?stp=cp6_dst-jpg&_nc_cat=107&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=py3evyLWZBgAX8cTq1-&_nc_ht=scontent.fdad3-4.fna&oh=00_AfB6LuxNpREB_rUIuSqrJcbOak64yJGb7sixEBEw7B4h8Q&oe=645E379D">
      </div>
     
      <!--Kết Thúc Phần Hình Ảnh-->
      <!--Bắt Đầu Phần Nội Dung-->
      <div class="noi-dung">
         <style>
-            .noi-dung{
-                background-color:white;
+            .noi-dung {
+                background-color: white;
             }
         </style>
+          <div class="form">
+            <h2 style="color: red">Lấy Lại Mật Khẩu</h2>
+            <form method="post" action="{{ route('post_forgot_password') }}">
          <div class="form">
             <input type="email" id="form3Example3" class="form-control form-control-lg"
             placeholder="Nhập email" name="email" value="{{ old('email') }}" />
@@ -188,16 +193,16 @@
              <h2 style="color:red">Lấy Lại Mật Khẩu</h2>
              <form action="{{route('post_forgot_password')}}" method="POST" >
                 @csrf
-                 <div class="input-form">
-                     <span style="color:blue">Email</span>
-                     <input type="text" name="email">
-                 </div>
-                 <div class="input-form">
-                     <input type="submit" value="Gửi Mail">
-                 </div>
-             </form>
-         </div>
-     </div>
-     <!--Kết Thúc Phần Nội Dung-->
+                <div class="input-form">
+                    <label for="email" style="color: blue">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="input-form">
+                    <input type="submit" value="Gửi Mail">
+                </div>
+            </form>
+        </div>
+    </div>  
+    <!-- Kết Thúc Phần Nội Dung -->
     
  </section>

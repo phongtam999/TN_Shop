@@ -1,7 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
 @include('sweetalert::alert')
-
 <main class="page-content">
         <h1 class="offset-4">Danh Sách Danh Mục</h1>
         <div class="container">
@@ -18,11 +17,14 @@
                             <div class="col-4">
                                 <button type="submit" class="btn btn-success">Tìm Kiếm</button>
                             </div>
+                            <div class="col-md-6">
+                                <a href="{{ route('categories.create') }}" class="btn btn-primary">Thêm mới</a>
+                            </div>
                         </div>
                     </form>
-                    @if (Auth::user()->hasPermission('Category_create'))
-                <a href="{{ route('categories.create') }}" class="btn btn-warning">Thêm Mới</a>
-                @endif 
+                    @if (Auth::user() && Auth::user()->hasPermission('Category_create'))
+                        <a href="{{ route('categories.create') }}" class="btn btn-primary">Thêm Mới</a>
+                    @endif 
                     </form>
                 </div>
                 <thead>
@@ -42,11 +44,11 @@
                           
                             @if (isset($team))
                             <form action="{{ route('categories.destroy', $team->id) }}" method="POST">
-                                @if (Auth::user()->hasPermission('Category_update'))
+                                @if (Auth::user() && Auth::user()->hasPermission('Category_update'))
                                 <a href="{{ route('categories.edit', $team->id) }}" class="btn btn-primary">Sửa</a>
                                 @endif
-                                @if (Auth::user()->hasPermission('Category_delete'))
-                                <button type="submit" class="btn btn-danger btn-lg" onclick="return confirm('Bạn có muốn xóa')">Xóa</button>
+                                @if (Auth::user() && Auth::user()->hasPermission('Category_delete'))
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa')">Xóa</button>
                                 @endif
                                 @method('DELETE')
                                 @csrf
