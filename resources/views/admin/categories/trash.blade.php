@@ -5,7 +5,7 @@
     <thead>
         <tr>
             <th scope="col">STT</th>
-            <th scope="col">Tên Thương Hiệu</th>
+            <th scope="col">Tên Danh Mục</th>
             <th adta-breakpoints="xs">Quản Lý</th>
 
     </thead>
@@ -30,5 +30,5 @@
     </tbody>
     
 </table>
-<a href="{{ route('categories.index') }}" class="btn btn-info">Quay Lại </a> <br>
+<a href="{{ route('categories.index') }}" class="btn btn-warning">Quay Lại </a> <br>
 @endsection
