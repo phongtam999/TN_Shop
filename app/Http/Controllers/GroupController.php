@@ -26,17 +26,20 @@ class GroupController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-{
-    $groups = Group::orderBy('updated_at', 'desc')->paginate(10);
-    return view('admin.groups.index', compact('groups'));
-}
+
+    {
+        $this->authorize('viewAny',Group::class);
+        $groups = $this->groupService->paginate($request);
+        return view('admin.groups.index',compact('groups'));
+       
+    }
 
         /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        // $this->authorize('create',Group::class);
+        $this->authorize('create',Group::class);
         return view('admin.groups.create');
     }
 
@@ -45,6 +48,7 @@ class GroupController extends Controller
      */
     public function store(StoreGroupRequest $request)
     {
+      
         try {
             $this->groupService->store($request);
             toast('Thêm Quyền Thành Công!', 'success', 'top-right');
@@ -71,7 +75,7 @@ class GroupController extends Controller
     public function edit(string $id)
     {
         
-        // $this->authorize('update',Group::class);
+        $this->authorize('update',Group::class);
         $group = $this->groupService->find($id);
         return view('admin.groups.edit', compact('group') );
     }
@@ -98,6 +102,7 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete', Group::class);
         try {
             $this->groupService->forceDelete($id);
             toast('Nhóm Quyền Đã Được Xóa!', 'success', 'top-right');

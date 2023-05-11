@@ -23,7 +23,9 @@
             <div class="row">
                 <div class="col-md-6">
                     <a class="btn btn-warning" href="{{ route('products.export') }}">Xuất Excel</a>
+                    @if (Auth::user()->hasPermission('Product_create'))
                     <a href="{{ route('products.create') }}" class="btn btn-primary">Thêm mới</a>
+                    @endif
                 </div>
             </div>
             <table class="table">
@@ -32,10 +34,10 @@
                         <th scope="col">STT</th>
                         <th scope="col">Tên sản phẩm</th>
                         <th scope="col">Số lượng</th>
-                        <th scope="col">Thể loại</th>
+                        <th scope="col">Danh Mục</th>
                         <th scope="col">Giá tiền</th>
                         <th scope="col">Ảnh</th>
-                        <th scope="col">Quản lí</th>
+                        <th scope="col">Hành Động</th>
                     </tr>
                 </thead>
                 <tbody id="myTable">
@@ -49,7 +51,9 @@
                             <td><img width="90px" height="90px" src="{{ asset($product->image) }}" alt=""></td>
                             <td>
                                 <div class="btn-group" role="group">
+                                    @if (Auth::user()->hasPermission('Product_update'))
                                     <a class="btn btn-secondary" href="{{ route('products.edit', $product->id) }}">Sửa</a>
+                                    @endif
                                     <a class="btn btn-success" href="{{ route('products.show', $product->id) }}">Chi tiết</a>
                                     @if ($product->deleted_at) {{-- Kiểm tra xem sản phẩm đã bị xóa chưa --}}
                                     <form action="{{ route('products.restore', $product->id) }}" method="POST">
@@ -66,9 +70,10 @@
                                 <form action="{{ route('products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Bạn có muốn xóa?')">
                                     @method('DELETE')
                                     @csrf
+                                    @if (Auth::user()->hasPermission('Product_delete'))
                                     <button type="submit" class="btn btn-danger btn-lg">Xóa</button>
-                                </form>
-                                @endif
+                                    @endif
+                                </form>                      
                                 </div>
                             </td>
                         </tr>

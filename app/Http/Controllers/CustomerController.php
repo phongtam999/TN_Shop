@@ -16,22 +16,11 @@ class CustomerController extends Controller
 
     public function index(Request $request)
     { 
+        $this->authorize('viewAny', Customer::class);
         $customers = $this->customerService->paginate($request);
         return view('admin.customers.index',compact('customers'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        // $this->categoryService->store($request);
-        // return view('admin.customers.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $this->categoryService->store($request);

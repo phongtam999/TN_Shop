@@ -3,7 +3,7 @@
 @include('sweetalert::alert')
 
 <main class="page-content">
-<h2 class="offset-5">Chỉnh Sửa Thương Hiệu</h2>
+<h2 class="offset-5">Chỉnh Sửa Danh Mục</h2>
 
 
 <div class="container">
@@ -23,8 +23,8 @@
               </div > 
              <div class="col-12">
                <div class="d-grid"> <br>
-                 <button class="btn btn-primary" type="submit">Cập Nhật</button> 
-             <a href="{{ route('categories.index') }}" class="btn btn-primary">Quay Lại</a>
+                 <button class="btn btn-success" type="submit">Cập Nhật</button> 
+             <a href="{{ route('categories.index') }}" class="btn btn-warning">Quay Lại</a>
                </div>
              </div>
             </form>

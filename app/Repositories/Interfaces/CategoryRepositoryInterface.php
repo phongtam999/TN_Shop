@@ -5,4 +5,5 @@ interface CategoryRepositoryInterface extends RepositoryInterface{
     // public function getTrashed();
     public function deleteforever($id);
     public function restore($id);
+    function search($data);
 }

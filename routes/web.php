@@ -30,8 +30,7 @@ Route::get('/dasboard', function () {
 })->name('dashboard');;
 //login
 
-  
-  
+// Route::prefix('/')->middleware(['auth', 'preventBackHistory'])->group(function () {
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/checkLogin', [AuthController::class, 'postLogin'])->name('checkLogin');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -78,6 +77,5 @@ Route::resource('customers', CustomerController::class);
 Route::get('orders/search', [OrderController::class, 'search'])->name('orders.search');
 Route::get('orders/xuat', [OrderController::class, 'exportOrder'])->name('orders.xuat');
 Route::resource('orders', OrderController::class);
-
-
+// });
 
