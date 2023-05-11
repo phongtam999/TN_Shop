@@ -113,6 +113,18 @@ class UserController extends Controller
         return view('admin.users.profile', $param);
     }
 
+    // public function profile(string $id)
+    // {
+    //     // $this->authorize('view', User::class);
+    //     $user = $this->userService->find($id);
+    //     $param = [
+    //         'user' => $user,
+    //     ];
+
+    //     return view('admin.users.profile', $param);
+    // }
+
+
     public function edit(string $id)
     {
         // $this->authorize('view', User::class);
