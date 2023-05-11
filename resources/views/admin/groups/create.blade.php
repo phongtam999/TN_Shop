@@ -12,7 +12,7 @@
                         <header class="page-title-bar">
                             <nav aria-label="breadcrumb">
                             </nav>
-                            <h1 class="page-title">Thêm mới nhóm quyền</h1>
+                            <h1 class="offset-4">Thêm mới nhóm quyền</h1>
                         </header>
                         <hr>
                         <div class="panel-body">

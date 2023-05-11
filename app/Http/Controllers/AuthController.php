@@ -26,13 +26,20 @@ class AuthController extends Controller
     public function postLogin(Request $request)
     {
        
+        $messages = [
+            "email.exists" => "Email không đúng",
+            "password.exists" => "Mật khẩu không đúng",
+        ];
+        $validator = Validator::make($request->all(), [
+            'email' => 'exists:users,email',
+            'password' => 'exists:users,password',
+        ], $messages);
         $data = $request->only('email', 'password');
         if (Auth::attempt($data)) {
-            toast('Đăng Nhập Thành Công!','success','top-right');
+            session()->flash('success', 'Đăng nhập thành công!');
             return redirect()->route('dashboard');
         } else {
-            toast('Sai mật khẩu hoặc tài khoản!','error','top-right');
-            return redirect()->route('login');
+            return back()->withErrors($validator)->withInput();
         }
     
     }

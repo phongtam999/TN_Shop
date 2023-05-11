@@ -8,8 +8,6 @@
     
     <!-- theme meta -->
     <meta name="theme-name" content="quixlab" />
-    <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
-
   
     <title>Quixlab - Bootstrap Admin Dashboard Template by Themefisher.com</title>
     <!-- Favicon icon -->
@@ -204,8 +202,12 @@
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
                                 <span class="activity active"></span>
-                                <img src="{{ Auth()->user()->image }}
-                                " height="40" width="40" alt="">
+                                @if (Auth::check() && Auth::user()->image)
+                                <img src="{{ Auth::user()->image }}" height="40" width="40" alt="">
+                            @else
+                                <img src="/path/to/default/image.jpg" height="40" width="40" alt="">
+                            @endif
+                            
                             </div>
                             <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                                 <div class="dropdown-content-body">

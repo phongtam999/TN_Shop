@@ -26,7 +26,8 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         // $products = $this->productService->all($request);
-        $products = Product::paginate(2);
+        $products = Product::orderBy('id','DESC')->paginate(3);
+        
         
         return view('admin.products.index', compact('products'));
     }

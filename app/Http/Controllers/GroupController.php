@@ -26,14 +26,12 @@ class GroupController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {
-        // $this->authorize('viewAny',Group::class);
-        $groups = $this->groupService->paginate($request);
-        return view('admin.groups.index',compact('groups'));
-       
-    }
+{
+    $groups = Group::orderBy('updated_at', 'desc')->paginate(10);
+    return view('admin.groups.index', compact('groups'));
+}
 
-    /**
+        /**
      * Show the form for creating a new resource.
      */
     public function create()
