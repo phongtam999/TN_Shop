@@ -22,19 +22,15 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $this->authorize('viewAny', Category::class);
-        // $this->authorize('viewAny', Category::class);
         $categories = $this->categoryService->all($request);
-        $categories = Category::paginate(5);
-        return view('admin.categories.index', compact('categories'));
+        return view('admin.categories.index', compact('categories','request'));
     }
 
   
     public function create( Request $request)
     {
         $this->authorize('create', Category::class);
-        $this->categoryService->store($request);
-        $categories = Category::all();
-        return view('admin.categories.create',compact('categories'));
+        return view('admin.categories.create');
 
     }
 
@@ -45,9 +41,6 @@ class CategoryController extends Controller
     {
      
         $this->categoryService->store($request);
-        $categories = new Category();
-        $categories->name = $request->name;
-        $categories->save();
         alert()->success('Thêm danh mục thành công!');
         return redirect()->route('categories.index');
     }
@@ -59,18 +52,14 @@ class CategoryController extends Controller
 
     public function edit(string $id)
     {
-        $this->authorize('update', Category::class);
         $item = $this->categoryService->find($id);
-        $categories = Category::find($id);
-        return view('admin.categories.edit',compact('categories'));
+        $this->authorize('update',$item);
+        return view('admin.categories.edit',compact('item'));
     }
 
     public function update(UpdateCategoryRequest $request,$id)
     {
         $this->categoryService->update($request, $id);
-        $categories = Category::find($id);
-        $categories->name = $request->name;
-        $categories->save();
         alert()->success('Cập nhật thương hiệu thành công!');
 
         return redirect()->route('categories.index');
@@ -78,29 +67,27 @@ class CategoryController extends Controller
 
     public function destroy(string $id)
     {
-        $this->authorize('delete', Category::class);
-        $category = Category::find($id);
+        $category = $this->categoryService->find($id);
+        $this->authorize('delete', $category);
         if (!$category) {
             return redirect()->back()->with('error', 'Không tìm thấy thương hiệu!');
         }
         $this->categoryService->destroy($id);
-        $category->delete();
         alert()->success('Thương hiệu đã được di chuyển vào thùng rác!');
         return redirect()->route('categories.index');
     }
     public function trash()
     {
-        $categories = $this->categoryService->getTrashed();
-        $softs = Category::onlyTrashed()->get();
+        $softs = $this->categoryService->getTrashed();
         return view('admin.categories.trash', compact('softs'));
     }
     public function restore($id)
     {
-        $this->authorize('restore',Category::class);
+        $category = $this->categoryService->find($id, true);
+        // dd($category);
+        $this->authorize('restore', $category);
         try {
             $this->categoryService->restore($id);
-            $softs = Category::withTrashed()->find($id);
-            $softs->restore();
             alert()->success('Khôi Phục Danh Mục Thành Công!');
             return redirect()->route('categories.index');
         } catch (\exception $e) {
@@ -111,11 +98,11 @@ class CategoryController extends Controller
     }
     public function deleteforever($id)
 {
-    $this->authorize('deleteforever', Category::class);
+    $category = $this->categoryService->find($id,true);
+    $this->authorize('deleteforever', $category);
     try {
-        $category = Category::withTrashed()->find($id);
-        if ($category->trashed()) {
-            $category->deleteforever();
+        if ($category) {
+            $category->forceDelete();
             alert()->success('Xóa Vĩnh Viễn Thành Công!');
         } else {
             alert()->error('Không thể xóa vĩnh viễn bản ghi chưa bị xóa mềm!');

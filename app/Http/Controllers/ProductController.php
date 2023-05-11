@@ -10,14 +10,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use App\Services\Interfaces\ProductServiceInterface;
+use App\Services\Interfaces\CategoryServiceInterface;
 
 
 class ProductController extends Controller
 {
     protected $productService;
-    public function __construct(ProductServiceInterface $productService)
+    public function __construct(
+        ProductServiceInterface $productService,
+        CategoryServiceInterface $categoryService
+        )
     {
         $this->productService = $productService;
+        $this->categoryService = $categoryService;
     }
 
     /**
@@ -33,11 +38,10 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         $this->authorize('create', Product::class);
-        $this->productService->store($request);
-        $categories = Category::get();
+        $categories = $this->categoryService->all($request);
         $param = [
             'categories' => $categories
         ];
@@ -50,42 +54,42 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $this->productService->store($request);
-        $validated = $request->validate(
-            [
-                'name' => 'required',
-                'category_id' => 'required',
-                'price' => 'required',
-                'amount' => 'required',
-                'description' => 'required',
-                'image' => 'required',
-            ],
-            [
-                'name.required' => 'Vui lòng điền đầy đủ thông tin!',
-                'description.required' => 'Vui lòng điền đầy đủ thông tin!',
-                'amount.required' => 'Vui lòng điền đầy đủ thông tin!',
-                'price.required' => 'Vui lòng điền đầy đủ thông tin!',
-                'category_id.required' => 'Vui lòng điền đầy đủ thông tin!',
-                'image.required' => 'Vui lòng điền đầy đủ thông tin!',
-            ]
-        );
-        $product = new Product();
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->amount = $request->amount;
-        $product->description = $request->description;
-        $product->category_id = $request->category_id;
-        $fieldName = 'image';
-        if ($request->hasFile($fieldName)) {
-            $fullFileNameOrigin = $request->file($fieldName)->getClientOriginalName();
-            $fileNameOrigin = pathinfo($fullFileNameOrigin, PATHINFO_FILENAME);
-            $extenshion = $request->file($fieldName)->getClientOriginalExtension();
-            $fileName = $fileNameOrigin . '-' . rand() . '_' . time() . '.' . $extenshion;
-            $path = 'storage/' . $request->file($fieldName)->storeAs('public/images', $fileName);
-            $path = str_replace('public/', '', $path);
-            $product->image = $path;
-        }
-        alert()->success('Thêm sản phẩm thành công!');
-        $product->save();
+        // $validated = $request->validate(
+        //     [
+        //         'name' => 'required',
+        //         'category_id' => 'required',
+        //         'price' => 'required',
+        //         'amount' => 'required',
+        //         'description' => 'required',
+        //         'image' => 'required',
+        //     ],
+        //     [
+        //         'name.required' => 'Vui lòng điền đầy đủ thông tin!',
+        //         'description.required' => 'Vui lòng điền đầy đủ thông tin!',
+        //         'amount.required' => 'Vui lòng điền đầy đủ thông tin!',
+        //         'price.required' => 'Vui lòng điền đầy đủ thông tin!',
+        //         'category_id.required' => 'Vui lòng điền đầy đủ thông tin!',
+        //         'image.required' => 'Vui lòng điền đầy đủ thông tin!',
+        //     ]
+        // );
+        // $product = new Product();
+        // $product->name = $request->name;
+        // $product->price = $request->price;
+        // $product->amount = $request->amount;
+        // $product->description = $request->description;
+        // $product->category_id = $request->category_id;
+        // $fieldName = 'image';
+        // if ($request->hasFile($fieldName)) {
+        //     $fullFileNameOrigin = $request->file($fieldName)->getClientOriginalName();
+        //     $fileNameOrigin = pathinfo($fullFileNameOrigin, PATHINFO_FILENAME);
+        //     $extenshion = $request->file($fieldName)->getClientOriginalExtension();
+        //     $fileName = $fileNameOrigin . '-' . rand() . '_' . time() . '.' . $extenshion;
+        //     $path = 'storage/' . $request->file($fieldName)->storeAs('public/images', $fileName);
+        //     $path = str_replace('public/', '', $path);
+        //     $product->image = $path;
+        // }
+        // alert()->success('Thêm sản phẩm thành công!');
+        // $product->save();
         return redirect()->route('products.index');
     }
 

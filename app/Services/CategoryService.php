@@ -22,8 +22,8 @@ class CategoryService implements CategoryServiceInterface
     public function paginate($request){
         return $this->categoryRepository->paginate($request);
     }
-    public function find($id){
-        return $this->categoryRepository->find($id);
+    public function find($id,$withTrashes = false){
+        return $this->categoryRepository->find($id,$withTrashes);
     }
     public function store($request){
         return $this->categoryRepository->store($request);

@@ -221,7 +221,6 @@
                                         <li>
                                             <a href="{{route('login')}}"><i class="icon-lock"></i> <span>Đăng Nhập</span></a>
                                         </li>
-                                        <li><a href="{{route('logout')}}"><i class="icon-key"></i> <span>Đăng Xuất</span></a></li>
                                         <li><a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="icon-key"></i> <span>Đăng Xuất</span></a></li>
                                         <form id="logout-form" action="{{ route('logout') }}" method="GET" style="display: none;">
                                             @csrf

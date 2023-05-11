@@ -42,4 +42,13 @@ class CategoryPolicy
     {
         return $user->hasPermission('Category_delete');
     } 
+    public function restore(User $user, Category $category)
+    {
+        // dd(123);
+        return $user->hasPermission('Category_restore');
+    } 
+    public function deleteforever(User $user, Category $category)
+    {
+        return $user->hasPermission('Category_forceDelete');
+    } 
 }

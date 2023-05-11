@@ -21,7 +21,7 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        // $this->authorize('viewAny', User::class);
+        $this->authorize('viewAny', User::class);
         $users = User::paginate(2);
 
         $users = $this->userService->all($request);
@@ -59,7 +59,7 @@ class UserController extends Controller
 
     public function create()
     {
-        // $this->authorize('create', User::class);
+        $this->authorize('create', User::class);
         $groups = Group::get();
         $param = [
             'groups' => $groups,
@@ -104,7 +104,7 @@ class UserController extends Controller
 
     public function show(string $id)
     {
-        // $this->authorize('view', User::class);
+        $this->authorize('view', User::class);
         $user = $this->userService->find($id);
         $param = [
             'user' => $user,
@@ -127,7 +127,7 @@ class UserController extends Controller
 
     public function edit(string $id)
     {
-        // $this->authorize('view', User::class);
+        $this->authorize('view', User::class);
         $user = $this->userService->find($id);
         $groups = Group::get();
         $param = [
@@ -161,7 +161,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        // $this->authorize('delete', User::class);
+        $this->authorize('delete', User::class);
         try {
             $this->userService->destroy($id);
             toast('Xóa Nhân Viên Thành Công!', 'success', 'top-right');

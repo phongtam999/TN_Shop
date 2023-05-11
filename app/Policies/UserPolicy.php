@@ -8,7 +8,6 @@ use Illuminate\Auth\Access\Response;
 
 class UserPolicy
 {
-    use HandlesAuthorization;
 
     public function viewAny(User $user)
     {

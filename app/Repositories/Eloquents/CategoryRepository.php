@@ -31,27 +31,32 @@ class CategoryRepository extends EloquentRepository implements CategoryRepositor
 
     public function all($request)
     {
-        if (!empty($request->key)) {
-            $search = $request->key;
-            $categories = $categories->Search($search);
+        $query = $this->model->select('*')->orderBy('id', 'DESC');
+        if ($request->search) {
+            $search = $request->search;
+            $query->where('name', 'LIKE', '%'.$search.'%');
+            $query->orWhere('id', 'LIKE', '%'.$search.'%');
         }
-        return Category::orderBy('id', 'DESC')->paginate(2);
+        return $query->paginate(2);
     }
-    public function find($id)
+    public function find($id,$withTrashes = false)
     {
-        $category = Category::find($id);
+        $query = $this->model->query(true);
+        if($withTrashes){
+            $query->withTrashed();
+        }
+        $category =  $query->find($id);
         return $category;
     }
     public function store($request)
     {
-        $category = new Category();
+        $category = new $this->model;
         $category->name = $request->name;
-        // return $category->save();
+        return $category->save();
     }
     public function update($request, $id)
     {
-        $category = new Category();
-        $category = Category::find($id);
+        $category = $this->model->find($id);
         $category->name = $request->name;
         return $category->save();
     }

@@ -11,15 +11,13 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="form-group">
-                                    <input type="text" name="search" class="form-control" placeholder="Search...">
+                                    <input value="{{$request->search}}" type="text" name="search" class="form-control" placeholder="Search...">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <button type="submit" class="btn btn-success">Tìm Kiếm</button>
                             </div>
-                            <div class="col-md-6">
-                                <a href="{{ route('categories.create') }}" class="btn btn-primary">Thêm mới</a>
-                            </div>
+                          
                         </div>
                     </form>
                     @if (Auth::user() && Auth::user()->hasPermission('Category_create'))

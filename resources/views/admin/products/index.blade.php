@@ -52,28 +52,29 @@
                             <td>
                                 <div class="btn-group" role="group">
                                     @if (Auth::user()->hasPermission('Product_update'))
-                                    <a class="btn btn-secondary" href="{{ route('products.edit', $product->id) }}">Sửa</a>
+                                        <a class="btn btn-secondary" href="{{ route('products.edit', $product->id) }}">Sửa</a>
                                     @endif
                                     <a class="btn btn-success" href="{{ route('products.show', $product->id) }}">Chi tiết</a>
                                     @if ($product->deleted_at) {{-- Kiểm tra xem sản phẩm đã bị xóa chưa --}}
-                                    <form action="{{ route('products.restore', $product->id) }}" method="POST">
-                                        @method('PUT')
-                                        @csrf
-                                        <button type="submit" class="btn btn-primary">Khôi phục</button>
-                                    </form>
-                                    <form action="{{ route('products.delete-forever', $product->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa vĩnh viễn?')">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button type="submit" class="btn btn-danger">Xóa vĩnh viễn</button>
-                                    </form>
-                                @else
-                                <form action="{{ route('products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Bạn có muốn xóa?')">
-                                    @method('DELETE')
-                                    @csrf
-                                    @if (Auth::user()->hasPermission('Product_delete'))
-                                    <button type="submit" class="btn btn-danger btn-lg">Xóa</button>
-                                    @endif
-                                </form>                      
+                                        <form action="{{ route('products.restore', $product->id) }}" method="POST">
+                                            @method('PUT')
+                                            @csrf
+                                            <button type="submit" class="btn btn-primary">Khôi phục</button>
+                                        </form>
+                                        <form action="{{ route('products.delete-forever', $product->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa vĩnh viễn?')">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger">Xóa vĩnh viễn</button>
+                                        </form>
+                                     @else
+                                        <form action="{{ route('products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Bạn có muốn xóa?')">
+                                            @method('DELETE')
+                                            @csrf
+                                            @if (Auth::user()->hasPermission('Product_delete'))
+                                            <button type="submit" class="btn btn-danger btn-lg">Xóa</button>
+                                            @endif
+                                        </form>
+                                    @endif                      
                                 </div>
                             </td>
                         </tr>

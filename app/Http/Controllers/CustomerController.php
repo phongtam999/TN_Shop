@@ -23,7 +23,7 @@ class CustomerController extends Controller
 
     public function store(Request $request)
     {
-        $this->categoryService->store($request);
+        $this->customerService->store($request);
         $customer = new Customer();
         $customer->name = $request->name;
         $customer->email = $request->email;
@@ -58,7 +58,7 @@ class CustomerController extends Controller
      */
     public function edit(string $id)
     {
-        $item = $this->categoryService->find($id);
+        $item = $this->customerService->find($id);
         $customer = Customer::find($id);
         return view('admin.customers.edit',compact('customer'));
     }
@@ -66,7 +66,7 @@ class CustomerController extends Controller
    
     public function update(Request $request, string $id)
     {
-            $this->categoryService->update($request, $id);
+            $this->customerService->update($request, $id);
             $customer = Customer::findOrFail($id);
             $customer->name = $request->name;
             $customer->email = $request->email;
@@ -97,7 +97,7 @@ class CustomerController extends Controller
      */
     public function destroy(string $id)
     {
-        $this->categoryService->destroy($id);
+        $this->customerService->destroy($id);
         $customer = Customer::findOrFail($id);
         $customer->Delete();
         alert()->success('Xóa thể loại thành công!');
