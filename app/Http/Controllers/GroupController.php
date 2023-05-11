@@ -26,6 +26,7 @@ class GroupController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
+
     {
         $this->authorize('viewAny',Group::class);
         $groups = $this->groupService->paginate($request);
@@ -33,7 +34,7 @@ class GroupController extends Controller
        
     }
 
-    /**
+        /**
      * Show the form for creating a new resource.
      */
     public function create()

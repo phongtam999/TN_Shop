@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Group;
 use App\Models\User;
 use App\Services\Interfaces\UserServiceInterface;
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\StoreUserRequest; // Thêm use statement này
 
@@ -137,16 +138,20 @@ class UserController extends Controller
         return view('admin.users.edit', $param);
     }
 
-    public function update(Request $request, string $id)
+    public function update(UpdateUserRequest $request, $id)
     {
         try {
             $this->userService->update($request, $id);
             toast('Cập nhật Nhân Viên Thành Công!', 'success', 'top-right');
             return redirect()->route('users.index');
-        } catch (\exception $e) {
+
+            // logic after update
+        } catch (\Exception $e) {
+            //logic handle error
             Log::error($e->getMessage());
             toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
             return redirect()->route('users.index');
+
         }
 
    

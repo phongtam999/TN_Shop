@@ -25,10 +25,8 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        // $this->authorize('viewAny', Product::class);
+        $this->authorize('viewAny', Product::class);
         $products = $this->productService->all($request);
-        $products = Product::paginate(2);
-        
         return view('admin.products.index', compact('products'));
     }
 
