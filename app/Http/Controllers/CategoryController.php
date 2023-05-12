@@ -41,7 +41,7 @@ class CategoryController extends Controller
     {
      
         $this->categoryService->store($request);
-        alert()->success('Thêm danh mục thành công!');
+        toast('Thêm danh mục thành công!', 'success', 'top-right');
         return redirect()->route('categories.index');
     }
 
@@ -60,8 +60,7 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request,$id)
     {
         $this->categoryService->update($request, $id);
-        alert()->success('Cập nhật thương hiệu thành công!');
-
+        toast('Cập nhật thương hiệu thành công!', 'success', 'top-right');
         return redirect()->route('categories.index');
     }
 
@@ -70,10 +69,10 @@ class CategoryController extends Controller
         $category = $this->categoryService->find($id);
         $this->authorize('delete', $category);
         if (!$category) {
-            return redirect()->back()->with('error', 'Không tìm thấy thương hiệu!');
+            return redirect()->back()->with('error', 'Không tìm thấy danh mục');
         }
         $this->categoryService->destroy($id);
-        alert()->success('Thương hiệu đã được di chuyển vào thùng rác!');
+        toast('Danh mục đã di chuyển vào thùng rác!', 'success', 'top-right');
         return redirect()->route('categories.index');
     }
     public function trash()
@@ -88,7 +87,7 @@ class CategoryController extends Controller
         $this->authorize('restore', $category);
         try {
             $this->categoryService->restore($id);
-            alert()->success('Khôi Phục Danh Mục Thành Công!');
+            toast('Khôi Phục Danh Mục Thành Công!', 'success', 'top-right');
             return redirect()->route('categories.index');
         } catch (\exception $e) {
             Log::error($e->getMessage());
@@ -103,7 +102,7 @@ class CategoryController extends Controller
     try {
         if ($category) {
             $category->forceDelete();
-            alert()->success('Xóa Vĩnh Viễn Thành Công!');
+            toast('Xóa Vĩnh Viễn Danh Mục Thành Công!', 'success', 'top-right');
         } else {
             alert()->error('Không thể xóa vĩnh viễn bản ghi chưa bị xóa mềm!');
         }

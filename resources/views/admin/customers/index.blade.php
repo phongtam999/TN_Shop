@@ -7,19 +7,20 @@
         <div class="container">
             <table class="table">
                 <div class="col-6">
-                    <form class="navbar-form navbar-left" action="{{route('customers.search')}}" method="GET">
+                    <form class="navbar-form navbar-left" action="{{route('customers.index')}}" method="GET">                
                         <div class="row">
                             <div class="col-8">
                                 <div class="form-group">
-                                    <input type="text" name="search" class="form-control" placeholder="Search...">
+                                    <input value="{{$request->search}}" type="text" name="search" class="form-control" placeholder="Search...">
                                 </div>
                             </div>
                             <div class="col-4">
-                                <button type="submit" class="btn btn-info">Tìm kiếm</button>
+                                <button type="submit" class="btn btn-success">Tìm Kiếm</button>
                             </div>
+                          
                         </div>
                     </form>
-                    </form>
+                  
                 </div>
                 <thead>
                     <tr>

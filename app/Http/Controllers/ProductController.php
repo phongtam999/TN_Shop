@@ -30,7 +30,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('viewAny', Product::class);
+        // $this->authorize('viewAny', Product::class);
         $products = $this->productService->all($request);
         return view('admin.products.index', compact('products'));
     }
@@ -40,7 +40,7 @@ class ProductController extends Controller
      */
     public function create(Request $request)
     {
-        $this->authorize('create', Product::class);
+        // $this->authorize('create', Product::class);
         $categories = $this->categoryService->all($request);
         $param = [
             'categories' => $categories

@@ -37,6 +37,8 @@ class ProductRepository extends EloquentRepository implements ProductRepositoryI
         $product->amount = $data['amount'];
         $product->price = $data['price'];
         $product->description = $data['description']; 
+        $product->category_id = $data['category_id']; 
+
         $product->image = $data['image'];// Thêm dòng này để cung cấp giá trị cho trường description
         $product->save();
     
@@ -49,7 +51,6 @@ class ProductRepository extends EloquentRepository implements ProductRepositoryI
         $product = Product::find($id);
         $product->name = $request->input('name');
         $product->save();
-
         return $product;
     }
 

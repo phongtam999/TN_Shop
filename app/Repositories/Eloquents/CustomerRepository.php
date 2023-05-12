@@ -18,18 +18,61 @@ class CustomerRepository extends EloquentRepository implements CustomerRepositor
         $result = $this->model->paginate();
         return $result;
     }
+
     public function all($request)
     {
-        // $products = $query->paginate(3);
-        // return $products;
-        return $this->model->orderBy('id', 'DESC')->paginate(1);
+        $query = $this->model->select('*')->orderBy('id', 'DESC');
+        if ($request->search) {
+            $search = $request->search;
+            $query->where('name', 'LIKE', '%'.$search.'%');
+        }
+        return $query->paginate(5); 
 
+}
+
+public function store($request)
+{
+    $customer = new $this->model;
+    $customer->name = $request->name;
+    $customer->name = $request->email;
+    $customer->name = $request->gender;
+    $customer->name = $request->phone;
+    $customer->name = $request->address;
+    $fieldName = 'image';
+    if ($request->hasFile($fieldName)) {
+        $fullFileNameOrigin = $request->file($fieldName)->getClientOriginalName();
+        $fileNameOrigin = pathinfo($fullFileNameOrigin, PATHINFO_FILENAME);
+        $extenshion = $request->file($fieldName)->getClientOriginalExtension();
+        $fileName = $fileNameOrigin . '-' . rand() . '_' . time() . '.' . $extenshion;
+        $path = 'storage/' . $request->file($fieldName)->storeAs('public/images', $fileName);
+        $path = str_replace('public/', '', $path);
+        $customer->image = $path;
     }
-    // public function create($data){
-    //     return $this->model->create($data);
-    // }
-    public function search($data){
-        return $this->model->search($data);
+    return $customer->save();
+}
+
+public function update($request, $id)
+{
+    $customer = $this->model->find($id);
+    $customer->name = $request->name;
+    $customer->name = $request->email;
+    $customer->name = $request->gender;
+    $customer->name = $request->phone;
+    $customer->name = $request->address;
+    $fieldName = 'image';
+    if ($request->hasFile($fieldName)) {
+        $fullFileNameOrigin = $request->file($fieldName)->getClientOriginalName();
+        $fileNameOrigin = pathinfo($fullFileNameOrigin, PATHINFO_FILENAME);
+        $extenshion = $request->file($fieldName)->getClientOriginalExtension();
+        $fileName = $fileNameOrigin . '-' . rand() . '_' . time() . '.' . $extenshion;
+        $path = 'storage/' . $request->file($fieldName)->storeAs('public/images', $fileName);
+        $path = str_replace('public/', '', $path);
+        $customer->image = $path;
     }
+    return $customer->save();
+}
+public function search($data){
+    return $this->model->search($data);
+}
 
 }

@@ -23,9 +23,9 @@
             <div class="row">
                 <div class="col-md-6">
                     <a class="btn btn-warning" href="{{ route('products.export') }}">Xuất Excel</a>
-                    @if (Auth::user()->hasPermission('Product_create'))
+                    {{-- @if (Auth::user()->hasPermission('Product_create')) --}}
                     <a href="{{ route('products.create') }}" class="btn btn-primary">Thêm mới</a>
-                    @endif
+                    {{-- @endif --}}
                 </div>
             </div>
             <table class="table">
@@ -51,9 +51,9 @@
                             <td><img width="90px" height="90px" src="{{ asset($product->image) }}" alt=""></td>
                             <td>
                                 <div class="btn-group" role="group">
-                                    @if (Auth::user()->hasPermission('Product_update'))
+                                    {{-- @if (Auth::user()->hasPermission('Product_update')) --}}
                                         <a class="btn btn-secondary" href="{{ route('products.edit', $product->id) }}">Sửa</a>
-                                    @endif
+                                    {{-- @endif --}}
                                     <a class="btn btn-success" href="{{ route('products.show', $product->id) }}">Chi tiết</a>
                                     @if ($product->deleted_at) {{-- Kiểm tra xem sản phẩm đã bị xóa chưa --}}
                                         <form action="{{ route('products.restore', $product->id) }}" method="POST">
@@ -70,9 +70,9 @@
                                         <form action="{{ route('products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Bạn có muốn xóa?')">
                                             @method('DELETE')
                                             @csrf
-                                            @if (Auth::user()->hasPermission('Product_delete'))
+                                            {{-- @if (Auth::user()->hasPermission('Product_delete')) --}}
                                             <button type="submit" class="btn btn-danger btn-lg">Xóa</button>
-                                            @endif
+                                            {{-- @endif --}}
                                         </form>
                                     @endif                      
                                 </div>
