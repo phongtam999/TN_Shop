@@ -23,9 +23,9 @@
             <div class="row">
                 <div class="col-md-6">
                     <a class="btn btn-warning" href="{{ route('products.export') }}">Xuất Excel</a>
-                    @if (Auth::user()->hasPermission('Product_create'))
+                    {{-- @if (Auth::user()->hasPermission('Product_create')) --}}
                     <a href="{{ route('products.create') }}" class="btn btn-primary">Thêm mới</a>
-                    @endif
+                    {{-- @endif --}}
                 </div>
             </div>
             <table class="table">
@@ -70,9 +70,9 @@
                                         <form action="{{ route('products.destroy', $team->id) }}" method="POST" onsubmit="return confirm('Bạn có muốn xóa?')">
                                             @method('DELETE')
                                             @csrf
-                                            @if (Auth::user()->hasPermission('Product_delete'))
+                                            {{-- @if (Auth::user()->hasPermission('Product_delete')) --}}
                                             <button type="submit" class="btn btn-danger btn-lg">Xóa</button>
-                                            @endif
+                                            {{-- @endif --}}
                                         </form>
                                     @endif                      
                                 </div>

@@ -28,7 +28,7 @@ class GroupController extends Controller
     public function index(Request $request)
 
     {
-        $this->authorize('viewAny',Group::class);
+        // $this->authorize('viewAny',Group::class);
         $groups = $this->groupService->paginate($request);
         return view('admin.groups.index',compact('groups'));
        

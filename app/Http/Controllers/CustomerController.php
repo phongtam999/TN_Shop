@@ -15,86 +15,31 @@ class CustomerController extends Controller
     }
 
     public function index(Request $request)
-    { 
-        $this->authorize('viewAny', Customer::class);
-        $customers = $this->customerService->paginate($request);
-        return view('admin.customers.index',compact('customers'));
-    }
+        { 
+            $this->authorize('viewAny', Customer::class);
+            $customers = $this->customerService->all($request);
+            return view('admin.customers.index',compact('customers','request'));
+        }
 
     public function store(Request $request)
     {
         $this->customerService->store($request);
-        $customer = new Customer();
-        $customer->name = $request->name;
-        $customer->email = $request->email;
-        $customer->gender = $request->gender;
-        $customer->phone = $request->phone;
-        $customer->address = $request->address;
-        $fieldName = 'image';
-        if ($request->hasFile($fieldName)) {
-            $fullFileNameOrigin = $request->file($fieldName)->getClientOriginalName();
-            $fileNameOrigin = pathinfo($fullFileNameOrigin, PATHINFO_FILENAME);
-            $extenshion = $request->file($fieldName)->getClientOriginalExtension();
-            $fileName = $fileNameOrigin . '-' . rand() . '_' . time() . '.' . $extenshion;
-            $path = 'storage/' . $request->file($fieldName)->storeAs('public/images', $fileName);
-            $path = str_replace('public/', '', $path);
-            $customer->image = $path;
-            $customer->save();
-        }
         alert()->success('Thêm khách hàng thành công!');
-        return redirect()->route('customers.index');
+        return redirect()->route('customers.index');  
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $item = $this->customerService->find($id);
-        $customer = Customer::find($id);
-        return view('admin.customers.edit',compact('customer'));
+        $this->authorize('update',$item);
+        return view('admin.customers.edit',compact('item'));
     }
 
-   
     public function update(Request $request, string $id)
     {
-            $this->customerService->update($request, $id);
-            $customer = Customer::findOrFail($id);
-            $customer->name = $request->name;
-            $customer->email = $request->email;
-            $customer->gender = $request->gender;
-            $customer->phone = $request->phone;
-            $customer->address = $request->address;
-            $fieldName = 'image';
-            if ($request->hasFile($fieldName)) {
-                $fullFileNameOrigin = $request->file($fieldName)->getClientOriginalName();
-                $fileNameOrigin = pathinfo($fullFileNameOrigin, PATHINFO_FILENAME);
-                $extenshion = $request->file($fieldName)->getClientOriginalExtension();
-                $fileName = $fileNameOrigin . '-' . rand() . '_' . time() . '.' . $extenshion;
-                $path = 'storage/' . $request->file($fieldName)->storeAs('public/images', $fileName);
-                $path = str_replace('public/', '', $path);
-                $customer->image = $path;
-            }
-            alert()->success('Cập nhật khách hàng thành công!');
-    
-            $customer->save();
-    
-            return redirect()->route('customer.index');
-            //
-        
+        $this->customerService->update($request, $id);
+        alert()->success('Cập nhật khách hàng thành công!');
+        return redirect()->route('categories.index');      
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $this->customerService->destroy($id);
@@ -103,11 +48,10 @@ class CustomerController extends Controller
         alert()->success('Xóa thể loại thành công!');
         return redirect()->route('customer.index');
     }
-
     public function search(Request $request){
-        $search = $request->input('search');
+        $search = $request->input('name');
         if(!$search){
-            return redirect()->route('product.index');
+            return redirect()->route('customers.index');
         }
         $customers = Customer::where('name','LIKE','%'.$search.'%')->paginate(2);
         return view('admin.customers.index',compact('customers'));

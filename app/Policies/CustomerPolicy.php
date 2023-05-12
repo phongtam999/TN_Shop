@@ -68,6 +68,10 @@ class CustomerPolicy
      * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
+    public function search(User $user)
+    {
+        return $user->hasPermission('Customer_search');
+    }
  
 
    

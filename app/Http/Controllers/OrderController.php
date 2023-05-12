@@ -18,7 +18,7 @@ class OrderController extends Controller
 
 public function index(Request $request)
 {
-$this->authorize('viewAny', Order::class);
+// $this->authorize('viewAny', Order::class);
 $orders = $this->orderService->all($request);
 $items = Order::paginate(5);
 return view('admin.orders.index', compact('items'));

@@ -6,8 +6,7 @@
         <div class="container">
             <table class="table">
                 <div class="col-6">
-                    <form class="navbar-form navbar-left" action="{{route('categories.index')}}" method="GET">
-                      
+                    <form class="navbar-form navbar-left" action="{{route('categories.index')}}" method="GET">                     
                         <div class="row">
                             <div class="col-8">
                                 <div class="form-group">
@@ -16,8 +15,7 @@
                             </div>
                             <div class="col-4">
                                 <button type="submit" class="btn btn-success">Tìm Kiếm</button>
-                            </div>
-                          
+                            </div>                         
                         </div>
                     </form>
                     @if (Auth::user() && Auth::user()->hasPermission('Category_create'))
@@ -33,13 +31,11 @@
                     </tr>
                 </thead>
                 <tbody id="myTable">
-
                     @foreach ($categories as $key => $team)
                     <tr>
                         <th scope="row">{{ $key + 1 }}</th>
                         <td>{{ $team->name }}</td>
-                        <td>
-                          
+                        <td>                          
                             @if (isset($team))
                             <form action="{{ route('categories.destroy', $team->id) }}" method="POST">
                                 @if (Auth::user() && Auth::user()->hasPermission('Category_update'))
