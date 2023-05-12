@@ -32,6 +32,7 @@ class ProductPolicy
     {
         return $user->hasPermission('Product_view');
     }
+    
 
     /**
      * Determine whether the user can create models.
@@ -43,6 +44,7 @@ class ProductPolicy
     {
          return $user->hasPermission('Product_create');
     }
+    
 
     /**
      * Determine whether the user can update the model.
@@ -55,6 +57,7 @@ class ProductPolicy
     {
         return $user->hasPermission('Product_update');
     }
+   
 
     /**
      * Determine whether the user can delete the model.
@@ -67,6 +70,7 @@ class ProductPolicy
     {
         return $user->hasPermission('Product_delete');
     }
+  
 
     /**
      * Determine whether the user can restore the model.
@@ -79,6 +83,7 @@ class ProductPolicy
     {
         return $user->hasPermission('Product_restore');
     }
+   
 
     /**
      * Determine whether the user can permanently delete the model.
@@ -89,7 +94,7 @@ class ProductPolicy
      */
     public function deleteforever(User $user)
     {
-        return $user->hasPermission('Product_deleteforever');
+        return $user->hasPermission('Product_forceDelete');
     }
-   
+
 }

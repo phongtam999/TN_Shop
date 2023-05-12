@@ -16,11 +16,16 @@
     }
     .text-danger {
     color: black;
-    text-align: center;
+    left: 50%;
+    right: 50%;
+    position: relative;
 }
     .search-input {
         width: 250px;
     }
+    span.white-text , .btn.btn-success {
+    color: white;
+}
 </style>
 
 <main class="page-content">
@@ -32,7 +37,7 @@
                             <header class="page-title-bar">
                         <h1 class="text-danger">Danh sách Nhân Sự</h1>
                         <a href="{{ route('users.create') }}" class="btn btn-info float-left">Đăng kí nhân viên</a>
-                    </div>
+                    </div><br><br>
                     <form class="text-center mb-4" action="{{ route('users.search') }}" method="GET">
                         <div class="input-group justify-content-center">
                             <input type="text" name="search" class="form-control search-input text-left" placeholder="Tìm kiếm...">
@@ -63,7 +68,8 @@
                                 @foreach ($users as $key => $user)
                                 <tr data-expanded="true" class="item-{{ $user->id }}">
                                     <td>{{ ++$key }}</td>
-                                    <td><a href=""><img id="avt" src="{{ asset($user->image) }}" alt=""></a></td>
+                                    <td><a href="">
+                                        <img id="avt" src="{{ asset($user->image) }}" alt=""></a></td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->phone }}</td>
                                     <td>
@@ -74,7 +80,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('users.show', $user->id) }}" class="btn btn-info">Xem</a>
+                                        <a href="{{ route('users.show', $user->id) }}" class="btn btn-success">Xem</a>
                                         <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning">
                                             <span class="white-text">Sửa</span>
                                         </a>

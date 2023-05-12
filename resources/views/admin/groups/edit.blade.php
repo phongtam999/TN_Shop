@@ -34,7 +34,7 @@
                             <div class="form-group">
                                 <div class="col-lg-offset-2 col-lg-6">
                                     <button class="btn btn-primary" type="submit">Lưu thay đổi</button>
-                                    <a href="" class="btn btn-danger"
+                                    <a href="{{route('groups.index')}}" class="btn btn-danger"
                                         type="submit">Hủy</a>
                                 </div>
                             </div>

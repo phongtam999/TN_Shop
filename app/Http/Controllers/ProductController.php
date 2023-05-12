@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ProductExport;
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Category;
 use App\Models\Product;
@@ -16,6 +18,7 @@ use App\Services\Interfaces\CategoryServiceInterface;
 class ProductController extends Controller
 {
     protected $productService;
+    protected $categoryService;
     public function __construct(
         ProductServiceInterface $productService,
         CategoryServiceInterface $categoryService
@@ -51,46 +54,17 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        $this->productService->store($request);
-        // $validated = $request->validate(
-        //     [
-        //         'name' => 'required',
-        //         'category_id' => 'required',
-        //         'price' => 'required',
-        //         'amount' => 'required',
-        //         'description' => 'required',
-        //         'image' => 'required',
-        //     ],
-        //     [
-        //         'name.required' => 'Vui lòng điền đầy đủ thông tin!',
-        //         'description.required' => 'Vui lòng điền đầy đủ thông tin!',
-        //         'amount.required' => 'Vui lòng điền đầy đủ thông tin!',
-        //         'price.required' => 'Vui lòng điền đầy đủ thông tin!',
-        //         'category_id.required' => 'Vui lòng điền đầy đủ thông tin!',
-        //         'image.required' => 'Vui lòng điền đầy đủ thông tin!',
-        //     ]
-        // );
-        // $product = new Product();
-        // $product->name = $request->name;
-        // $product->price = $request->price;
-        // $product->amount = $request->amount;
-        // $product->description = $request->description;
-        // $product->category_id = $request->category_id;
-        // $fieldName = 'image';
-        // if ($request->hasFile($fieldName)) {
-        //     $fullFileNameOrigin = $request->file($fieldName)->getClientOriginalName();
-        //     $fileNameOrigin = pathinfo($fullFileNameOrigin, PATHINFO_FILENAME);
-        //     $extenshion = $request->file($fieldName)->getClientOriginalExtension();
-        //     $fileName = $fileNameOrigin . '-' . rand() . '_' . time() . '.' . $extenshion;
-        //     $path = 'storage/' . $request->file($fieldName)->storeAs('public/images', $fileName);
-        //     $path = str_replace('public/', '', $path);
-        //     $product->image = $path;
-        // }
-        // alert()->success('Thêm sản phẩm thành công!');
-        // $product->save();
-        return redirect()->route('products.index');
+        try {
+            $items = $this->productService->store($request);
+            toast('Thêm Sản Phẩm Thành Công!', 'success', 'top-right');
+            return redirect()->route('products.index');
+        } catch (\exception $e) {
+            Log::error($e->getMessage());
+            toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
+            return redirect()->route('products.index');
+        }
     }
 
     /**
@@ -126,31 +100,18 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateProductRequest $request, string $id)
     {
-        $this->productService->update($request, $id);
-        $product = Product::findOrFail($id);
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->amount = $request->amount;
-        $product->description = $request->description;
-        $product->category_id = $request->category_id;
-        $fieldName = 'image';
-        if ($request->hasFile($fieldName)) {
-            $fullFileNameOrigin = $request->file($fieldName)->getClientOriginalName();
-            $fileNameOrigin = pathinfo($fullFileNameOrigin, PATHINFO_FILENAME);
-            $extenshion = $request->file($fieldName)->getClientOriginalExtension();
-            $fileName = $fileNameOrigin . '-' . rand() . '_' . time() . '.' . $extenshion;
-            $path = 'storage/' . $request->file($fieldName)->storeAs('public/assets/images', $fileName);
-            $path = str_replace('public/', '', $path);
-            $product->image = $path;
+       
+        try {
+            $this->productService->update($request, $id);
+            toast('Sửa Sản Phẩm Thành Công!', 'success', 'top-right');
+            return redirect()->route('products.index');
+        } catch (\exception $e) {
+            Log::error($e->getMessage());
+            toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
+            return redirect()->route('products.index');
         }
-        alert()->success('Cập nhật sản phẩm thành công!');
-
-        $product->save();
-
-        return redirect()->route('products.index');
-        //
     }
 
     /**
@@ -158,20 +119,17 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $this->authorize('delete', Product::class);
-        $this->productService->destroy($id);
-        $product = Product::find($id);
-
-        if ($product) {
-            if ($product->delete()) { // Sử dụng phương thức delete() và kiểm tra giá trị trả về
-                return redirect()->route('products.index');
-            } else {
-                alert()->error('Không thể di chuyển sản phẩm vào thùng rác!');
-            }
+        
+       $this->authorize('delete', Product::class);
+        try {
+            $this->productService->destroy($id);
+            toast('Sản Phẩm Đã Đưa Vào Thùng Rác!', 'success', 'top-right');
+            return redirect()->route('products.index');
+        } catch (\exception $e) {
+            Log::error($e->getMessage());
+            toast('Có Lỗi Xảy Ra', 'error', 'top-right');
+            return redirect()->route('products.index');
         }
-        alert()->success('Sản phẩm đã vào thùng rác!');
-
-        return redirect()->back();
     }
 
     public function getTrashed()
@@ -186,7 +144,7 @@ class ProductController extends Controller
         try {
             $softs = Product::withTrashed()->find($id);
             $softs->restore();
-            alert()->success('Khôi Phục Sản Phẩm Thành Công!');
+            toast('Khôi phục Sản Phẩm Thành Công!', 'success', 'top-right');
             return redirect()->route('products.index');
         } catch (\exception $e) {
             Log::error($e->getMessage());
@@ -201,7 +159,7 @@ class ProductController extends Controller
         try {
             $softs = Product::withTrashed()->find($id);
             $softs->forceDelete();
-            alert()->success('Xóa Vĩnh Viễn Thành Công!');
+            toast('Xóa Vĩnh Viễn Sản Phẩm Thành Công!', 'success', 'top-right');
             return redirect()->route('products.index');
         } catch (\exception $e) {
             Log::error($e->getMessage());
