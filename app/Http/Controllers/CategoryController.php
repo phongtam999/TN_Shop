@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Services\Interfaces\CategoryServiceInterface;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
