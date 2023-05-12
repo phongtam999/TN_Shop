@@ -47,6 +47,6 @@ class CategoryService implements CategoryServiceInterface
         return $this->categoryRepository->deleteforever($id);
     }
     public function search($data){
-        return $this->repository->search($data);
+        return $this->categoryRepository->search($data);
     }
 }

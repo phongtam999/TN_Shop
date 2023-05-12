@@ -60,8 +60,10 @@
 
                     </div>
                 </a>
-                    <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
-                    <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
+                    <b class="logo-abbr">
+                        <img src="images/logo.png" alt=""> </b>
+                    <span class="logo-compact">
+                        <img src="./images/logo-compact.php" alt=""></span>
                     <span class="brand-title">
                         <img src="images/logo-text.png" alt="">
                     </span>
@@ -209,7 +211,6 @@
                                 <div class="dropdown-content-body">
                                     <ul>
                                         <li>
-                                            <a href="#"><i class="icon-user"></i> <span>Trang Cá Nhân</span></a>
                                         </li>
                                         {{-- <li>
                                             <a href="javascript:void()">
