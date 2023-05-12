@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Group;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use App\Services\Interfaces\UserServiceInterface;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Log;

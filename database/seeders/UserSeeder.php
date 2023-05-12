@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $user = new User();
-        $user->name = 'Nguyễn Đấm Bảo Thắng';
+        $user->name = 'Nguyễn Danh Bảo Thắng';
         $user->email = 'cun2004@gmail.com';
         $user->password = Hash::make('123456');
         $user->birthday = '2004/01/01';
@@ -25,5 +25,18 @@ class UserSeeder extends Seeder
         $user->gender = 'Nam';
         $user->group_id = '1';
         $user->save();
+
+        $user = new User();
+        $user->name = 'Đinh Văn Nho';
+        $user->email = 'Nho2004@gmail.com';
+        $user->password = Hash::make('123456');
+        $user->birthday = '2004/09/01';
+        $user->address = 'Hải Lăng';
+        $user->image = '1jCVdawgaYEAN8g7RCOxHH1mkA9IJcixSfQlmkNk.png';
+        $user->phone = '0935779030';
+        $user->gender = 'Nam';
+        $user->group_id = '1';
+        $user->save();
+
     }
 }

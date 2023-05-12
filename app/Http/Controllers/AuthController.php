@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 // use App\Http\Requests\User\LoginRequest;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
