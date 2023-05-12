@@ -41,33 +41,33 @@
                     </tr>
                 </thead>
                 <tbody id="myTable">
-                    @foreach ($products as $key => $product)
+                    @foreach ($products as $key => $team)
                         <tr>
                             <th scope="row">{{ $key + 1 }}</th>
-                            <td>{{ $product->name ?? '' }}</td>
-                            <td>{{ $product->amount ?? '' }}</td>
-                            <td>{{ $product->category->name ?? '' }}</td>
-                            <td>{{ number_format($product->price) . 'VNĐ' }}</td>
-                            <td><img width="90px" height="90px" src="{{ asset($product->image) }}" alt=""></td>
+                            <td>{{ $team->name ?? '' }}</td>
+                            <td>{{ $team->amount ?? '' }}</td>
+                            <td>{{ $team->category->name ?? '' }}</td>
+                            <td>{{ number_format($team->price) . 'VNĐ' }}</td>
+                            <td><img width="90px" height="90px" src="{{ asset($team->image) }}" alt=""></td>
                             <td>
                                 <div class="btn-group" role="group">
-                                    {{-- @if (Auth::user()->hasPermission('Product_update')) --}}
-                                        <a class="btn btn-secondary" href="{{ route('products.edit', $product->id) }}">Sửa</a>
-                                    {{-- @endif --}}
-                                    <a class="btn btn-success" href="{{ route('products.show', $product->id) }}">Chi tiết</a>
-                                    @if ($product->deleted_at) {{-- Kiểm tra xem sản phẩm đã bị xóa chưa --}}
-                                        <form action="{{ route('products.restore', $product->id) }}" method="POST">
+                                    @if (Auth::user()->hasPermission('Product_update'))
+                                        <a class="btn btn-warning" href="{{ route('products.edit', $team->id) }}">Sửa</a>
+                                    @endif
+                                    <a class="btn btn-success" href="{{ route('products.show', $team->id) }}">Chi tiết</a>
+                                    @if ($team->deleted_at) {{-- Kiểm tra xem sản phẩm đã bị xóa chưa --}}
+                                        <form action="{{ route('products.restore', $team->id) }}" method="POST">
                                             @method('PUT')
                                             @csrf
                                             <button type="submit" class="btn btn-primary">Khôi phục</button>
                                         </form>
-                                        <form action="{{ route('products.delete-forever', $product->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa vĩnh viễn?')">
+                                        <form action="{{ route('products.delete-forever', $team->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa vĩnh viễn?')">
                                             @method('DELETE')
                                             @csrf
                                             <button type="submit" class="btn btn-danger">Xóa vĩnh viễn</button>
                                         </form>
                                      @else
-                                        <form action="{{ route('products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Bạn có muốn xóa?')">
+                                        <form action="{{ route('products.destroy', $team->id) }}" method="POST" onsubmit="return confirm('Bạn có muốn xóa?')">
                                             @method('DELETE')
                                             @csrf
                                             {{-- @if (Auth::user()->hasPermission('Product_delete')) --}}
