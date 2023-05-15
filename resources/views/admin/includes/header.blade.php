@@ -21,7 +21,10 @@
                                     <a href="app-profile.html"><i class="icon-user"></i>
                                         <span>Profile</span></a>
                                 </li>
-                                <li><a href="page-login.html"><i class="icon-key"></i> <span>Logout</span></a>
+                                <li>
+                                    <a href="{{route('login')}}"><i class="icon-key"></i> <span>Đăng Nhập</span></a>
+                                </li>
+                                <li><a href="{{route('logout')}}"><i class="icon-key"></i> <span>Đăng Xuất</span></a>
                                 </li>
                             </ul>
                         </div>

@@ -12,8 +12,8 @@
                     <span class="nav-text">Quản lý sản phẩm</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="./them-moi.html">Thêm mới</a></li>
-                    <li><a href="#">Thùng rác</a></li>
+                    <li><a href="{{route('products.index')}}">Danh sách sản phẩm</a></li>
+                    <li><a href="{{route('products.trash')}}">Thùng rác</a></li>
                 </ul>
             </li>
         </ul>
