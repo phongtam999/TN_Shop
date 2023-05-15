@@ -26,7 +26,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dasboard', function () {
-    return view('admin.includes.main');
+    return view('admin.layouts.master');
 })->name('dashboard');;
 //login
 
