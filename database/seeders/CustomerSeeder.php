@@ -17,10 +17,10 @@ class CustomerSeeder extends Seeder
         DB::table('customers')->insert([
             [
                 'name' => 'Nguyễn Văn Nho',
-                'email' => 'nho2k4@gmail.com',
+                'email' => 'nho2202@gmail.com',
                 'gender' => 'nam',
                 'phone' => '0987654865',
-                'address' => 'Ái Tử - Triệu Phong - Quảng Trị',
+                'address' => 'Triệu trung - Triệu Phong - Quảng Trị',
                 'image' => 'anh',
                 'password' => bcrypt('123456') 
             ],
@@ -30,7 +30,7 @@ class CustomerSeeder extends Seeder
                 'email' => 'phong1997@gmail.com',
                 'gender' => 'nam',
                 'phone' => '0961511688',
-                'address' => 'Triệu trạch- Triệu Phong - Quảng Trị',
+                'address' => 'Triệu trung- Triệu Phong - Quảng Trị',
                 'image' => 'anh',
                 'password' => bcrypt('123456') 
             ],

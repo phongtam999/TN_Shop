@@ -181,12 +181,9 @@
                 background-color: white;
             }
         </style>
-          <div class="form">
-            <h2 style="color: red">Lấy Lại Mật Khẩu</h2>
-            <form method="post" action="{{ route('post_forgot_password') }}">
+          
          <div class="form">
-            <input type="email" id="form3Example3" class="form-control form-control-lg"
-            placeholder="Nhập email" name="email" value="{{ old('email') }}" />
+            {{-- <input type="email" id="form3Example3" class="form-control form-control-lg" --}}
           @error('email')
           <div class="alert alert-danger">{{ $message }}</div>
       @enderror

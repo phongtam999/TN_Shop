@@ -21,25 +21,20 @@ use App\Http\Controllers\GroupController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/dasboard', function () {
-    return view('admin.includes.main');
-})->name('dashboard');;
-//login
-
-// Route::prefix('/')->middleware(['auth', 'preventBackHistory'])->group(function () {
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/checkLogin', [AuthController::class, 'postLogin'])->name('checkLogin');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/postlogin', [AuthController::class, 'postlogin'])->name('postlogin');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-
 // quên mật khẩu gửi đến mail
 Route::get('/forgot_password', [AuthController::class, 'forgot_password'])->name('forgot_password');
 Route::post('/post_forgot_password', [AuthController::class, 'post_forgot_password'])->name('post_forgot_password');
+
+Route::prefix('/')->middleware(['auth', 'PreventBackHistory'])->group(function () {
+
+  Route::get('/dasboard', function () {
+    return view('admin.includes.main');
+})->name('dashboard');;
 
 //Đây là phần categories
   // thùng rác 
@@ -79,5 +74,5 @@ Route::resource('customers', CustomerController::class);
 Route::get('orders/search', [OrderController::class, 'search'])->name('orders.search');
 Route::get('orders/xuat', [OrderController::class, 'exportOrder'])->name('orders.xuat');
 Route::resource('orders', OrderController::class);
-// });
+});
 
