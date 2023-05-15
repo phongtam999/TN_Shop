@@ -37,7 +37,7 @@ class CategoryRepository extends EloquentRepository implements CategoryRepositor
             $query->where('name', 'LIKE', '%'.$search.'%');
             $query->orWhere('id', 'LIKE', '%'.$search.'%');
         }
-        return $query->paginate(2);
+        return $query->paginate(5);
     }
     public function find($id,$withTrashes = false)
     {

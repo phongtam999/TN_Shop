@@ -31,13 +31,13 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             'name.required' => ':attribute không được để trống',
-            'name.unique' => ':attribute đã tồn tại',
+            
         ];
     }
     public function attributes()
     {
         return [
-            'name'=>'Tên Thương Hiệu'
+            'name'=>'Tên danh muc'
         ];
     }
 }

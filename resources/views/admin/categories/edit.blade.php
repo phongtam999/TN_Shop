@@ -2,35 +2,47 @@
 @section('content')
 @include('sweetalert::alert')
 
-<main class="page-content">
-<h2 class="offset-5">Chỉnh Sửa Danh Mục</h2>
-
-
-<div class="container">
-
-    <div class="col-12 col-lg-12 d-flex">
-        <div class="card border shadow-none w-100">
-          <div class="card-body">
-            <form class="row g-3" action="{{route('categories.update',[$item->id])}}" method="POST">
-                @method('PUT')
-                @csrf
-              <div class="col-12">
-                <label class="form-label">Tên</label>
-                <input type="text" class="form-control" value="{{$item->name}}" name="name" >
-                @error('name')
-            <div style="color: red">{{ $message }}</div>
-            @enderror
-              </div > 
-             <div class="col-12">
-               <div class="d-grid"> <br>
-                 <button class="btn btn-success" type="submit">Cập Nhật</button> 
-             <a href="{{ route('categories.index') }}" class="btn btn-warning">Quay Lại</a>
-               </div>
-             </div>
-            </form>
-          </div>
-        </div>
-      </div>
+<div class="row page-titles mx-0">
+    <div class="col p-md-0">
+        <h2 class="page-title">Chỉnh sửa danh mục</h2>
     </div>
-</main>
+    <div class="col p-md-0">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Home</a></li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <form class="forms-sample" action="{{route('categories.update', [$item->id])}}" method="POST" enctype="multipart/form-data">
+                        @method('PUT')
+                        @csrf
+                        <div class="form-group">
+                            <label >Tên</label>
+                            <input type="text" class="form-control" value="{{ old('name', $item->name) }}" name="name">
+                            @error('name')
+                            <div style="color: red">{{ $message }}</div>
+                          @enderror
+                        </div>           
+                      <div class="form-group">
+                        <button class="btn btn-primary mr-2" type="submit">Cập nhật</button>
+                        <a href="{{ route('categories.index') }}" class="btn btn-light">Hủy</a>
+                      </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 @endsection
+
+

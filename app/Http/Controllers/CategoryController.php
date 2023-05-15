@@ -22,7 +22,7 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
-        $this->authorize('viewAny', Category::class);
+        // $this->authorize('viewAny', Category::class);
         $categories = $this->categoryService->all($request);
         return view('admin.categories.index', compact('categories','request'));
     }
@@ -30,7 +30,7 @@ class CategoryController extends Controller
   
     public function create( Request $request)
     {
-        $this->authorize('create', Category::class);
+        // $this->authorize('create', Category::class);
         return view('admin.categories.create');
 
     }
@@ -54,24 +54,24 @@ class CategoryController extends Controller
     public function edit(string $id)
     {
         $item = $this->categoryService->find($id);
-        $this->authorize('update',$item);
+        // $this->authorize('update',$item);
         return view('admin.categories.edit',compact('item'));
     }
 
     public function update(UpdateCategoryRequest $request,$id)
     {
         $this->categoryService->update($request, $id);
-        toast('Cập nhật thương hiệu thành công!', 'success', 'top-right');
+        toast('Cập nhật danh mục thành công!', 'success', 'top-right');
         return redirect()->route('categories.index');
     }
 
     public function destroy(string $id)
     {
         $category = $this->categoryService->find($id);
-        $this->authorize('delete', $category);
-        if (!$category) {
-            return redirect()->back()->with('error', 'Không tìm thấy danh mục');
-        }
+        // $this->authorize('delete', $category);
+        // if (!$category) {
+        //     return redirect()->back()->with('error', 'Không tìm thấy danh mục');
+        // }
         $this->categoryService->destroy($id);
         toast('Danh mục đã di chuyển vào thùng rác!', 'success', 'top-right');
         return redirect()->route('categories.index');
@@ -85,7 +85,7 @@ class CategoryController extends Controller
     {
         $category = $this->categoryService->find($id, true);
         // dd($category);
-        $this->authorize('restore', $category);
+        // $this->authorize('restore', $category);
         try {
             $this->categoryService->restore($id);
             toast('Khôi Phục Danh Mục Thành Công!', 'success', 'top-right');
@@ -99,7 +99,7 @@ class CategoryController extends Controller
     public function deleteforever($id)
 {
     $category = $this->categoryService->find($id,true);
-    $this->authorize('deleteforever', $category);
+    // $this->authorize('deleteforever', $category);
     try {
         if ($category) {
             $category->forceDelete();
