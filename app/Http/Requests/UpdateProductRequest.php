@@ -30,19 +30,19 @@ class UpdateProductRequest extends FormRequest
             'amount' => 'required',
             'category_id' => 'required',
             'description' => 'required',
-            // 'image' => 'required',
+            'image' => 'required',
         ];
     }
     public function messages()
     {
         return [
-            'name.required' => 'Không được để trống!',
-            'quantity.required' => 'Không được để trống!',
-            'price.required' => 'Không được để trống!',
-            'amount.required' => 'Không được để trống!',
-            'category_id.required' => 'Không được để trống!',
-            'description.required' => 'Không được để trống!',
-            // 'image.required' => 'Không được để trống!',
+            'name.required' => 'Bạn Không được để trống!',
+            'quantity.required' => 'Bạn Không được để trống!',
+            'price.required' => 'Bạn Không được để trống!',
+            'amount.required' => 'Bạn Không được để trống!',
+            'category_id.required' => 'Bạn Không được để trống!',
+            'description.required' => 'Bạn Không được để trống!',
+            'image.required' => 'Bạn Không được để trống!',
            
         ];
     }

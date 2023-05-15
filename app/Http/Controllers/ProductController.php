@@ -170,14 +170,24 @@ class ProductController extends Controller
     }
     public function search(Request $request)
     {
-        $search = $request->input('name');
-        if (!$search) {
-            return redirect()->route('products.index');
+        $searchName = $request->input('name');
+        $searchId = $request->input('id');
+    
+        $query = Product::query();
+    
+        if ($searchName) {
+            $query->where('name', 'LIKE', '%' . $searchName . '%');
         }
-        $products = Product::where('name', 'LIKE', '%' . $search . '%')->paginate(2);
+    
+        if ($searchId) {
+            $query->where('id', $searchId);
+        }
+    
+        $products = $query->paginate(2);
+    
         return view('admin.products.index', compact('products'));
     }
-
+    
 
     public function exportExcel()
     {
