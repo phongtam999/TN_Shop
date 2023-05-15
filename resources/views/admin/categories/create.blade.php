@@ -1,36 +1,39 @@
+
 @extends('admin.layouts.master')
 @section('content')
 @include('sweetalert::alert')
 
-<main class="page-content">
-    <h2 class="offset-5">Thêm Mới Danh Mục</h2>
-<div class="container">
-
-<div class="col-12 col-lg-12 d-flex">
-    <div class="card border shadow-none w-100">
-      <div class="card-body">
-        <form class="row g-3" action="{{route('categories.store')}}" method = 'POST'>
-            @csrf
-          <div class="col-12">
-            <label class="form-label">Tên Danh Mục</label>
-            <input type="text" class="form-control" name="name" placeholder="..." >
-            @error('name')
-            <div style="color: red">{{ $message }}</div>
-            @enderror
-          </div >
-         <div class="col-12">
-           <div class="d-grid">
-            <br>
-             <button class="btn btn-success" type="submit">Thêm</button>
-        <a href="{{ route('categories.index') }}" class="btn btn-warning">Quay Lại</a>
-
-           </div>
-         </div>
-        </form>
-
-      </div>
-    </div>
+<div class="row page-titles mx-0">
+  <div class="col p-md-0">
+      <h3 class="page-title text-uppercase">Thêm Mới Danh Mục</h3>
+  </div>
+  <div class="col p-md-0">
+      <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Trang chủ</a></li>
+          <li class="breadcrumb-item active"><a href="javascript:void(0)">Home</a></li>
+      </ol>
   </div>
 </div>
-</main>
+<!-- row -->
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-lg-12">
+              <div class="card-footer">
+                  <form class="forms-sample" class="row g-3" action="{{route('categories.store')}}" method = 'POST'>
+                    @csrf
+                        <div class="form-group">
+                            <label for="exampleInputName1">Tên Danh Mục</label>
+                            <input type="text" class="form-control" name="name"
+                                placeholder="...">
+                              @error('name')
+                                <div style="color: red">{{ $message }}</div>
+                              @enderror
+                        </div class="form-group">
+                      <button class="btn btn-primary mr-2" type="submit">Thêm</button>
+                       <a href="{{ route('categories.index')}}" class="btn btn-light">Huỷ Bỏ</a>
+                  </form>
+              </div>      
+      </div>
+  </div>
+</div>
 @endsection
