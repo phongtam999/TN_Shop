@@ -20,8 +20,12 @@ use App\Http\Controllers\GroupController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/dasboard', function () {
+    return view('admin.layouts.master');
+})->name('dashboard');;
+//login
 
-
+// Route::prefix('/')->middleware(['auth', 'preventBackHistory'])->group(function () {
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/checkLogin', [AuthController::class, 'postLogin'])->name('checkLogin');
 Route::post('/postlogin', [AuthController::class, 'postlogin'])->name('postlogin');
@@ -31,10 +35,6 @@ Route::get('/forgot_password', [AuthController::class, 'forgot_password'])->name
 Route::post('/post_forgot_password', [AuthController::class, 'post_forgot_password'])->name('post_forgot_password');
 
 Route::prefix('/')->middleware(['auth', 'PreventBackHistory'])->group(function () {
-
-  Route::get('/dasboard', function () {
-    return view('admin.includes.main');
-})->name('dashboard');;
 
 //Đây là phần categories
   // thùng rác 
