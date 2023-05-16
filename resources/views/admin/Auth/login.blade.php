@@ -29,11 +29,6 @@
     <!--*******************
         Preloader end
     ********************-->
-
-    
-
-
-
     <div class="login-form-bg h-100">
         <div class="container h-100">
             <div class="row justify-content-center h-100">
@@ -65,10 +60,6 @@
             </div>
         </div>
     </div>
-    
-
-    
-
     <!--**********************************
         Scripts
     ***********************************-->

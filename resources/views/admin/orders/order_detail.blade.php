@@ -7,7 +7,7 @@
                 <div class="container">
                     <main id="main" class="main">
                         <div class="pagetitle">
-                            <h1 class="offset-4">Chi tiết đơn hàng</h1>
+                            <h1 class="page-title text-uppercase">Chi tiết đơn hàng</h1>
                             <a class="btn btn-primary" href="{{ route('orders.index') }}">Đơn hàng</a>
                         </div>
                         <table class="table table-bordered">
@@ -27,7 +27,7 @@
                                         <td>{{ $item->name }}</td>
                                         <td>{{ number_format($item->price) }}</td>
                                         <td>{{ $item->quantity }}</td>
-                                        <td>{{ number_format($item->total) }}</td>
+                                        <td>{{ number_format($item->total) }}</td> 
                                     </tr>
                                 @endforeach
                             </tbody>
