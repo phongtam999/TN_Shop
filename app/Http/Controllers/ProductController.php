@@ -58,7 +58,7 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         try {
-            $items = $this->productService->store($request);
+            $this->productService->store($request);
             toast('Thêm Sản Phẩm Thành Công!', 'success', 'top-right');
             return redirect()->route('products.index');
         } catch (\exception $e) {
@@ -74,8 +74,8 @@ class ProductController extends Controller
     public function show(string $id)
     {
         $this->authorize('view', Product::class);
-        $products = $this->productService->find($id);
-        $productshow = Product::findOrFail($id);
+        $productshow = $this->productService->find($id);
+        // $productshow = Product::findOrFail($id);
         $param = [
             'productshow' => $productshow,
         ];

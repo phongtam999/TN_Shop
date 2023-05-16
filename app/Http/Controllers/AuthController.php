@@ -28,7 +28,7 @@ class AuthController extends Controller
     {
        
         $messages = [
-            "email.exists" => "Email không đúng",
+            "email.exists" => "Email không đúng định dạng",
             "password.exists" => "Mật khẩu không đúng",
         ];
         $validator = Validator::make($request->all(), [
