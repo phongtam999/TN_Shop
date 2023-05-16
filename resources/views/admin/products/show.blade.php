@@ -73,11 +73,11 @@
                                 </tr>
                                 <tr>
                                     <td>Số lượng:</td>
-                                    <td>{{ $productshow->amount}} Chiếc</td>
+                                    <td>{{ $productshow->amount}} Sản phẩm</td>
                                 </tr>
                                 <tr>
                                     <td>Giá tiền:</td>
-                                    <td>{{ number_format($productshow->price)}} VND</td>
+                                    <td>{{ number_format($productshow->price)}} VNĐ </td>
                                 </tr>
                                 <tr>
                                     <td>Mô tả:</td>
@@ -97,7 +97,7 @@
                                 <td>
                                     <div style="margin-top: 24px; text-align: center;">
                                         <img src="{{ asset($productshow->image) }}" id="main_product_image" style="float: left;">
-                                    </div>
+ </div>
                                     
             </td>
             </tr>
