@@ -16,16 +16,8 @@ class OrderRepository extends EloquentRepository implements OrderRepositoryInter
         $orders = $this->model->select('*');
         return $orders->orderBy('id', 'DESC')->paginate(5);
     }
-    public function paginate($request)
-    {
-        $result = $this->model->paginate();
-        return $result;
-    }
-
     public function find($id){
         return $this->model->findOrFail($id);
     }
-    public function search($data){
-        return $this->model->search($data);
-    }
+  
 }

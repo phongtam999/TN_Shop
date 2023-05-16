@@ -21,8 +21,6 @@ class OrderService implements OrderServiceInterface
     public function all($request)
     {
         return $this->orderRepository->all($request);
-        // $orders = $this->model->select('*');
-        // return $orders->orderBy('id', 'DESC')->paginate(5);
     }
     public function paginate($request){
         return $this->orderRepository->paginate($request);
@@ -41,8 +39,5 @@ class OrderService implements OrderServiceInterface
     public function destroy($id){
         return $this->orderRepository->destroy($id);
     }
-    public function search($data){
-        return $this->model->search($data);
-    }
-  
+   
 }
