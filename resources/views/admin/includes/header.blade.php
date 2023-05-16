@@ -12,19 +12,19 @@
                 <li class="icons dropdown">
                     <div class="user-img c-pointer position-relative" data-toggle="dropdown">
                         <span class="activity active"></span>
-                        <img src="{{asset('assets/images/user/1.png')}}" height="40" width="40" alt="">
+                        <img src="{{asset(Auth()->user()->image)}}" height="40" width="40" alt="">
                     </div>
                     <div class="drop-down dropdown-profile   dropdown-menu">
                         <div class="dropdown-content-body">
                             <ul>
                                 <li>
-                                    <a href="app-profile.html"><i class="icon-user"></i>
-                                        <span>Profile</span></a>
+                                    <a href="{{route('users.profile')}}"><i class="icon-user"></i>
+                                        <span>Thông Tin </span></a>
                                 </li>
                                 <li>
-                                    <a href="{{route('login')}}"><i class="icon-key"></i> <span>Đăng Nhập</span></a>
+                                    <a href="{{route('login')}}"><i class="ti-lock"></i> <span>Đăng Nhập</span></a>
                                 </li>
-                                <li><a href="{{route('logout')}}"><i class="icon-key"></i> <span>Đăng Xuất</span></a>
+                                <li><a href="{{route('logout')}}"><i class="ti-unlock"></i> <span>Đăng Xuất</span></a>
                                 </li>
                             </ul>
                         </div>

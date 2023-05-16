@@ -71,7 +71,7 @@
                         
                     </ul>
                     <hr>
-                    <a href="{{ route('users.index') }}" class="btn btn-primary">Quay Lại</a>
+                    <a href="{{ route('users.index') }}" class="btn btn-primary">Trở Lại</a>
                 </div>
             </div>
 
@@ -91,12 +91,8 @@
                                     </div> <!-- Thêm dấu ">" vào đây -->
                                     <div class="col-sm-9">
                                         <b>{{ $user->name }}</b> <br>
-                                        <a href="https://www.facebook.com/amdmasdkakd2312313" target="_blank" style="color: red; text-decoration: underline; font-size: 20px;">Facebook Links</a>
                                     </div>
                                     <div class="col-sm-12">
-                                       
-
-
                                     </div>
                                     
                                 </div>
