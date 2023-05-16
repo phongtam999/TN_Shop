@@ -11295,7 +11295,10 @@ table.dataTable thead .sorting::after {
     background: #008abd;
     color: #fff;
     border-color: #008abd; }
-
+    
+    a#\34 {
+      color: white;
+  }
 .btn-quora {
   background: #aa2200;
   border-color: #aa2200;

@@ -59,7 +59,7 @@ Route::resource('products', ProductController::class);
 
 
 // Đây là phần User
-Route::get('users/profile', [UserController::class, 'show'])->name('users.profile');
+Route::get('users/profile', [UserController::class, 'profile'])->name('users.profile');
 Route::get('users/search', [UserController::class, 'search'])->name('users.search');
 Route::resource('users', UserController::class);
 // Đây là phần Group

@@ -30,7 +30,7 @@ class StoreGroupRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Không được để trống!',
+            'name.required' => 'Tên nhóm quyền không được để trống!',
         ];
 }
 }

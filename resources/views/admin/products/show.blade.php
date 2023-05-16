@@ -99,15 +99,15 @@
                                         <img src="{{ asset($productshow->image) }}" id="main_product_image" style="float: left;">
                                     </div>
                                     
-                                </td>
-                                </tr>
-                                </tbody>
-                                </table>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                
-                                </div>
-                                @endsection
+            </td>
+            </tr>
+            </tbody>
+            </table>
+            </div>
+            </div>
+            </div>
+            </div>
+</div>
+
+</div>
+@endsection
