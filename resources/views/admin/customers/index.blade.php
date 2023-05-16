@@ -19,22 +19,18 @@
             <div class="col-lg-12 grid-margin stretch-card">
                                 <div class="card">
                                     <div class="card-header">
-                                        <form  class="navbar-form navbar-left" action="{{route('customers.index')}}" method="GET">               
+                                        <form action="" method="get">                   
                                             <div class="row">
                                                 <div class="col">
-                                                    <input type="text" placeholder="Nhập ID" class="form-control form-control-sm" value = "{{request()->id}}"name = "id">
+                                                    <input type="text" placeholder="Nhập ID" class="form-control" value="{{ request()->id }}" name="id">
                                                 </div>
                                                 <div class="col">
-                                                    <input type="text" placeholder="Nhập tên" class="form-control form-control-sm" value="{{request()->name}}"name = "name">
+                                                    <input type="text" placeholder="Nhập tên" class="form-control" value="{{ request()->name }}" name="name">
                                                 </div>
-                                                                                           
-                                                {{-- <div class="col">
-                                                    <button type="button" class="btn btn-info"> Tìm </button>
-                                                </div> --}}
-                                                <button class="btn btn-primary" data-toggle="collapse"
-                                                data-target="#collapseExample" >
-                                                Tìm kiếm 
-                                            </button>
+                                                <div class="col">
+                                                    <button type="submit" class="btn btn-info"> Tìm </button>
+                                                    <a href="{{ route('customers.index') }}" type="submit" class="btn btn-secondary">Đặt lại</a>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>                

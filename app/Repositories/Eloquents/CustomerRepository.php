@@ -21,25 +21,15 @@ class CustomerRepository extends EloquentRepository implements CustomerRepositor
 
     public function all($request)
     {
-        $query = $this->model->select('*')->orderBy('id', 'DESC');
-        $query->orderBy('id', 'DESC');
-        // $query =  $this->model->query(true);
-        // $query->orderBy('id', 'DESC');
-        // $query = Customer::query(true);
-        // $query->orderBy('id', 'DESC');
-        // if (!empty($orderby)) {
-        //     $query->orderBy('id', $orderby);
-        // }
-        if (!empty($name)) {
-            $query->where('name', 'like', '%' . $name . '%');
+        $query = $this->model->select('*');
+        if ( $request->name ) {
+            $query->where('name','like','%'.$request->name.'%');
         }
-        if ($request->search) {
-            $search = $request->search;
-            $query->where('name', 'LIKE', '%'.$search.'%');
+        if ( $request->id ) {
+            $query->where('id',$request->id);
         }
-        return $query->paginate(5); 
-
-}
+        return $query->orderBy('id','DESC')->paginate(5);
+    }
 
 public function store($request)
 {
