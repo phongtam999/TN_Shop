@@ -143,10 +143,7 @@
             </svg>
         </div>
     </div>
-    <!--*******************
         Preloader end
-    ********************-->
-
     <!-- admin.Auth.login.blade.php -->
 
 <div class="login-form-bg h-100">
@@ -183,7 +180,6 @@
                             <p class="mt-5 login-form__footer">
                                 <a href="page-register.html" class="text-primary">Bạn quên mật khẩu ư?</a>
                             </p>
-                            
                         </div>
                     </div>
                 </div>
@@ -191,10 +187,7 @@
         </div>
     </div>
 </div>
-
-    <!--**********************************
-        Scripts
-    ***********************************-->
+{{-- Scripts --}}
     <script src="{{ asset('assets/plugins/common/common.min.js')}}"></script>
     <script src="{{ asset('assets/js/custom.min.js')}}"></script>
     <script src="{{ asset('assets/js/settings.js')}}"></script>

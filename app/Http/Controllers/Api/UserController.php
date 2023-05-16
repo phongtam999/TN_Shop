@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ProductResource;
-use App\Services\Interfaces\ProductServiceInterface;
+use App\Http\Resources\UserResource;
+use App\Services\Interfaces\UserServiceInterface;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class UserController extends Controller
 {
-    protected $productService;
+    protected $userService;
     public function __construct(
-        ProductServiceInterface $productService
+        UserServiceInterface $userService
         )
     {
-        $this->productService = $productService;
+        $this->userService = $userService;
     }
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $items = $this->productService->all($request);
-        return ProductResource::collection($items);
+        $items = $this->userService->all($request);
+        return UserResource::collection($items);
     }
 
     /**
@@ -29,7 +29,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $this->productService->store($request);
+        $this->userService->store($request);
         response()->json([
             'success' => true,
         ]);
@@ -47,8 +47,8 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        $item = $this->productService->find($id);
-        return new ProductResource($item);
+        $item = $this->userService->find($id);
+        return new UserResource($item);
     }
 
     /**
@@ -56,7 +56,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $this->productService->update($request, $id);
+        $this->userService->update($request, $id);
         response()->json([
             'success' => true,
         ]);
@@ -67,7 +67,7 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        $this->productService->destroy($id);
+        $this->userService->destroy($id);
         response()->json([
             'success' => true,
         ]);

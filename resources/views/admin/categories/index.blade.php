@@ -23,26 +23,20 @@
                             <div class="row mb-2">
                                 <div class="col">
                                     <a href="{{route('categories.create')}}" class="btn btn-primary"> Thêm mới </a>
-                                    <button type="{{route('categories.export')}}" class="btn btn-success "> Xuất execl </button>
+                                    {{-- <button type="{{route('categories.export')}}" class="btn btn-success "> Xuất execl </button> --}}
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col">
-                                    <input type="text" placeholder="Nhập ID" class="form-control form-control-sm">
+                                    <input type="text" placeholder="Nhập ID" class="form-control" value="{{ request()->id }}" name="id">
                                 </div>
                                 <div class="col">
-                                    <input type="text" placeholder="Nhập tên" class="form-control form-control-sm">
+                                    <input type="text" placeholder="Nhập tên" class="form-control" value="{{ request()->name }}" name="name">
                                 </div>
                                 <div class="col">
-                                    <select class="form-control form-control-sm">
-                                        <option value="">Tất cả danh mục</option>
-                                        <option value="">Cá</option>
-                                    </select>
-                                </div>
-                                <div class="col">
-                                    <button type="button" class="btn btn-info"> Tìm </button>
-                                    <button type="button" class="btn btn-secondary "> Đặt lại</button>
+                                    <button type="submit" class="btn btn-info"> Tìm </button>
+                                    <a href="{{ route('categories.index') }}" type="submit" class="btn btn-secondary">Đặt lại</a>
                                 </div>
                             </div>
                         </form>
