@@ -31,13 +31,14 @@ class CategoryRepository extends EloquentRepository implements CategoryRepositor
 
     public function all($request)
     {
-        $query = $this->model->select('*')->orderBy('id', 'DESC');
-        if ($request->search) {
-            $search = $request->search;
-            $query->where('name', 'LIKE', '%'.$search.'%');
-            $query->orWhere('id', 'LIKE', '%'.$search.'%');
+        $query = $this->model->select('*');
+        if ( $request->name ) {
+            $query->where('name','like','%'.$request->name.'%');
         }
-        return $query->paginate(5);
+        if ( $request->id ) {
+            $query->where('id',$request->id);
+        }
+        return $query->orderBy('id','DESC')->paginate(5);
     }
     public function find($id,$withTrashes = false)
     {
