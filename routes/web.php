@@ -21,7 +21,7 @@ use App\Http\Controllers\GroupController;
 |
 */
 Route::get('/dasboard', function () {
-    return view('admin.layouts.master');
+    return view('admin.includes.main');
 })->name('dashboard');;
 //login
 
