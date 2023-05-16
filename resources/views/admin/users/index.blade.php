@@ -8,6 +8,9 @@
     a#\34 {
         color: white;
     }
+    a#\31 {
+        color: white;
+    }
 
    .btn-group {
         flex-wrap: nowrap;
@@ -41,6 +44,11 @@
 a#\35 {
     color: white;
 }
+
+a#\32 {
+    color: white;
+}
+
 </style>
 
 <div class="row page-titles mx-0">

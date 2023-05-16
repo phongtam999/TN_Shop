@@ -4,7 +4,7 @@
 @include('sweetalert::alert')
     <div class="row page-titles mx-0">
         <div class="col p-md-0">
-            <h3 class="page-title text-uppercase">Quản lý sản phẩm</h3>
+            <h3 class="page-title text">Thùng rác</h3>
         </div>
         <div class="col p-md-0">
             <ol class="breadcrumb">
@@ -23,7 +23,7 @@
                             <div class="row mb-2">
                                 
                             </div>
-                            <a href="{{ route('categories.index') }}" class="btn btn-info">Trở Lại </a> <br>                            
+                            <a href="{{ route('categories.index') }}" class="btn btn-info">Trở lại </a> <br>                            
                         </form>
                     </div>
                     <div class="card-body">
@@ -31,9 +31,9 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">STT</th>
-                                        <th scope="col">Tên Danh Mục</th>
-                                        <th>Hành Động</th>
+                                        <th scope="col">Stt</th>
+                                        <th scope="col">Tên danh mục</th>
+                                        <th>Hành động</th>
                                     </tr>
                                 </thead>
                                 <tbody>  

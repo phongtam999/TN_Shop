@@ -5,7 +5,7 @@
 
 <div class="row page-titles mx-0">
   <div class="col p-md-0">
-      <h3 class="page-title text-uppercase">Thêm Mới Danh Mục</h3>
+      <h3 class="page-title text">Thêm mới danh mục</h3>
   </div>
   <div class="col p-md-0">
       <ol class="breadcrumb">
@@ -22,7 +22,7 @@
                   <form class="forms-sample" class="row g-3" action="{{route('categories.store')}}" method = 'POST'>
                     @csrf
                         <div class="form-group">
-                            <label for="exampleInputName1">Tên Danh Mục</label>
+                            <label for="exampleInputName1">Tên danh mục</label>
                             <input type="text" class="form-control" name="name"
                                 placeholder="...">
                               @error('name')
@@ -30,7 +30,7 @@
                               @enderror
                         </div class="form-group">
                       <button class="btn btn-primary mr-2" type="submit">Thêm</button>
-                       <a href="{{ route('categories.index')}}" class="btn btn-light">Huỷ Bỏ</a>
+                       <a href="{{ route('categories.index')}}" class="btn btn-light">Huỷ bỏ</a>
                   </form>
               </div>      
       </div>
