@@ -23,7 +23,6 @@ class ProductController extends Controller
         $items = $this->productService->all($request);
         return ProductResource::collection($items);
     }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -47,6 +46,7 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
+
         $item = $this->productService->find($id);
         return new ProductResource($item);
     }

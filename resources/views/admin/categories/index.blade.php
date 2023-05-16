@@ -4,7 +4,7 @@
 @include('sweetalert::alert')
     <div class="row page-titles mx-0">
         <div class="col p-md-0">
-            <h3 class="page-title text-uppercase">Quản lý danh mục</h3>
+            <h3 class="page-title text">Quản lý danh mục</h3>
         </div>
         <div class="col p-md-0">
             <ol class="breadcrumb">

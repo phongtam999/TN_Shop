@@ -7,7 +7,8 @@
                 <div class="container">
                     <main id="main" class="main">
                         <div class="pagetitle">
-                            <h1 class="page-title text-uppercase">Chi tiết đơn hàng</h1>
+                            <h1 class="page-title text">Chi tiết đơn hàng</h1>
+
                             <a class="btn btn-primary" href="{{ route('orders.index') }}">Đơn hàng</a>
                         </div>
                         <table class="table table-bordered">
@@ -17,7 +18,7 @@
                                     <th scope="col">Tên Sản Phẩm</th>
                                     <th scope="col">Giá(Đồng)</th>
                                     <th scope="col">Số lượng</th>
-                                    <th scope="col">Tổng Tiền(Đồng)</th>
+                                    <th scope="col">Tổng tiền(Đồng)</th>
                                 </tr>
                             </thead>
                             <tbody>
