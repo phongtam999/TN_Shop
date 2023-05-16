@@ -6,7 +6,7 @@
 @include('sweetalert::alert')
     <div class="row page-titles mx-0">
         <div class="col p-md-0">
-            <h3 class="page-title text-uppercase">Danh sách đơn hàng</h3>
+            <h3 class="page-title text">Danh sách đơn hàng</h3>
         </div>
         <div class="col p-md-0">
             <ol class="breadcrumb">
@@ -26,10 +26,10 @@
                                 <thead>
                                     <tr>
                             <th scope="col">STT</th>
-                           <th scope="col">Tên Khách Hàng</th>
-                           <th scope="col">Địa Chỉ</th>
+                           <th scope="col">Tên khách hàng</th>
+                           <th scope="col">Địa chỉ</th>
                            <th scope="col">SĐT </th>
-                           <th scope="col">Tùy Chọn</th>
+                           <th scope="col">Tùy chọn</th>
                                     </tr>
                                 </thead>
                                 <tbody>  

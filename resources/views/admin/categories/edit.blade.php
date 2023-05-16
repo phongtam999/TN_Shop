@@ -32,7 +32,7 @@
                         </div>           
                       <div class="form-group">
                         <button class="btn btn-primary mr-2" type="submit">Cập nhật</button>
-                        <a href="{{ route('categories.index') }}" class="btn btn-light">Hủy</a>
+                        <a href="{{ route('categories.index') }}" class="btn btn-light">Hủy bỏ</a>
                       </div>
                     </form>
                 </div>
