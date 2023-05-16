@@ -6,7 +6,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\AuthController;
-
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\GroupController;
 
@@ -21,23 +20,21 @@ use App\Http\Controllers\GroupController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/dasboard', function () {
     return view('admin.includes.main');
 })->name('dashboard');;
 //login
+
 // Route::prefix('/')->middleware(['auth', 'preventBackHistory'])->group(function () {
 Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/checkLogin', [AuthController::class, 'postLogin'])->name('checkLogin');
 Route::post('/postlogin', [AuthController::class, 'postlogin'])->name('postlogin');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-
 // quên mật khẩu gửi đến mail
 Route::get('/forgot_password', [AuthController::class, 'forgot_password'])->name('forgot_password');
 Route::post('/post_forgot_password', [AuthController::class, 'post_forgot_password'])->name('post_forgot_password');
+
+Route::prefix('/')->middleware(['auth', 'PreventBackHistory'])->group(function () {
 
 //Đây là phần categories
   // thùng rác 
@@ -50,17 +47,19 @@ Route::get('categories/xuatexcel', [CategoryController::class, 'exportExcel'])->
 Route::resource('categories', CategoryController::class);
 
 // Đây là phần Product
+
 Route::get('products/search', [ProductController::class, 'search'])->name('products.search');
 Route::get('products/trash', [ProductController::class, 'getTrashed'])->name('products.trash');
-  // khôi phục 
-  Route::get('products/restore/{id}', [ProductController::class, 'restore'])->name('products.restore');
-  // xóa vĩnh viễn 
-  Route::get('products/deleteforever/{id}', [ProductController::class, 'deleteforever'])->name('products.deleteforever');
+// khôi phục 
+Route::get('products/restore/{id}', [ProductController::class, 'restore'])->name('products.restore');
+// xóa vĩnh viễn 
+Route::get('products/deleteforever/{id}', [ProductController::class, 'deleteforever'])->name('products.deleteforever');
 Route::get('products/xuatexcel', [ProductController::class, 'exportExcel'])->name('products.export');
 Route::resource('products', ProductController::class);
 
+
 // Đây là phần User
-Route::get('users/profile', [UserController::class, 'show'])->name('users.profile');
+Route::get('users/profile', [UserController::class, 'profile'])->name('users.profile');
 Route::get('users/search', [UserController::class, 'search'])->name('users.search');
 Route::resource('users', UserController::class);
 // Đây là phần Group
@@ -75,5 +74,5 @@ Route::resource('customers', CustomerController::class);
 Route::get('orders/search', [OrderController::class, 'search'])->name('orders.search');
 Route::get('orders/xuat', [OrderController::class, 'exportOrder'])->name('orders.xuat');
 Route::resource('orders', OrderController::class);
-// });
+});
 

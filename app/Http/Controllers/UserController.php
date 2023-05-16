@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Group;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use App\Services\Interfaces\UserServiceInterface;
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\StoreUserRequest; // Thêm use statement này
 
@@ -103,7 +106,7 @@ class UserController extends Controller
 
     public function show(string $id)
     {
-        // $this->authorize('view', User::class);
+        $this->authorize('view', User::class);
         $user = $this->userService->find($id);
         $param = [
             'user' => $user,
@@ -112,21 +115,22 @@ class UserController extends Controller
         return view('admin.users.profile', $param);
     }
 
-    // public function profile(string $id)
-    // {
-    //     // $this->authorize('view', User::class);
-    //     $user = $this->userService->find($id);
-    //     $param = [
-    //         'user' => $user,
-    //     ];
+    public function profile()
+    {
+        // $this->authorize('view', User::class);
+        $userId = Auth::id();
+        $user = $this->userService->find($userId);
+        $param = [
+            'user' => $user,
+        ];
 
-    //     return view('admin.users.profile', $param);
-    // }
+        return view('admin.users.profile', $param);
+    }
 
 
     public function edit(string $id)
     {
-        // $this->authorize('view', User::class);
+        $this->authorize('view', User::class);
         $user = $this->userService->find($id);
         $groups = Group::get();
         $param = [
@@ -137,16 +141,20 @@ class UserController extends Controller
         return view('admin.users.edit', $param);
     }
 
-    public function update(Request $request, string $id)
+    public function update(UpdateUserRequest $request, $id)
     {
         try {
             $this->userService->update($request, $id);
             toast('Cập nhật Nhân Viên Thành Công!', 'success', 'top-right');
             return redirect()->route('users.index');
-        } catch (\exception $e) {
+
+            // logic after update
+        } catch (\Exception $e) {
+            //logic handle error
             Log::error($e->getMessage());
             toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
             return redirect()->route('users.index');
+
         }
 
    
@@ -156,7 +164,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        // $this->authorize('delete', User::class);
+        $this->authorize('delete', User::class);
         try {
             $this->userService->destroy($id);
             toast('Xóa Nhân Viên Thành Công!', 'success', 'top-right');
@@ -169,12 +177,24 @@ class UserController extends Controller
 
     }
 
-    public function search(Request $request){
-        $search = $request->input('search');
-        if(!$search){
-            return redirect()->route('users.index');
+    public function search(Request $request)
+    {
+        $id = $request->input('id');
+        $name = $request->input('name');
+    
+        $users = User::query();
+    
+        if ($id) {
+            $users->where('id', $id);
         }
-        $users = User::where('name','LIKE','%'.$search.'%')->paginate(2);
-        return view('admin.users.index',compact('users'));
-      }
+    
+        if ($name) {
+            $users->where('name', 'like', "%$name%");
+        }
+    
+        $users = $users->paginate(10);
+    
+        return view('admin.users.index', compact('users'));
+    }
+    
 }

@@ -127,6 +127,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     public function search($keyword)
     {
         return User::where('name', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('id', 'LIKE', '%' . $keyword . '%')
             ->orWhere('phone', 'LIKE', '%' . $keyword . '%')
             ->orWhere('address', 'LIKE', '%' . $keyword . '%')
             ->paginate(10);

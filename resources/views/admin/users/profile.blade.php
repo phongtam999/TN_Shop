@@ -58,7 +58,7 @@
                         <img src="{{ asset($user->image) }}" id="avtshow" alt="Avatar">
                     </a>
                     <div class="captn">
-                        {{-- <h4>Xem Avt</h4> --}}
+                        <h4>Xem Avt</h4>
                     </div>
                 </div>
                 <div class="panel-body">
@@ -71,7 +71,7 @@
                         
                     </ul>
                     <hr>
-                    <a href="{{ route('users.index') }}" class="btn btn-primary">Quay Lại</a>
+                    <a href="{{ route('users.index') }}" class="btn btn-primary">Trở Lại</a>
                 </div>
             </div>
 
@@ -91,12 +91,8 @@
                                     </div> <!-- Thêm dấu ">" vào đây -->
                                     <div class="col-sm-9">
                                         <b>{{ $user->name }}</b> <br>
-                                        <a href="https://www.facebook.com/amdmasdkakd2312313" target="_blank" style="color: red; text-decoration: underline; font-size: 20px;">Facebook Links</a>
                                     </div>
                                     <div class="col-sm-12">
-                                       
-
-
                                     </div>
                                     
                                 </div>
@@ -153,7 +149,7 @@
                         <p class="text-danger"><i class="bi bi-x-circle"></i></p>
                         <div class="row">
                             <div class="col-sm-3">
-                                <h5>Mã số {{ $user->group->name }}</h5>
+                                {{-- <h5>Mã số {{ $user->group->name }}</h5> --}}
                             </div>
                             <div class="col-sm-9">
                                 <h3>#0068{{ $user->id }}</h3>

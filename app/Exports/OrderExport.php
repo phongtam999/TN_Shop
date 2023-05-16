@@ -22,3 +22,4 @@ public function headings() :array
     return ["Tên Sản Phẩm","Địa Chỉ", "SĐT","Ngày mua"];
 }
 }
+

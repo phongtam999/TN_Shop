@@ -22,41 +22,88 @@ class ProductRepository extends EloquentRepository implements ProductRepositoryI
 
     public function all($request)
     {
-        return Product::orderBy('id', 'DESC')->paginate(2);
+        $query = $this->model->select('*')->orderBy('id', 'DESC');
+        if ($request->search) {
+            $search = $request->search;
+            $query->where('name', 'LIKE', '%'.$search.'%');
+            $query->orWhere('id', 'LIKE', '%'.$search.'%');
+        }
+        return $query->paginate(2);
     }
 
-    public function find($id)
+    public function find($id,$withTrashes = false)
     {
-        return Product::find($id);
-    }
-
-    public function store($data)
-    {
-        $product = new Product();
-        $product->name = $data['name'];
-        $product->amount = $data['amount'];
-        $product->price = $data['price'];
-        $product->description = $data['description']; 
-        $product->image = $data['image'];// Thêm dòng này để cung cấp giá trị cho trường description
-        $product->save();
-    
+        $query = $this->model->query(true);
+        if($withTrashes){
+            $query->withTrashed();
+        }
+        $product =  $query->find($id);
         return $product;
     }
-    
 
+    public function store($request)
+    {
+        $product = new $this->model;
+        $product->name = $request->name;
+        $product->amount = $request->amount;
+        $product->price = $request->price;
+        $product->description = $request->description; 
+        $product->category_id = $request->category_id; 
+        $fieldName = 'image';
+        if ($request->hasFile($fieldName)) {
+            $fullFileNameOrigin = $request->file($fieldName)->getClientOriginalName();
+            $fileNameOrigin = pathinfo($fullFileNameOrigin, PATHINFO_FILENAME);
+            $extenshion = $request->file($fieldName)->getClientOriginalExtension();
+            $fileName = $fileNameOrigin . '-' . rand() . '_' . time() . '.' . $extenshion;
+            $path = 'storage/' . $request->file($fieldName)->storeAs('public/assets/images/user', $fileName);
+            $path = str_replace('public/', '', $path);
+            $product->image = $path;
+        }
+        return $product->save();
+    }
+    
+    // public function store($data)
+    // {
+    //     $product = new Product();
+    //     $product->name = $data['name'];
+    //     $product->amount = $data['amount'];
+    //     $product->price = $data['price'];
+    //     $product->description = $data['description']; 
+    //     $product->image = $data['image'];// Thêm dòng này để cung cấp giá trị cho trường description
+    //     $product->save();
+    
+    //     return $product;
+    // }
+    
     public function update($request, $id)
     {
-        $product = Product::find($id);
-        $product->name = $request->input('name');
-        $product->save();
-
-        return $product;
+        $product = new $this->model;
+        $product->name = $request->name;
+        $product->amount = $request->amount;
+        $product->price = $request->price;
+        $product->description = $request->description; 
+        $product->category_id = $request->category_id; 
+        $fieldName = 'image';
+        if ($request->hasFile($fieldName)) {
+            $fullFileNameOrigin = $request->file($fieldName)->getClientOriginalName();
+            $fileNameOrigin = pathinfo($fullFileNameOrigin, PATHINFO_FILENAME);
+            $extenshion = $request->file($fieldName)->getClientOriginalExtension();
+            $fileName = $fileNameOrigin . '-' . rand() . '_' . time() . '.' . $extenshion;
+            $path = 'storage/' . $request->file($fieldName)->storeAs('public/images', $fileName);
+            $path = str_replace('public/', '', $path);
+            $product->image = $path;
+        }
+        return $product->save();
     }
+  
 
     public function getTrashed()
-{
-    return $this->model->onlyTrashed()->orderBy('id', 'desc')->paginate(5);
-}
+    {
+        $query = $this->model->onlyTrashed(); // Khởi tạo biến $query với danh sách các bản ghi đã xóa
+        $query->orderBy('id', 'desc'); // Sắp xếp theo ID giảm dần
+        $product = $query->paginate(5); // Phân trang kết quả
+        return $product; // Trả về danh sách thể loại đã xóa
+    }
 
 
     public function restore($id)
@@ -68,6 +115,9 @@ class ProductRepository extends EloquentRepository implements ProductRepositoryI
     public function deleteforever($id)
     {
         $product = $this->model->onlyTrashed()->findOrFail($id);
-        return $product->forceDelete();
+        return $product->deleteforever();
+    }
+    public function search($data){
+        return $this->model->search($data);
     }
 }

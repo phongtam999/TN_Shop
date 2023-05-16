@@ -33,9 +33,6 @@ class CustomerService implements CustomerServiceInterface
     public function destroy($id){
         return $this->customerRepository->destroy($id);
     }
-    // public function create($data){
-    //     return $this->repository->create($data);
-    // }
     public function search($data){
         return $this->repository->search($data);
     }

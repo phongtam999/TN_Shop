@@ -30,6 +30,10 @@ class GroupsSeeder extends Seeder
                 'name' => 'Nhân Viên',
 
             ],
+            [
+                'name' => 'Bảo vệ',
+
+            ],
 
         ]);
     }

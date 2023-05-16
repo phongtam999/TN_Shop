@@ -1415,6 +1415,9 @@ pre {
   -ms-overflow-style: -ms-autohiding-scrollbar; }
   .table-responsive > .table-bordered {
     border: 0; }
+    a.btn.btn-warning , .btn.btn-success{
+      color: white;
+  }
 
 .form-control {
   display: block;
@@ -1532,6 +1535,9 @@ textarea.form-control {
   position: relative;
   display: block;
   padding-left: 1.25rem; }
+  .text.text-danger {
+    color: red;
+}
 
 .form-check-input {
   position: absolute;
@@ -4852,9 +4858,6 @@ button.bg-dark:focus {
 .justify-content-end {
   justify-content: flex-end !important; }
 
-.justify-content-center {
-  justify-content: center !important; }
-
 .justify-content-between {
   justify-content: space-between !important; }
 
@@ -6696,8 +6699,7 @@ a.text-info:hover, a.text-info:focus {
 a.text-warning:hover, a.text-warning:focus {
   color: #ee8227 !important; }
 
-.text-danger {
-  color: #ff5e5e !important; }
+
 
 a.text-danger:hover, a.text-danger:focus {
   color: #ff2b2b !important; }
@@ -11293,7 +11295,10 @@ table.dataTable thead .sorting::after {
     background: #008abd;
     color: #fff;
     border-color: #008abd; }
-
+    
+    a#\34 {
+      color: white;
+  }
 .btn-quora {
   background: #aa2200;
   border-color: #aa2200;

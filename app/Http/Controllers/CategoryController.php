@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Services\Interfaces\CategoryServiceInterface;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -22,17 +24,14 @@ class CategoryController extends Controller
     {
         // $this->authorize('viewAny', Category::class);
         $categories = $this->categoryService->all($request);
-        $categories = Category::paginate(5);
-        return view('admin.categories.index', compact('categories'));
+        return view('admin.categories.index', compact('categories','request'));
     }
 
   
     public function create( Request $request)
     {
-        $this->authorize('create', Category::class);
-        $this->categoryService->store($request);
-        $categories = Category::all();
-        return view('admin.categories.create',compact('categories'));
+        // $this->authorize('create', Category::class);
+        return view('admin.categories.create');
 
     }
 
@@ -43,10 +42,7 @@ class CategoryController extends Controller
     {
      
         $this->categoryService->store($request);
-        $categories = new Category();
-        $categories->name = $request->name;
-        $categories->save();
-        alert()->success('Thêm thương hiệu thành công!');
+        toast('Thêm danh mục thành công!', 'success', 'top-right');
         return redirect()->route('categories.index');
     }
 
@@ -57,49 +53,42 @@ class CategoryController extends Controller
 
     public function edit(string $id)
     {
-        $this->authorize('update', Category::class);
         $item = $this->categoryService->find($id);
-        $categories = Category::find($id);
-        return view('admin.categories.edit',compact('categories'));
+        // $this->authorize('update',$item);
+        return view('admin.categories.edit',compact('item'));
     }
 
     public function update(UpdateCategoryRequest $request,$id)
     {
         $this->categoryService->update($request, $id);
-        $categories = Category::find($id);
-        $categories->name = $request->name;
-        $categories->save();
-        alert()->success('Cập nhật thương hiệu thành công!');
-
+        toast('Cập nhật danh mục thành công!', 'success', 'top-right');
         return redirect()->route('categories.index');
     }
 
     public function destroy(string $id)
     {
-        $this->authorize('delete', Category::class);
-        $category = Category::find($id);
-        if (!$category) {
-            return redirect()->back()->with('error', 'Không tìm thấy thương hiệu!');
-        }
+        $category = $this->categoryService->find($id);
+        // $this->authorize('delete', $category);
+        // if (!$category) {
+        //     return redirect()->back()->with('error', 'Không tìm thấy danh mục');
+        // }
         $this->categoryService->destroy($id);
-        $category->delete();
-        alert()->success('Thương hiệu đã được di chuyển vào thùng rác!');
+        toast('Danh mục đã di chuyển vào thùng rác!', 'success', 'top-right');
         return redirect()->route('categories.index');
     }
     public function trash()
     {
-        $categories = $this->categoryService->getTrashed();
-        $softs = Category::onlyTrashed()->get();
+        $softs = $this->categoryService->getTrashed();
         return view('admin.categories.trash', compact('softs'));
     }
     public function restore($id)
     {
-        $this->authorize('restore',Category::class);
+        $category = $this->categoryService->find($id, true);
+        // dd($category);
+        // $this->authorize('restore', $category);
         try {
             $this->categoryService->restore($id);
-            $softs = Category::withTrashed()->find($id);
-            $softs->restore();
-            alert()->success('Khôi Phục Thể Loại Thành Công!');
+            toast('Khôi Phục Danh Mục Thành Công!', 'success', 'top-right');
             return redirect()->route('categories.index');
         } catch (\exception $e) {
             Log::error($e->getMessage());
@@ -109,11 +98,12 @@ class CategoryController extends Controller
     }
     public function deleteforever($id)
 {
+    $category = $this->categoryService->find($id,true);
+    // $this->authorize('deleteforever', $category);
     try {
-        $category = Category::withTrashed()->find($id);
-        if ($category->trashed()) {
+        if ($category) {
             $category->forceDelete();
-            alert()->success('Xóa Vĩnh Viễn Thành Công!');
+            toast('Xóa Vĩnh Viễn Danh Mục Thành Công!', 'success', 'top-right');
         } else {
             alert()->error('Không thể xóa vĩnh viễn bản ghi chưa bị xóa mềm!');
         }
@@ -125,11 +115,12 @@ class CategoryController extends Controller
     }
 }
     public function search(Request $request){
-        $search = $request->input('search');
+        $search = $request->input('name');
         if(!$search){
             return redirect()->route('categories.index');
         }
         $categories = Category::where('name','LIKE','%'.$search.'%')->paginate(5);
         return view('admin.categories.index',compact('categories'));
       }
+      
 }

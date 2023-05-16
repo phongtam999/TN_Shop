@@ -4,199 +4,176 @@
 @include('sweetalert::alert')
 
 <style>
+
+    a#\34 {
+        color: white;
+    }
+
+   .btn-group {
+        flex-wrap: nowrap;
+        justify-content: center;
+    }
+
+    .btn-group .btn {
+        margin: 0 5px;
+    }
+
     img#avt {
         width: 80px;
         height: 80px;
         border-radius: 50%;
         -moz-border-radius: 50%;
         -webkit-border-radius: 50%;
-        
     }
-    .text-center {
-    text-align: center;
-    }
+    
     .text-danger {
-    color: #ff5e5e !important;
-    text-align: right;
+    color: black;
+    left: 50%;
+    right: 50%;
+    position: relative;
 }
     .search-input {
-    width: 250px;
-    
+        width: 250px;
+    }
+    span.white-text , .btn.btn-success {
+    color: white;
 }
+a#\35 {
+    color: white;
+}
+</style>
 
-    </style>
-    
-
-<main class="page-content">
-    <section class="wrapper">
-        <div class="table-agile-info">
-            <div class="panel-panel-default">
-                <header class="page-title-bar">
-                    <div class="row">
-                        <div class="col-md-6 text-center">
-                            <div class="container">
-                                <div class="text-center">
-                                    <h1 class="text-danger">Nhân Sự</h1>
-                                </div>
+<div class="row page-titles mx-0">
+    <div class="col p-md-0">
+        <h2 class="page-title text">Danh sách nhân sự</h2>
+    </div>
+    <div class="col p-md-0">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Home</a></li>
+        </ol>
+    </div>
+</div>
+<!-- row -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-header">
+                    <form action="{{ route('users.search') }}" method="get">
+                        <div class="row mb-2">
+                            <div class="col">
+                                @if (Auth::user()->hasPermission('User_create'))
+                                <a href="{{ route('users.create') }}" class="btn btn-primary">Đăng ký nhân sự</a>
+                                @endif
                             </div>
-                            
-                                <form class="navbar-form" action="{{ route('users.search') }}" method="GET">
-                                    <div class="input-group justify-content-center">
-                                        <input type="text" name="search" class="form-control search-input" placeholder="Search...">
-                                        <div class="input-group-append">
-                                            <button type="submit" class="btn btn-info">Tìm kiếm</button>
-                                        </div>
-                                    </div>
-                                </form>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" name="id" placeholder="Nhập ID" class="form-control form-control-sm">
+                            </div>
+                            <div class="col">
+                                <input type="text" name="name" placeholder="Nhập tên" class="form-control form-control-sm">
+                            </div>
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary btn-xm">Tìm kiếm</button>
                             </div>
                         </div>
                         
-                </header>
-                <hr>
-                <div>
-                    <table class="table" ui-jq="footable"
-                        ui-options='{
-                            "paging": {
-                                "enabled": true
-                            },
-                            "filtering": {
-                                "enabled": true
-                            },
-                            "sorting": {
-                                "enabled": true
-                            }
-                        }'>
-                        <thead>
-                            <tr>
-                                <th data-breakpoints="xs">STT</th>
-                                <th>Ảnh đại diện</th>
-                                <th>Họ và tên</th>
-                                <th>SĐT</th>
-                                <th>Chức vụ</th>
-                                <th data-breakpoints="xs">Tùy Chỉnh</th>
-                            </tr>
-                        </thead>
-                        <tbody id="myTable">
-                            @foreach ($users as $key => $user)
-                            <tr data-expanded="true" class="item-{{ $user->id }}">
-                                <td>{{ ++$key }}</td>
-                                <td><a href=""><img id="avt" src="{{ asset($user->image) }}" alt=""></a></td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->phone }}</td>
-                                <td>
-                                    @if ($user->group)
-                                        {{ $user->group->name }}
-                                    @else
-                                        Chưa có chức vụ
-                                    @endif
-                                </td>
-                                <td>
-                                    <a href="{{ route('users.show', $user->id) }}" class="btn btn-info">Xem</a>
-                                    <style>
-                                        .white-text {
-                                            color: white;
-                                        }
-                                        .green-button {
-                                            background-color: green;
-                                        }
-                                    </style>
-                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning green-button">
-                                        <span class="white-text">Sửa</span>
-                                    </a>
-                                    <a data-href="{{ route('users.destroy', $user->id) }}" id="{{ $user->id }}" class="btn btn-danger delete-button" style="color: white;">Xóa</a>
-                                </td>
-                            </tr>
+                    </form>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">STT</th>
+                                    <th scope="col" style="text-align: left;">Ảnh đại diện</th>
+                                    <th scope="col" style="text-align: left;">Họ và tên</th>
+                                    <th scope="col" style="text-align: left;">SĐT</th>
+                                    <th scope="col" style="text-align: left;">Chức vụ</th>
+                                    <th scope="col" style="text-align: center;">Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="myTable">
+                                @foreach ($users as $key => $user)
+                                <tr>
+                                    <tr data-expanded="true" class="item-{{ $user->id }}">
+                                        <td>{{ ++$key }}</td>
+                                        <td><a href=""><img id="avt" src="{{ asset($user->image) }}" alt=""></a></td>
+                                        <td>{{ $user->name ?? '' }}</td>
+                                        <td>{{ $user->phone }}</td>
+                                        <td>
+                                            @if ($user->group)
+                                                {{ $user->group->name }}
+                                            @else
+                                                Chưa có chức vụ
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <div class="btn-group d-flex justify-content-center" role="group">
+                                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info">Sửa</a>
+                                                <a data-href="{{ route('users.destroy', $user->id) }}" id="{{ $user->id }}" class="btn btn-danger delete-button">Xóa</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tr>
+                            @endforeach
                             
-                        @endforeach
-                        
                             </tbody>
                         </table>
-                        {{ $users->appends(request()->query())->links() }}
                     </div>
                 </div>
+                <div class="card-footer">
+                    <nav class="float-right">
+                        {{ $users->appends(request()->query())->links() }}
+                    </nav>
+                    
+                </div>
             </div>
-        </section>
-    </main>
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
-        {{-- <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js'></script> --}}
-        <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.10.25/datatables.min.js"></script>
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script>
-//       $(document).on('click', '.deleteIcon', function(e) {
-//     e.stopPropagation(); // Ngăn chặn sự kiện xuyên qua
-//     e.preventDefault();
-//     let id = $(this).attr('id');
-//     let href = $(this).data('href');
-//     let csrf = '{{ csrf_token() }}';
-//     console.log(id);
-//     Swal.fire({
-//         title: 'Bạn có chắc không?',
-//         text: "Bạn sẽ không thể hoàn nguyên điều này!",
-//         icon: 'warning',
-//         showCancelButton: true,
-//         confirmButtonColor: '#3085d6',
-//         cancelButtonColor: '#d33',
-//         confirmButtonText: 'Có, xóa!'
-//     }).then((result) => {
-//         if (result.isConfirmed) {
-//             $.ajax({
-//                 url: href,
-//                 method: 'delete',
-//                 data: {
-//                     _token: csrf
-//                 },
-//                 success: function(res) {
-//                     Swal.fire(
-//                         'Deleted!',
-//                         'Tệp của bạn đã bị xóa!',
-//                         'success'
-//                     )
-//                     $('.item-' + id).remove();
-//                 },
-//             });
-//             Swal.fire({
-//                 icon: 'error',
-//                 title: 'Tuổi...?',
-//                 text: ' Supper Admin không thể xóa!',
-//             })
-//         }
-//     })
-// });
-$(document).on('click', '.deleteIcon', function(e) {
-                let id = $(this).attr('id');
-                let href = $(this).data('href');
-                let csrf = '{{ csrf_token() }}';
-                console.log(id);
-                Swal.fire({
-                    title: 'Bạn có chắc không?',
-                    text: "Bạn sẽ không thể hoàn nguyên điều này!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Có, xóa!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: href,
-                            method: 'delete',
-                            data: {
-                                _token: csrf
-                            },
-                            success: function(res) {
-                                Swal.fire(
-                                    'Deleted!',
-                                    'Tệp của bạn đã bị xóa!',
-                                    'success'
-                                )
-                                $('.item-' + id).remove();
-                            }
-                        })
-                        window.location.reload();
+        </div>
+    </div>
+</div>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.10.25/datatables.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).on('click', '.delete-button', function(e) {
+        let id = $(this).attr('id');
+        let href = $(this).data('href');
+        let csrf = '{{ csrf_token() }}';
+        console.log(id);
+        Swal.fire({
+            title: 'Bạn có chắc không?',
+            text: "Bạn sẽ không thể hoàn nguyên điều này!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Có, xóa!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: href,
+                    method: 'delete',
+                    data: {
+                        _token: csrf
+                    },
+                    success: function(res) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Tệp của bạn đã bị xóa!',
+                            'success'
+                        )
+                        $('.item-' + id).remove();
                     }
                 })
-            });
+                window.location.reload();
+            }
+        })
+    });
 </script>
-</section>
-</main>
 @endsection
+
+

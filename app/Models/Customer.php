@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
-    use HasFactory;
-
+  
     // use Notifiable;
     // use HasApiTokens, HasFactory, Notifiable;
     use HasFactory;
