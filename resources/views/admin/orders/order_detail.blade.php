@@ -8,6 +8,7 @@
                     <main id="main" class="main">
                         <div class="pagetitle">
                             <h1 class="page-title text">Chi tiết đơn hàng</h1>
+
                             <a class="btn btn-primary" href="{{ route('orders.index') }}">Đơn hàng</a>
                         </div>
                         <table class="table table-bordered">
