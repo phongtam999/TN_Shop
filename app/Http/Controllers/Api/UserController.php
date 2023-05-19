@@ -40,6 +40,8 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
+        $item = $this->userService->find($id);
+        return new UserResource($item);
     }
 
     /**

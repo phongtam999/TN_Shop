@@ -40,6 +40,8 @@ class GroupController extends Controller
      */
     public function show(string $id)
     {
+        $item = $this->groupService->find($id);
+        return new GroupResource($item);
     }
 
     /**
