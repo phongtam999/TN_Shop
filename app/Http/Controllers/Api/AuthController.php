@@ -81,9 +81,9 @@ class AuthController extends Controller
     {
         return response()->json([
             'status' => 'success',
-            'user' => Auth::user(),
+            'user' => auth('api')->user(),
             'authorisation' => [
-                'token' => Auth::refresh(),
+                'token' => Auth('api')::refresh(),
                 'type' => 'bearer',
             ]
         ]);
