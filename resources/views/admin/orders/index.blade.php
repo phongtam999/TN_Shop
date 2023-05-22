@@ -32,17 +32,19 @@
                            <th scope="col">Tùy chọn</th>
                                     </tr>
                                 </thead>
-                                <tbody>  
+                                <<tbody>
+                                    @foreach ($items as $key => $item)
                                     <tr>
-                                        @foreach ($items as $key=> $item)
-                                        <th scope="row">{{++$key}}</th>
-                                        <td>{{$item->orders->name}}</td>
-                                        <td>{{$item->orders->address}}</td>
-                                        <td>{{$item->orders->phone}}</td>
-                                        <td>                          
+                                        <th scope="row">{{ ++$key }}</th>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->address }}</td>
+                                        <td>{{ $item->phone }}</td>
                                         <td>
-                                             <a href="{{ route('orders.order_detail', $item->id) }}" class="btn btn-primary">Chi tiết</a>
-                                        </td>                                     
+                                            <!-- Đây là phần chỉnh sửa -->
+                                            <td>
+                                                <a href="{{ route('orders.order_detail', $item->id) }}" class="btn btn-primary">Chi tiết</a>
+                                            </td>
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
