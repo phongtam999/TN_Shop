@@ -14,13 +14,11 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
+
 class AuthController extends Controller
 {
  
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login','register']]);
-    }
+
 
     
 
@@ -135,10 +133,35 @@ class AuthController extends Controller
     
     }
 
+    // public function postLogin(Request $request)
+    // {
+    //     // dd(123);
+    //     $messages = [
+    //         "email.email" => "Email không đúng định dạng",
+    //         "password.min" => "Mật khẩu phải có ít nhất 6 kí tự",
+    //     ];
+    //     $validator = Validator::make($request->all(), [
+    //         'email' => 'required|email',
+    //         'password' => 'required|min:6',
+    //     ], $messages);
+    
+    //     if ($validator->fails()) {
+    //         return back()->withErrors($validator)->withInput();
+    //     }
+    
+    //     $credentials = $request->only('email', 'password');
+    //     if (Auth::attempt($credentials)) {
+    //         session()->flash('success', 'Đăng nhập thành công!');
+    //         return redirect()->route('dashboard');
+    //     } else {
+    //         $validator->errors()->add('email', 'Email hoặc mật khẩu không đúng');
+    //         return back()->withErrors($validator)->withInput();
+    //     }
+    // }
     
     public function logout()
     {
-        // Auth::logout();
+        Auth::logout();
         return redirect()->route('login');
     }
     public function forgot_password()
