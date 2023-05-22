@@ -13,7 +13,9 @@ use Laravel\Sanctum\HasApiTokens;
 // use Tymon\JWTAuth\Contracts\JWTSubject;
 
 
-class User extends Authenticatable
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+
+class User extends Authenticatable implements JWTSubject
 {   use Notifiable;
     use HasApiTokens, HasFactory, Notifiable, HasPermissions;
     // use SoftDeletes;
@@ -39,5 +41,19 @@ class User extends Authenticatable
     public function products()
     {
         return $this->hasMany(Product::class, 'user_id', 'id');
+    }
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

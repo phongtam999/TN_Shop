@@ -26,27 +26,28 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
         
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            $token = $user->createToken('MyApp')->accessToken;
-            
-            return response()->json([
-                'status' => true,
-                'message' => 'Đăng nhập thành công',
-                'user' => $user,
-                'authorization' => [
-                    'token' => $token,
-                    'type' => 'bearer',
-                ]
-            ]);
+        $validator = Validator::make( $request->all(),[
+            'email' => 'required',
+            'password' =>'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
         }
-        
-        return response()->json([
-            'status' => false,
-            'message' => 'Đăng nhập không thành công',
-        ], 401);
+        $data = $request->only('email', 'password');
+        if (!$token = Auth::guard('api')->attempt($data)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+        return  response()->json([
+            'status' => true,
+            'message' => 'Đăng nhập thành công',
+            'customer' => $request->email,
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth('api'),
+            'user' => auth('api')->user()
+        ]);
     }
     
 
@@ -80,7 +81,7 @@ class AuthController extends Controller
         if ($request->expectsJson()) {
             return response()->json(['message' => 'User successfully signed out']);
         } else {
-            return response()->json(['message' => 'User successfully signed out']);
+            return response()->json(['message' => 'That bai']);
         }
     }
 
