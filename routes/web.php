@@ -71,8 +71,8 @@ Route::resource('groups', GroupController::class);
 Route::get('customers/search', [CustomerController::class, 'search'])->name('customers.search');
 Route::resource('customers', CustomerController::class);
 // Đây là Orderssearch
-Route::get('orders/search', [OrderController::class, 'search'])->name('orders.search');
-Route::get('orders/xuat', [OrderController::class, 'exportOrder'])->name('orders.xuat');
-Route::resource('orders', OrderController::class);
+// Route::get('orders/search', [OrderController::class, 'search'])->name('orders.search');
+// Route::get('orders/xuat', [OrderController::class, 'exportOrder'])->name('orders.xuat');
+// Route::get('orders/show{id}', OrderController::class,'show')->name('orders.order_detail');
 });
 
