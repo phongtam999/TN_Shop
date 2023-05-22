@@ -45,7 +45,7 @@ public function find($id)
     $params = [
         'order' => $order,
         'orderdetail' => $order_detail,
-    ];
+    ];  
     return view('admin.orders.order_detail',$params);
 }
 

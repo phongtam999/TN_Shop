@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\GroupController;
+use App\Http\Controllers\Api\CartController;
 
 
 /*
@@ -23,11 +24,12 @@ use App\Http\Controllers\Api\GroupController;
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
-    Route::get('register', 'register');
+    Route::post('register', 'register');
+    // Route::post('/logout',)->middleware('auth:api');
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
-
 });
+
 
 Route::resource('products',ProductController::class);
 Route::get('carts',[CartController::class,'getAllCart']);

@@ -16,7 +16,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {   use Notifiable;
     use HasApiTokens, HasFactory, Notifiable, HasPermissions;
-    use SoftDeletes;
+    // use SoftDeletes;
 
     protected $table = 'users';
     // protected $fillable = [

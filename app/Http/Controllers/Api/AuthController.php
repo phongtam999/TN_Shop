@@ -21,60 +21,67 @@ class AuthController extends Controller
  
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register']]);
+        $this->middleware('auth:api', ['except' => ['login','register','logout']]);
     }
 
     public function login(Request $request)
     {
+        $credentials = $request->only('email', 'password');
         
-        $validator = Validator::make( $request->all(),[
-            'email' => 'required',
-            'password' =>'required'
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $token = $user->createToken('MyApp')->accessToken;
+            
+            return response()->json([
+                'status' => true,
+                'message' => 'Đăng nhập thành công',
+                'user' => $user,
+                'authorization' => [
+                    'token' => $token,
+                    'type' => 'bearer',
+                ]
+            ]);
         }
-
-        if (!$token = auth('api')->attempt($validator->validated())) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-        return  response()->json([
-            'status' => true,
-            'message' => 'Đăng nhập thành công',
-            'customer' => $request->email,
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth('api'),
-            'user' => auth('api')->user()
-        ]);
+        
+        return response()->json([
+            'status' => false,
+            'message' => 'Đăng nhập không thành công',
+        ], 401);
     }
+    
 
     public function register(StoreUserRequest $request)
-    {
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+{
+    $validatedData = $request->validated();
     
-        $token = $user->createToken('MyApp')->accessToken;
-    
-        return response()->json([
-            'status' => true,
-            'message' => 'Đăng ký thành công',
-            'user' => $user,
-            'authorization' => [
-                'token' => $token,
-                'type' => 'bearer',
-            ]
-        ]);
-    }
-    public function logout()
-    {
-        auth('api')->logout();
+    $user = User::create([
+        'name' => $validatedData['name'],
+        'email' => $validatedData['email'],
+        'password' => Hash::make($validatedData['password']),
+    ]);
 
-        return response()->json(['message' => 'User successfully signed out']);
+    $token = $user->createToken('MyApp')->accessToken;
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Đăng ký thành công',
+        'user' => $user,
+        'authorization' => [
+            'token' => $token,
+            'type' => 'bearer',
+        ]
+    ]);
+}
+
+    public function logout(Request $request)
+    {
+        Auth::guard('api')->logout();   
+
+        if ($request->expectsJson()) {
+            return response()->json(['message' => 'User successfully signed out']);
+        } else {
+            return response()->json(['message' => 'User successfully signed out']);
+        }
     }
 
     public function refresh()
