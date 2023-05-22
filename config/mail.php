@@ -40,7 +40,7 @@ return [
             'port' => 587,
             'encryption' => 'tls',
             'username' => 'nho230204@gmail.com',
-            'password' => 'smfdflhgioapbscz',
+            'password' => 'anbigjpwlvvflcym',
             'timeout' => null,
             'local_domain' => 'your-mailgun-domain',
         ],
