@@ -143,7 +143,7 @@
             </svg>
         </div>
     </div>
-        Preloader end
+     
     <!-- admin.Auth.login.blade.php -->
 
 <div class="login-form-bg h-100">
@@ -178,7 +178,7 @@
                                 <button class="form-control" type="submit">Đăng nhập</button>
                             </form>
                             <p class="mt-5 login-form__footer">
-                                <a href="page-register.html" class="text-primary">Bạn quên mật khẩu ư?</a>
+                                <a href="{{route('forget-password')}}" class="text-primary">Bạn quên mật khẩu ư?</a>
                             </p>
 
                             </div>

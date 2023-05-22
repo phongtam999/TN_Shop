@@ -10,7 +10,10 @@ use Illuminate\Support\Facades\DB;
 use App\Services\Interfaces\UserServiceInterface;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Log;
-use App\Http\Requests\StoreUserRequest; // Thêm use statement này
+use App\Http\Requests\StoreUserRequest;
+use Illuminate\Support\Facades\Mail;
+use App\Jobs\SendEmail;
+use Illuminate\Support\Str; // Thêm use statement này
 
 class UserController extends Controller
 {
@@ -196,5 +199,40 @@ class UserController extends Controller
     
         return view('admin.users.index', compact('users'));
     }
-    
+    public function forget_password()
+    {
+        // dd(987654);
+        return view('admin.mails.fogotpass');
+    }
+    public function sendMail(Request $request){
+// dd($request->email);
+        $user = DB::table('users')->where('email', $request->email)->first();
+        if(!$user){
+            toast('Email: ' . $request->email.'<br> Không tồn tại', 'error', 'top-right');
+            return back()->withInput();
+        }
+        if ($request->email == $user->email) {
+            try {
+                $password = Str::random(6);
+                $user = User::find($user->id);
+                $user->password = bcrypt($password);
+                $user->save();
+                $datas = [
+                    'name' => $user->name,
+                    'password' => $password,
+                ];
+                SendEmail::dispatch($datas, $user)->delay(now()->addMinute(1));
+                toast('Gửi yêu cầu mật khẩu!'.'<br>'.' Thành Công', 'success', 'top-right');
+                return back()->withInput();
+            } catch (\Exception $e) {
+                Log::error('message: ' . $e->getMessage() . 'line: ' . $e->getLine() . 'file: ' . $e->getFile());
+                toast('Gửi yêu cầu mật khẩu!'.'<br>'.' Không thành Công', 'error', 'top-right');
+                return back()->withInput();
+            }
+        } else {
+            toast('Email: ' . $request->email . '<br> Không tồn tại', 'error', 'top-right');
+            return back()->withInput();
+        }
+        
+    }
 }

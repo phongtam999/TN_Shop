@@ -35,7 +35,8 @@ class CustomerController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $item = $this->customerService->find($id);
+        return new CustomerResource($item);
     }
 
     

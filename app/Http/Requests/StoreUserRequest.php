@@ -28,7 +28,7 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required',
+                'email' => 'required',
                 'password' => 'required',
                 'name' => 'required',
                 'phone' => 'required',
@@ -53,7 +53,7 @@ class StoreUserRequest extends FormRequest
             'birthday.required' => 'Không được để trống!',
         ];
     }
-protected function failedValidation(Validator $validator)
+    protected function failedValidation(Validator $validator)
     {
         $errors = (new ValidationException($validator))->errors();
 

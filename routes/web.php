@@ -28,11 +28,12 @@ Route::get('/dasboard', function () {
 // Route::prefix('/')->middleware(['auth', 'preventBackHistory'])->group(function () {
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/checkLogin', [AuthController::class, 'postLogin'])->name('checkLogin');
-Route::post('/postlogin', [AuthController::class, 'postlogin'])->name('postlogin');
+// Route::post('/postlogin', [AuthController::class, 'postlogin'])->name('postlogin');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // quên mật khẩu gửi đến mail
-Route::get('/forgot_password', [AuthController::class, 'forgot_password'])->name('forgot_password');
-Route::post('/post_forgot_password', [AuthController::class, 'post_forgot_password'])->name('post_forgot_password');
+Route::get('/forget-password', [UserController::class, 'forget_password'])->name('forget-password');
+Route::post('/sendmail', [UserController::class, 'sendMail'])->name('sendmail');
+// Route::post('/post_forgot_password', [AuthController::class, 'post_forgot_password'])->name('post_forgot_password');
 
 Route::prefix('/')->middleware(['auth', 'PreventBackHistory'])->group(function () {
 
