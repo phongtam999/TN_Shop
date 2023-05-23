@@ -46,7 +46,7 @@ class CustomerController extends Controller
         $this->customerService->destroy($id);
         $customer = Customer::findOrFail($id);
         $customer->Delete();
-        alert()->success('Xóa thể loại thành công!');
+        alert()->success('Xóa khách hàng thành công!');
         return redirect()->route('customer.index');
     }
     public function search(Request $request){

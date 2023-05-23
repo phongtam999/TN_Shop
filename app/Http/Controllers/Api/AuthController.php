@@ -14,7 +14,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
-
+use App\Models\Customer;
 
 class AuthController extends Controller
 {
@@ -51,28 +51,32 @@ class AuthController extends Controller
     }
     
 
-    public function register(StoreUserRequest $request)
-{
-    $validatedData = $request->validated();
-    
-    $user = User::create([
-        'name' => $validatedData['name'],
-        'email' => $validatedData['email'],
-        'password' => Hash::make($validatedData['password']),
-    ]);
+    public function register(Request $request) {
+        // dd('11');
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|string|email|max:100|unique:customers',
+            'password' => 'required||min:6',
+            'phone' => 'required',
+            'address' => 'required',
+            'gender' => 'required',
+           
+        ]);
 
-    $token = $user->createToken('MyApp')->accessToken;
+        if($validator->fails()){
+            return response()->json($validator->errors()->toJson(), 400);
+        }
 
-    return response()->json([
-        'status' => true,
-        'message' => 'Đăng ký thành công',
-        'user' => $user,
-        'authorization' => [
-            'token' => $token,
-            'type' => 'bearer',
-        ]
-    ]);
-}
+        $user = Customer::create(array_merge(
+                    $validator->validated(),
+                    ['password' => bcrypt($request->password)]
+                ));
+
+        return response()->json([
+            'message' => 'User successfully registered',
+            'user' => $user
+        ], 201);
+    }
 
     public function logout(Request $request)
     {
@@ -81,7 +85,7 @@ class AuthController extends Controller
         if ($request->expectsJson()) {
             return response()->json(['message' => 'User successfully signed out']);
         } else {
-            return response()->json(['message' => 'That bai']);
+            return response()->json(['message' => 'Thất bại']);
         }
     }
 
