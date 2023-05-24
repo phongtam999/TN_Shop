@@ -23,10 +23,11 @@ class ProductRepository extends EloquentRepository implements ProductRepositoryI
     public function all($request)
     {
         $query = $this->model->select('*')->orderBy('id', 'DESC');
-        if ($request->search) {
-            $search = $request->search;
-            $query->where('name', 'LIKE', '%'.$search.'%');
-            $query->orWhere('id', 'LIKE', '%'.$search.'%');
+        if ($request->name) {
+            $query->where('name', '=', '%'.$request->name.'%');
+        }
+        if ($request->category_id) {
+            $query->where('category_id', '=', $request->category_id);
         }
         return $query->paginate(2);
     }

@@ -24,7 +24,7 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-header">
-                    <form action="{{ route('products.search') }}" method="get">
+                    <form action="{{ route('products.index') }}" method="get">
                         <div class="row mb-2">
                             <div class="col">
                                 <a class="btn btn-success" href="{{ route('products.export') }}">Xuất Excel</a>
@@ -35,13 +35,25 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <input type="text" name="id" placeholder="Nhập ID" class="form-control form-control-sm">
+                                <input type="text" value="{{request()->id}}" name="id" placeholder="Nhập ID" class="form-control form-control-sm">
                             </div>
                             <div class="col">
-                                <input type="text" name="name" placeholder="Nhập tên" class="form-control form-control-sm">
+                                <input type="text" value="{{request()->name}}" name="name" placeholder="Nhập tên" class="form-control form-control-sm">
                             </div>
+                                <div class="col">
+                                    <select name="category_id" id="" class="form-control">
+                                        <option value="">--Vui lòng chọn--</option>
+                                        @foreach ($categories as $category)
+                                            <option 
+                                            @selected($category->id == request()->category_id)
+                                            value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            
                             <div class="col">
-                                <button type="submit" class="btn btn-primary btn-xm">Tìm kiếm</button>
+                                <button type="submit" class="btn btn-info"> Tìm </button>
+                                    <a href="{{ route('products.index') }}" type="submit" class="btn btn-secondary">Đặt lại</a>
                             </div>
                         </div>
                         

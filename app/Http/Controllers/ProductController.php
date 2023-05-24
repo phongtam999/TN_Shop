@@ -35,9 +35,11 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         // $this->authorize('viewAny', Product::class);
-        $products = $this->productService->all($request);
-        return view('admin.products.index', compact('products'));
+    $products = $this->productService->all($request);
+    $categories = Category::get();
+    return view('admin.products.index', compact('products', 'categories'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -46,10 +48,11 @@ class ProductController extends Controller
     {
         // $this->authorize('create', Product::class);
         $categories = $this->categoryService->all($request);
+        $categories = Category::get();
         $param = [
             'categories' => $categories
         ];
-        return view('admin.products.create', $param);
+        return view('admin.products.create', $param,$categories);
     }
 
     /**
@@ -171,12 +174,16 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         $searchName = $request->input('name');
+        $searchCategory = $request->input('category_id');
         $searchId = $request->input('id');
     
         $query = Product::query();
     
         if ($searchName) {
             $query->where('name', 'LIKE', '%' . $searchName . '%');
+        }
+        if ($searchCategory) {
+            $query->where('category_id', 'LIKE', '%' . $searchCategory . '%');
         }
     
         if ($searchId) {
