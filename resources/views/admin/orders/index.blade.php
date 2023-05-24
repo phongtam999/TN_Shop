@@ -19,7 +19,29 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12 grid-margin stretch-card">
-                <div class="card">                   
+                <div class="card">   
+                    <div class="card-header">
+                        <form  class="navbar-form navbar-left" action="{{route('orders.index')}}" method="GET">
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <a class="btn btn-success" href="{{ route('orders.xuat') }}">Xuất Excel</a>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <input type="text" placeholder="Nhập ID" class="form-control" value="{{ request()->id }}" name="id">
+                                </div>
+                                <div class="col">
+                                    <input type="text" placeholder="Nhập Tên" class="form-control" value="{{ request()->customer_id }}" name="customer_id">
+                                </div>
+                                <div class="col">
+                                    <button type="submit" class="btn btn-info"> Tìm </button>
+                                    <a href="{{ route('orders.index') }}" type="submit" class="btn btn-secondary">Đặt lại</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>                
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered">
@@ -32,19 +54,19 @@
                            <th scope="col">Tùy chọn</th>
                                     </tr>
                                 </thead>
-                                <<tbody>
+                                <tbody>
                                     @foreach ($items as $key => $item)
                                     <tr>
                                         <th scope="row">{{ ++$key }}</th>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->address }}</td>
-                                        <td>{{ $item->phone }}</td>
-                                        <td>
+                                        <td>{{ $item->customer->name }}</td>
+                                        <td>{{ $item->customer->address }}</td>
+                                        <td>{{ $item->customer->phone }}</td>
+                                        
                                             <!-- Đây là phần chỉnh sửa -->
                                             <td>
                                                 <a href="{{ route('orders.order_detail', $item->id) }}" class="btn btn-primary">Chi tiết</a>
                                             </td>
-                                        </td>
+                                        
                                     </tr>
                                     @endforeach
                                 </tbody>

@@ -25,9 +25,9 @@
                                 @foreach ($items as $key => $item)
                                     <tr>
                                         <th scope="row">{{ ++$key }}</th>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ number_format($item->price) }}</td>
-                                        <td>{{ $item->quantity }}</td>
+                                        <td>{{ $item->order_detail->name }}</td>
+                                        <td>{{ number_format($item->order_detail->price) }}</td>
+                                        <td>{{ $item->order_detail->quantity }}</td>
                                         <td>{{ number_format($item->total) }}</td> 
                                     </tr>
                                 @endforeach

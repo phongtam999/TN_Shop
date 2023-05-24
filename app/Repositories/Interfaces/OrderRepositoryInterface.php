@@ -4,5 +4,5 @@ namespace App\Repositories\Interfaces;
 interface OrderRepositoryInterface extends RepositoryInterface{
     function all($request);
     function find($id);
-
+    function search($data);
 }
