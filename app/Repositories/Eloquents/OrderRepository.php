@@ -11,13 +11,24 @@ class OrderRepository extends EloquentRepository implements OrderRepositoryInter
     {
         return Order::class;
     }
+
     public function all($request)
     {
-        $orders = $this->model->select('*');
-        return $orders->orderBy('id', 'DESC')->paginate(5);
+        $query = $this->model->select('*');
+        if ( $request->customer_id ) {
+            $query->where('customer_id','like','%'.$request->customer_id.'%');
+        }
+        if ( $request->id ) {
+            $query->where('id',$request->id);
+        }
+        return $query->orderBy('id','DESC')->paginate(5);
     }
     public function find($id){
         return $this->model->findOrFail($id);
+    }
+    
+    public function search($data){
+        return $this->model->search($data);
     }
   
 }

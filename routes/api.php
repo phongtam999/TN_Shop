@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\GroupController;
 use App\Http\Controllers\Api\CartController;
@@ -46,4 +47,8 @@ Route::apiResource('products',ProductController::class);
 Route::apiResource('users',UserController::class);
 Route::apiResource('customers',CustomerController::class);
 Route::apiResource('groups',GroupController::class);
+//order api
+Route::post('orders/checkout',[OrderController::class,'checkout']);
+
+
 
