@@ -25,15 +25,6 @@
                         </div>
                     </form><br/>
             
-    <a   class="btn btn-info" href="{{route('orders.index')}}">Quay lại</a>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-body">
-                    <br>
-                    <h2 class="offset-4">
-                        Chi Tiết Đơn Hàng
-                    </h2><br>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -46,5 +37,23 @@
                         </thead>
                         <tbody>
                             @php $total = 0 @endphp
+                            @foreach ($items as $key => $order_Detail)
+                            @php $total += $order_Detail->amount * $order_Detail->price  @endphp
+                                <tr>
+                                    <th scope="row">{{ ++$key }}</th>
+                                    <td>{{ $order_Detail->name }}</td>
+                                    <td>{{ number_format($order_Detail->price) }}</td>
+                                    <td>{{ $order_Detail->amount }}</td>
+                                    <td>{{ number_format($order_Detail->amount * $order_Detail->total ) }}</td>                                
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <h4 class="form-header" >Tổng Tiền Đơn Hàng: {{ number_format($order_Detail->amount * $order_Detail->total ) }} VND</h4><hr>
 
+                    <div style="float:right">
+                </div>
+            </div>
+        </div>
+    </div>
+  
 @endsection
