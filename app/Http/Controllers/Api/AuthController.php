@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use Illuminate\Support\Facades\Config;
 
 class AuthController extends Controller
 {
@@ -45,7 +46,7 @@ class AuthController extends Controller
             'customer' => $request->email,
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth('api'),
+            'expires_in' => Config::get('jwt.ttl'),
             'user' => auth('api')->user()
         ]);
     }

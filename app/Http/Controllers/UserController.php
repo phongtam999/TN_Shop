@@ -8,6 +8,7 @@ use App\Models\Group;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Services\Interfaces\UserServiceInterface;
+use App\Services\Interfaces\GroupServiceInterface;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\StoreUserRequest;
@@ -18,10 +19,12 @@ use Illuminate\Support\Str; // Thêm use statement này
 class UserController extends Controller
 {
     protected $userService;
+    private $GroupService;
 
-    public function __construct(UserServiceInterface $userService)
+     public function __construct(UserServiceInterface $UserService, GroupServiceInterface $GroupService)
     {
-        $this->userService = $userService;
+        $this->GroupService = $GroupService;
+        $this->userService = $UserService;
     }
 
     public function index(Request $request)
@@ -76,31 +79,10 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         try {
-            $user = new User();
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = bcrypt($request->password);
-            $user->address = $request->address;
-            $user->phone = $request->phone;
-            $user->birthday = $request->birthday;
-            $user->gender = $request->gender;
-            $user->group_id = $request->group_id;
-            $fieldName = 'image';
-            if ($request->hasFile($fieldName)) {
-                $fullFileNameOrigin = $request->file($fieldName)->getClientOriginalName();
-                $fileNameOrigin = pathinfo($fullFileNameOrigin, PATHINFO_FILENAME);
-                $extenshion = $request->file($fieldName)->getClientOriginalExtension();
-                $fileName = $fileNameOrigin . '-' . rand() . '_' . time() . '.' . $extenshion;
-                $path = 'storage/' . $request->file($fieldName)->storeAs('public/images/users', $fileName);
-                $path = str_replace('public/', '', $path);
-                $user->image = $path;
-                
-            }
-            $user->save();
-
+            $this->userService->store($request);
             toast('Thêm Nhân Viên Thành Công!', 'success', 'top-right');
             return redirect()->route('users.index');
-        } catch (\Exception $e) {
+        } catch (\exception $e) {
             Log::error($e->getMessage());
             toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
             return redirect()->route('users.index');
@@ -133,19 +115,18 @@ class UserController extends Controller
 
     public function edit(string $id)
     {
-        $this->authorize('view', User::class);
-        $user = $this->userService->find($id);
-        $groups = Group::get();
-        $param = [
-            'user' => $user,
-            'groups' => $groups
-        ];
+        $this->authorize('update', User::class);
+        $users = $this->userService->find($id);
 
-        return view('admin.users.edit', $param);
+        $groups = $this->GroupService->all($id);
+        return view('admin.users.edit', compact('groups', 'users'));
+
+        
     }
 
     public function update(UpdateUserRequest $request, $id)
     {
+        
         try {
             $this->userService->update($request, $id);
             toast('Cập nhật Nhân Viên Thành Công!', 'success', 'top-right');

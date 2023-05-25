@@ -20,7 +20,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('users.update', $users->id) }}" method="POST" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
                         <legend>Thông tin cơ bản</legend>
@@ -28,7 +28,7 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="tf1">Email<abbr name="Trường bắt buộc">*</abbr></label>
-                                            <input name="email" type="text" class="form-control" value="{{ $user->email }}">
+                                            <input name="email" type="text" class="form-control" value="{{ $users->email }}">
                                             @error('email')
                                                 <div class="text text-danger">{{ $message }}</div>
                                             @enderror
@@ -37,7 +37,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="tf1">Họ Và Tên<abbr name="Trường bắt buộc">*</abbr></label>
-                                            <input name="name" type="text" class="form-control" value="{{ $user->name }}">
+                                            <input name="name" type="text" class="form-control" value="{{ $users->name }}">
                                             @error('name')
                                                 <div class="text text-danger">{{ $message }}</div>
                                             @enderror
@@ -46,7 +46,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="tf1">Số Điện Thoại<abbr name="Trường bắt buộc">*</abbr></label>
-                                            <input name="phone" type="number" class="form-control" value="{{ $user->phone }}">
+                                            <input name="phone" type="number" class="form-control" value="{{ $users->phone }}">
                                             @error('phone')
                                                 <div class="text text-danger">{{ $message }}</div>
                                             @enderror
@@ -55,7 +55,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="tf1">Ngày sinh<abbr name="Trường bắt buộc">*</abbr></label>
-                                            <input name="birthday" type="date" class="form-control" value="{{ $user->birthday }}">
+                                            <input name="birthday" type="date" class="form-control" value="{{ $users->birthday }}">
                                             @error('birthday')
                                                 <div class="text text-danger">{{ $message }}</div>
                                             @enderror
@@ -68,7 +68,7 @@
                                                 <option value="">-- Vui lòng chọn --</option>
                                                 @foreach ($groups as $group)
                                                 <option value="{{ $group->id }}" {{
-                                                $group->id == $user->group_id ? 'selected' : '' }}>
+                                                $group->id == $users->group_id ? 'selected' : '' }}>
                                                     {{ $group->name }}
                                                 </option>
                                                 @endforeach
@@ -82,9 +82,9 @@
                                         <div class="form-group">
                                             <label for="tf1">Giới Tính<abbr name="Trường bắt buộc">*</abbr></label>
                                             <select name="gender" class="form-control">
-                                                <option value="Nam" {{ $user->gender == 'Nam' ? 'selected' : '' }}>Nam</option>
-                                                <option value="Nữ" {{ $user->gender == 'Nữ' ? 'selected' : '' }}>Nữ</option>
-                                                <option value="Khác" {{ $user->gender == 'Khác' ? 'selected' : '' }}>Khác</option>
+                                                <option value="Nam" {{ $users->gender == 'Nam' ? 'selected' : '' }}>Nam</option>
+                                                <option value="Nữ" {{ $users->gender == 'Nữ' ? 'selected' : '' }}>Nữ</option>
+                                                <option value="Khác" {{ $users->gender == 'Khác' ? 'selected' : '' }}>Khác</option>
                                             </select>
                                             @error('gender')
                                             <div class="text text-danger">{{ $message }}</div>
@@ -99,13 +99,13 @@
                                             <div class="text text-danger">{{ $message }}</div>
                                             @enderror
                                             <br>
-                                            <img src="{{ asset($user->image) ?? asset('public/assets/images/' . old('image', $user->image)) }}" width="90px" height="90px" id="blah1" alt="">
+                                            <img src="{{ asset($users->image) ?? asset('public/assets/images/' . old('image', $users->image)) }}" width="90px" height="90px" id="blah1" alt="">
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="tf1">Địa chỉ<abbr name="Trường bắt buộc">*</abbr></label>
-                                            <input name="address" type="text" class="form-control" value="{{ $user->address }}">
+                                            <input name="address" type="text" class="form-control" value="{{ $users->address }}">
                                             @error('address')
                                             <div class="text text-danger">{{ $message }}</div>
                                             @enderror

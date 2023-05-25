@@ -21,7 +21,7 @@
       <div class="card">
         <div class="card-body">
           <h4 class="card-title">Thông tin nhóm quyền</h4>
-          <form class="row g-3" action="{{ route('categories.store') }}" method="POST">
+          <form class="row g-3" action="{{ route('groups.store') }}" method="POST">
             @csrf
             <div class="col-md-8">
               <div class="form-group">
