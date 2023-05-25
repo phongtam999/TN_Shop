@@ -112,8 +112,8 @@
                                             <br>
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-primary mr-2">Cập nhật</button>
-                                            <a href="{{ route('users.index') }}" class="btn btn-light">Hủy bỏ</a>
+                                       <button type="submit" class="btn btn-primary mr-2" >Cập nhật</button>
+                                        <a href="{{ route('users.index') }}" class="btn btn-light">Hủy bỏ</a>
                                         </div>
                                     </form>
                                     </div>

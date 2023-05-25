@@ -27,14 +27,19 @@ return view('admin.orders.index', compact('items'));
 
 public function show(string $id)
 {
-$this->authorize('view', Order::class);
-$items=DB::table('orderdetail')
+// $this->authorize('view', Order::class);
+// $order = $this->orderService->find($id);
+
+$items = DB::table('orderdetail')
 ->join('orders','orderdetail.order_id','=','orders.id')
 ->join('products','orderdetail.product_id','=','products.id')
 ->select('products.*', 'orderdetail.*','orders.id')
 ->where('orders.id','=',$id)->get();
-// dd($items);
-return view('admin.orders.order_detail',compact('items'));
+// foreach($items as $key => $order_Detail){
+//     dd($order_Detail->id);
+$order =Order::find($id);
+// }
+return view('admin.orders.order_detail',compact('items','order'));
 }
 
 public function find($id)

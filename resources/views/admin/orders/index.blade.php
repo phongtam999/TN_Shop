@@ -1,12 +1,10 @@
 
-
-
- @extends('admin.layouts.master')
+@extends('admin.layouts.master')
 @section('content')
 @include('sweetalert::alert')
     <div class="row page-titles mx-0">
         <div class="col p-md-0">
-            <h3 class="page-title text">Danh sách đơn hàng</h3>
+            <h3 class="page-title text">Danh sách </h3>
         </div>
         <div class="col p-md-0">
             <ol class="breadcrumb">
@@ -27,19 +25,18 @@
                                     <a class="btn btn-success" href="{{ route('orders.xuat') }}">Xuất Excel</a>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col">
                                     <input type="text" placeholder="Nhập ID" class="form-control" value="{{ request()->id }}" name="id">
                                 </div>
                                 <div class="col">
-                                    <input type="text" placeholder="Nhập Tên" class="form-control" value="{{ request()->customer_id }}" name="customer_id">
+                                    <input type="text" placeholder="Nhập Tên" class="form-control" value="{{ request()->name }}" name="name">
                                 </div>
                                 <div>
                                     <select name="status" data-order_id="" class="form-control">
-                                        <option selected value="0">Đơn mới</option>
-                                        <option value="1">Đang giao</option>
-                                        <option value="2">Đã giao</option>
+                                        <option selected value="0">-- Đơn mới --</option>
+                                        <option value="1">-- Đang giao --</option>
+                                        <option value="2">-- Đã giao --</option>
                                      </select>
                                 </div>
                                 <div class="col">
@@ -72,7 +69,7 @@
                                         <td>{{ $item->customer->email }}</td>
                                         <td>{{ $item->customer->phone }}</td>
                                         <td>{{ $item->customer->address }}</td>
-                                        <td>{{$item->date_at}}</td>
+                                        <td>{{ $item->date_at}}</td>
                                         <td>
                                             @if ($item->status === 0)
                                                 <h5 style="color: rgb(144, 243, 147)"><i
@@ -105,7 +102,30 @@
                 </div>
             </div>
         </div> 
-    </div>    
+    </div>   
+    <script type="text/javascript">
+        $('.trangthai').change(function(){
+            const trangthai = $(this).val();
+            const order_id = $(this).data('order_id');
+            var _token = $('input[name="_token"]').val();
+            if(trangthai==0){
+                var thongbao = 'Thay đổi trạng thái thành đơn mới';
+            }else if(trangthai==1){
+                var thongbao = 'Thay đổi trạng thái thành đang giao';
+            }else{
+                var thongbao = 'Thay đổi trạng thái thành đã giao';
+            }
+            $.ajax({
+                url:"{{url('/orders/trangthaidon')}}",
+                method:"POST",
+                data:{trangthai:trangthai, order_id:order_id, _token:_token},
+                success:function(data)
+                    {
+                        alert(thongbao);
+                    }
+            });
+        });
+    </script> 
  @endsection  
 
 

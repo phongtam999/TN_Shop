@@ -14,14 +14,19 @@ class OrderRepository extends EloquentRepository implements OrderRepositoryInter
 
     public function all($request)
     {
-        $query = $this->model->select('*');
-        if ( $request->customer_id ) {
-            $query->where('customer_id','like','%'.$request->customer_id.'%');
+        $query = $this->model
+        ->select('orders.*', 'customers.name')
+        ->join('customers', 'orders.customer_id', '=', 'customers.id');
+        if ($request->customer_id) {
+            $query->where('customer_id', '=', $request->customer_id);
         }
         if ( $request->id ) {
-            $query->where('id',$request->id);
+            $query->where('orders.id',$request->id);
         }
-        return $query->orderBy('id','DESC')->paginate(5);
+        if ( $request->name ) {
+            $query->where('customers.name','like','%'.$request->name.'%');
+        }
+        return $query->orderBy('orders.id','DESC')->paginate(5);
     }
     public function find($id){
         return $this->model->findOrFail($id);

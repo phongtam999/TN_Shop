@@ -76,6 +76,6 @@ Route::resource('customers', CustomerController::class);
 Route::get('orders/index', [OrderController::class, 'index'])->name('orders.index');
 Route::get('orders/xuat', [OrderController::class, 'exportOrder'])->name('orders.xuat');
 Route::get('orders/search', [OrderController::class, 'search'])->name('orders.search');
-Route::get('orders/show{id}',[OrderController::class, 'show'])->name('orders.order_detail');
+Route::get('orders/show/{id}',[OrderController::class, 'show'])->name('orders.order_detail');
 });
 
