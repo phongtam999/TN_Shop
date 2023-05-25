@@ -35,6 +35,13 @@
                                 <div class="col">
                                     <input type="text" placeholder="Nhập Tên" class="form-control" value="{{ request()->customer_id }}" name="customer_id">
                                 </div>
+                                <div>
+                                    <select name="status" data-order_id="" class="form-control">
+                                        <option selected value="0">Đơn mới</option>
+                                        <option value="1">Đang giao</option>
+                                        <option value="2">Đã giao</option>
+                                     </select>
+                                </div>
                                 <div class="col">
                                     <button type="submit" class="btn btn-info"> Tìm </button>
                                     <a href="{{ route('orders.index') }}" type="submit" class="btn btn-secondary">Đặt lại</a>
@@ -49,8 +56,11 @@
                                     <tr>
                             <th scope="col">STT</th>
                            <th scope="col">Tên khách hàng</th>
+                           <th scope="col">Email</th>
+                           <th scope="col">Số điện thoại</th>
                            <th scope="col">Địa chỉ</th>
-                           <th scope="col">SĐT </th>
+                           <th scope="col">Ngày đặt hàng</th>
+                           <th scope="col">Trạng thái</th>
                            <th scope="col">Tùy chọn</th>
                                     </tr>
                                 </thead>
@@ -59,14 +69,28 @@
                                     <tr>
                                         <th scope="row">{{ ++$key }}</th>
                                         <td>{{ $item->customer->name }}</td>
-                                        <td>{{ $item->customer->address }}</td>
+                                        <td>{{ $item->customer->email }}</td>
                                         <td>{{ $item->customer->phone }}</td>
-                                        
+                                        <td>{{ $item->customer->address }}</td>
+                                        <td>{{$item->date_at}}</td>
+                                        <td>
+                                            @if ($item->status === 0)
+                                                <h5 style="color: rgb(144, 243, 147)"><i
+                                                        class="bi bi-bookmark-plus-fill"></i>Đơn mới</h5>
+                                            @endif
+                                            @if ($item->status === 1)
+                                                <h5 style="color: green"><i
+                                                        class="bi bi-bookmark-check-fill"></i>Đang giao</h5>
+                                            @endif
+                                            @if ($item->status === 2)
+                                                <h5 style="color: red"><i class="bi bi-bookmark-x-fill">Đã giao</i>
+                                                </h5>
+                                            @endif
+                                        </td>             
                                             <!-- Đây là phần chỉnh sửa -->
                                             <td>
-                                                <a href="{{ route('orders.order_detail', $item->id) }}" class="btn btn-primary">Chi tiết</a>
-                                            </td>
-                                        
+                                                <a  class="btn btn-info" href="{{route('orders.order_detail',$item->id)}}">Xem chi tiết</a>
+                                            </td> 
                                     </tr>
                                     @endforeach
                                 </tbody>
