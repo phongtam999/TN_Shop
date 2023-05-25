@@ -161,8 +161,4 @@
             </div>
         </div>
     </div>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        // Code JavaScript của bạn có thể được đặt ở đây
-    </script>
 @endsection

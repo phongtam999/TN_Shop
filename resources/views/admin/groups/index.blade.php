@@ -44,7 +44,7 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-header">
-                    <form action="{{ route('products.search') }}" method="get">
+                    <form action="{{ route('groups.search') }}" method="get">
                         <div class="row mb-2">
                             <div class="col">
                                 @if (Auth::user()->hasPermission('Group_create'))
@@ -94,39 +94,47 @@
         </div>
     </div>
 </div>
-
-@endsection
-
-@push('scripts')
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    $(document).ready(function() {
-        $('.delete-group').click(function(e) {
-            e.preventDefault();
-            var groupId = $(this).data('group-id');
+    $(document).on('click', '.delete-group', function(e) {
+        let groupId = $(this).data('group-id');
+        let csrfToken = '{{ csrf_token() }}';
 
-            // Hiển thị hộp thoại xác nhận
-            if (confirm('Bạn có chắc chắn muốn xóa nhóm quyền này?')) {
-                // Nếu người dùng nhấn OK, gửi yêu cầu x
-                // Nếu người dùng nhấn OK, gửi yêu cầu xóa bằng AJAX
-                $.ajax({
-                    url: '/groups/' + groupId,
-                    type: 'DELETE',
+        Swal.fire({
+            title: 'Bạn có chắc không?',
+            text: "Bạn sẽ không thể hoàn nguyên điều này!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Có, xóa!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete('/groups/' + groupId, {
                     headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(result) {
-                        // Xóa hàng trong bảng
-                        $('.item-' + groupId).remove();
-                        // Hiển thị thông báo xóa thành công
-                        alert('Đã xóa nhóm quyền thành công!');
-                    },
-                    error: function(xhr, status, error) {
-                        // Xử lý lỗi nếu có
-                        alert('Đã xảy ra lỗi: ' + error);
+                        'X-CSRF-TOKEN': csrfToken
                     }
+                })
+                .then(function(response) {
+                    Swal.fire(
+                        'Đã xóa!',
+                        'Nhóm quyền đã được xóa.',
+                        'success'
+                    );
+                    $('.item-' + groupId).remove();
+                })
+                .catch(function(error) {
+                    Swal.fire(
+                        'Lỗi!',
+                        'Đã xảy ra lỗi trong quá trình xóa nhóm quyền.',
+                        'error'
+                    );
                 });
             }
         });
     });
 </script>
-@endpush
+
+@endsection

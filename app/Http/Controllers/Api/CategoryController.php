@@ -6,15 +6,19 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\Interfaces\CategoryServiceInterface;
 use App\Http\Resources\CategoryResource;
-
+use App\Http\Resources\ProductResource;
+use App\Services\Interfaces\ProductServiceInterface;
 
 class CategoryController extends Controller
 {
     protected $categoryService;
+    protected $productService;
 
-    public function __construct(CategoryServiceInterface $categoryService)
+    public function __construct(CategoryServiceInterface $categoryService,
+     ProductServiceInterface $productService)
     {
         $this->categoryService = $categoryService;
+        $this->productService = $productService;
     }
     public function index(Request $request)
     {
@@ -30,10 +34,13 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function show(string $id)
+    public function show(string $id , Request $request)
     {
-        $item = $this->categoryService->find($id);
-        return new CategoryResource($item);
+        
+        $request->category_id = $id;
+        $request->id = 0;
+        $item = $this->productService->all($request);
+        return ProductResource::collection($item);
     }
 
     public function update(Request $request, string $id)

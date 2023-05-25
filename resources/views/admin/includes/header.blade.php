@@ -12,9 +12,9 @@
                 <li class="icons dropdown">
                     <div class="user-img c-pointer position-relative" data-toggle="dropdown">
                         <span class="activity active"></span>
-                        {{-- @if(Auth::check() && Auth::user()->image) --}}
-                            {{-- <img src="{{ asset(Auth::user()->image) }}" height="40" width="40" alt=""> --}}
-                        {{-- @endif --}}
+                        @if(Auth::check() && Auth::user()->image)
+                            <img src="{{ asset(Auth::user()->image) }}" height="40" width="40" alt="">
+                        @endif
 
                     </div>
                     <div class="drop-down dropdown-profile   dropdown-menu">

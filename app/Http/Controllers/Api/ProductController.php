@@ -23,6 +23,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $items = $this->productService->all($request);
+        
         return ProductResource::collection($items);
     }
     /**
@@ -91,4 +92,6 @@ class ProductController extends Controller
         $product = Product::take(6)->get();
         return response()->json($product, 200);
     }
+
+    
 }

@@ -30,6 +30,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
 });
+Route::apiResource('categories',CategoryController::class);
+Route::apiResource('products',ProductController::class);
 
 
 Route::resource('products',ProductController::class);
