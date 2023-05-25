@@ -29,7 +29,7 @@ class ProductRepository extends EloquentRepository implements ProductRepositoryI
         if ($request->category_id) {
             $query->where('category_id', '=', $request->category_id);
         }
-        return $query->paginate(2);
+        return $query->paginate(8);
     }
 
     public function find($id,$withTrashes = false)
