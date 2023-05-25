@@ -35,25 +35,36 @@ class OrderController extends Controller
     }
 
 
+public function show(string $id)
+{
+// $this->authorize('view', Order::class);
+// $order = $this->orderService->find($id);
 
-    public function find($id)
-    {
-        $this->authorize('view', Order::class);
-        $order = $this->orderService->find($id);
-        $order_Details = $order->orderDetails;
-        $params = [
-            'order' => $order,
-            'order_Details' => $order_Details,
-        ];
-        return view('admin.orders.order_detail',$params);
-    }
-    public function trangthaidon(Request $request){
-        $data = $request->all();
-        $trangthai = Order::find($data['order_id']);
-        $trangthai->status = $data['trangthai'];
-        $trangthai->save();
-    }
-    public function exportOrder()
+$items = DB::table('orderdetail')
+->join('orders','orderdetail.order_id','=','orders.id')
+->join('products','orderdetail.product_id','=','products.id')
+->select('products.*', 'orderdetail.*','orders.id')
+->where('orders.id','=',$id)->get();
+// foreach($items as $key => $order_Detail){
+//     dd($order_Detail->id);
+$order =Order::find($id);
+// }
+return view('admin.orders.order_detail',compact('items','order'));
+}
+
+public function find($id)
+{
+    // $this->authorize('view', Order::class);
+    $order = $this->orderService->find($id);
+    $order_Details = $order->orderDetails;
+    $params = [
+        'order' => $order,
+        'orderdetail' => $order_detail,
+    ];  
+    return view('admin.orders.order_detail',$params);
+}
+
+public function exportOrder()
     {
         return Excel::download(new OrderExport, 'orders.xlsx');
     }
