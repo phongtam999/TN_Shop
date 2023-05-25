@@ -1,35 +1,27 @@
 <?php
 namespace App\Services;
 
-
-use App\Models\Order;
 use App\Services\Interfaces\OrderServiceInterface;
+
 use App\Repositories\Interfaces\OrderRepositoryInterface;
 
 class OrderService implements OrderServiceInterface
 {
-    protected $orderRepository; 
+    protected $orderRepository;
 
     public function __construct(OrderRepositoryInterface $orderRepository)
     {
         $this->orderRepository = $orderRepository;
     }
-    public function getModel()
-    {
-        return Order::class;
-    }
-    public function all($request)
-    {
+
+    /* Triển khai các phương thức trong PostServiceInterface */
+    public function all($request){
+
         return $this->orderRepository->all($request);
     }
-    public function paginate($request){
-        return $this->orderRepository->paginate($request);
-    }
-
     public function find($id){
-        return $this->model->findOrFail($id);
+        return $this->orderRepository->find($id);
     }
-
     public function store($request){
         return $this->orderRepository->store($request);
     }
@@ -39,9 +31,5 @@ class OrderService implements OrderServiceInterface
     public function destroy($id){
         return $this->orderRepository->destroy($id);
     }
-    public function search($data){
-        return $this->model->search($data);
-    }
-    
-   
+
 }
