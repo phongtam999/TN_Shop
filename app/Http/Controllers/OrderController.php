@@ -1,11 +1,21 @@
 <?php
+
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
-use App\Models\Order;
+
 use App\Exports\OrderExport;
-use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\Product;
+use Illuminate\Http\Request;
 use App\Services\Interfaces\OrderServiceInterface;
+use GuzzleHttp\Psr7\Response;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
+
+
 
 class OrderController extends Controller
 {
@@ -15,43 +25,36 @@ class OrderController extends Controller
     {
         $this->orderService = $orderService;
     }
+    //
+    public function index(Request $request)
+    {
+        $this->authorize('viewAny', Order::class);
 
-public function index(Request $request)
-{
-// $this->authorize('viewAny', Order::class);
-$items = $this->orderService->all($request);
-return view('admin.orders.index', compact('items'));
-
-}
+            $orders = $this->orderService->all($request);
+            return view('admin.orders.index', compact('orders'));
+    }
 
 
-public function show(string $id)
-{
-$this->authorize('view', Order::class);
-$items=DB::table('orderdetail')
-->join('orders','orderdetail.order_id','=','orders.id')
-->join('products','orderdetail.product_id','=','products.id')
-->select('products.*', 'orderdetail.*','orders.id')
-->where('orders.id','=',$id)->get();
-// dd($items);
-return view('admin.orders.order_detail',compact('items'));
-}
 
-public function find($id)
-{
-    // $this->authorize('view', Order::class);
-    $order = $this->orderService->find($id);
-    $order_Details = $order->orderDetails;
-    $params = [
-        'order' => $order,
-        'orderdetail' => $order_detail,
-    ];  
-    return view('admin.orders.order_detail',$params);
-}
-
-public function exportOrder()
+    public function find($id)
+    {
+        $this->authorize('view', Order::class);
+        $order = $this->orderService->find($id);
+        $order_Details = $order->orderDetails;
+        $params = [
+            'order' => $order,
+            'order_Details' => $order_Details,
+        ];
+        return view('admin.orders.order_detail',$params);
+    }
+    public function trangthaidon(Request $request){
+        $data = $request->all();
+        $trangthai = Order::find($data['order_id']);
+        $trangthai->status = $data['trangthai'];
+        $trangthai->save();
+    }
+    public function exportOrder()
     {
         return Excel::download(new OrderExport, 'orders.xlsx');
     }
-    
 }

@@ -75,7 +75,7 @@ Route::resource('customers', CustomerController::class);
 // Đây là Orderssearch
 Route::get('orders/index', [OrderController::class, 'index'])->name('orders.index');
 Route::get('orders/xuat', [OrderController::class, 'exportOrder'])->name('orders.xuat');
-Route::get('orders/search', [OrderController::class, 'search'])->name('orders.search');
-Route::get('orders/show{id}',[OrderController::class, 'show'])->name('orders.order_detail');
+Route::post('/trangthaidon', [OrderController::class,'trangthaidon']);
+Route::get('orders/detail/{id}', [OrderController::class, 'find'])->name('order.order_detail');
 });
 
