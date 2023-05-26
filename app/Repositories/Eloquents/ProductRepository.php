@@ -27,7 +27,7 @@ class ProductRepository extends EloquentRepository implements ProductRepositoryI
             $query->where('category_id',$request->category_id);
         }
         if ($request->name) {
-            $query->where('name', '=', '%'.$request->name.'%');
+            $query->where('name', 'LIKE', '%'.$request->name.'%');
         }
         if ($request->category_id) {
             $query->where('category_id', '=', $request->category_id);
