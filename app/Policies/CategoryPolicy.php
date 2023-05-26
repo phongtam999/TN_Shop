@@ -19,34 +19,26 @@ class CategoryPolicy
         return $user->hasPermission('Category_view');
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
     public function create(User $user)
     {
         return $user->hasPermission('Category_create');
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
     public function update(User $user, Category $category)
     {
         return $user->hasPermission('Category_update');
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
     public function delete(User $user, Category $category)
     {
         return $user->hasPermission('Category_delete');
     } 
+
     public function restore(User $user, Category $category)
     {
-        // dd(123);
         return $user->hasPermission('Category_restore');
     } 
+
     public function deleteforever(User $user, Category $category)
     {
         return $user->hasPermission('Category_forceDelete');

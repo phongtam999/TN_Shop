@@ -104,6 +104,7 @@ class GroupController extends Controller
     {
         $this->authorize('delete', Group::class);
         try {
+            // dd(123);
             $this->groupService->forceDelete($id);
             toast('Nhóm Quyền Đã Được Xóa!', 'success', 'top-right');
             return redirect()->route('groups.index');
