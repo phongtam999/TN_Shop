@@ -76,6 +76,6 @@ Route::resource('customers', CustomerController::class);
 Route::get('orders/index', [OrderController::class, 'index'])->name('orders.index');
 Route::get('orders/xuat', [OrderController::class, 'exportOrder'])->name('orders.xuat');
 Route::post('/trangthaidon', [OrderController::class,'trangthaidon']);
-Route::get('orders/detail/{id}', [OrderController::class, 'find'])->name('order.order_detail');
+Route::get('orders/detail/{id}', [OrderController::class, 'find'])->name('orders.order_detail');
 });
 

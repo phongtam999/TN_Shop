@@ -52,7 +52,7 @@ class ProductController extends Controller
         $param = [
             'categories' => $categories
         ];
-        return view('admin.products.create', $param,$categories);
+        return view('admin.products.create', $param);
     }
 
     /**

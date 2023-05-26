@@ -35,22 +35,25 @@ class OrderController extends Controller
     }
 
 
-public function show(string $id)
-{
-// $this->authorize('view', Order::class);
-// $order = $this->orderService->find($id);
-
-$items = DB::table('orderdetail')
-->join('orders','orderdetail.order_id','=','orders.id')
-->join('products','orderdetail.product_id','=','products.id')
-->select('products.*', 'orderdetail.*','orders.id')
-->where('orders.id','=',$id)->get();
-// foreach($items as $key => $order_Detail){
-//     dd($order_Detail->id);
-$order =Order::find($id);
-// }
-return view('admin.orders.order_detail',compact('items','order'));
-}
+    public function show(string $id)
+    {
+        // $this->authorize('view', Order::class);
+        // $order = $this->orderService->find($id);
+        $order = Order::find($id);
+        $items = DB::table('orderdetail')
+            ->join('orders', 'orderdetail.order_id', '=', 'orders.id')
+            ->join('products', 'orderdetail.product_id', '=', 'products.id')
+            ->select('products.*', 'orderdetail.*', 'orders.id')
+            ->where('orders.id', '=', $id)
+            ->get();
+        
+        // Kiểm tra và xử lý khi không tìm thấy đơn hàng
+        if (!$order) {
+            // Xử lý khi không tìm thấy đơn hàng
+        }
+        
+        return view('admin.orders.order_detail', compact('items', 'order'));
+    }
 
 public function find($id)
 {
@@ -59,7 +62,7 @@ public function find($id)
     $order_Details = $order->orderDetails;
     $params = [
         'order' => $order,
-        'orderdetail' => $order_detail,
+        // 'orderdetail' => $order_detail,
     ];  
     return view('admin.orders.order_detail',$params);
 }

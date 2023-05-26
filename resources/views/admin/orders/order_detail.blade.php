@@ -1,4 +1,3 @@
-
 @extends('admin.layouts.master')
 @section('content')
 <section class="section">
@@ -8,7 +7,7 @@
                 <div class="card-header">
                     <form  class="navbar-form navbar-left" action="{{route('orders.index')}}" method="GET">
                         <div class="row mb-2">
-                            <h3 class="form-header">Danh sách </h3>
+                            <h3 class="form-header">Danh sách đơn đặt hàng </h3>
                         </div>
 
                         <div class="row">
