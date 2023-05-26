@@ -59,11 +59,10 @@ Route::get('products/deleteforever/{id}', [ProductController::class, 'deletefore
 Route::get('products/xuatexcel', [ProductController::class, 'exportExcel'])->name('products.export');
 Route::resource('products', ProductController::class);
 
-
 // Đây là phần User
+Route::resource('users', UserController::class);
 Route::get('users/profile', [UserController::class, 'profile'])->name('users.profile');
 Route::get('users/search', [UserController::class, 'search'])->name('users.search');
-Route::resource('users', UserController::class);
 // Đây là phần Group
 Route::get('groups/detail/{id}', [GroupController::class, 'detail'])->name('groups.detail');
 Route::put('groups/group_detail/{id}', [GroupController::class, 'group_detail'])->name('groups.group_detail');
@@ -75,7 +74,6 @@ Route::resource('customers', CustomerController::class);
 // Đây là Orderssearch
 Route::get('orders/index', [OrderController::class, 'index'])->name('orders.index');
 Route::get('orders/xuat', [OrderController::class, 'exportOrder'])->name('orders.xuat');
-Route::post('/trangthaidon', [OrderController::class,'trangthaidon']);
-Route::get('orders/detail/{id}', [OrderController::class, 'find'])->name('order.order_detail');
+Route::get('orders/detail/{id}', [OrderController::class, 'show'])->name('orders.order_detail');
 });
 

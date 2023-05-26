@@ -115,7 +115,7 @@ class UserController extends Controller
 
     public function edit(string $id)
     {
-        $this->authorize('update', User::class);
+        // $this->authorize('update', User::class);
         $users = $this->userService->find($id);
 
         $groups = $this->GroupService->all($id);

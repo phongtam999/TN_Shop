@@ -22,8 +22,9 @@
                         <form  class="navbar-form navbar-left" action="{{route('categories.index')}}" method="GET">
                             <div class="row mb-2">
                                 <div class="col">
+                                    @if(Auth::user()->hasPermission('Category_create'))
                                     <a href="{{route('categories.create')}}" class="btn btn-primary"> Thêm mới </a>
-                                    {{-- <button type="{{route('categories.export')}}" class="btn btn-success "> Xuất execl </button> --}}
+                                    @endif
                                 </div>
                             </div>
 
@@ -59,12 +60,12 @@
                                         <td>                          
                                             @if (isset($team))
                                                 <form action="{{ route('categories.destroy', $team->id) }}" method="POST">
-                                                    {{-- @if (Auth::user() && Auth::user()->hasPermission('Category_update')) --}}
+                                                    @if (Auth::user() && Auth::user()->hasPermission('Category_update'))
                                                     <a href="{{ route('categories.edit', $team->id) }}" class="btn btn-primary">Sửa</a>
-                                                    {{-- @endif --}}
-                                                    {{-- @if (Auth::user() && Auth::user()->hasPermission('Category_delete')) --}}
+                                                    @endif
+                                                    @if (Auth::user() && Auth::user()->hasPermission('Category_delete'))
                                                     <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa')">Xóa</button>
-                                                    {{-- @endif --}}
+                                                    @endif
                                                     @method('DELETE')
                                                     @csrf
                                                 </form>
