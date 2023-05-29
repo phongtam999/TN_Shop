@@ -9,9 +9,9 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 // use Illuminate\Contracts\Session\Session;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-
 // use Illuminate\Support\Facades\Auth;
 
 class GroupController extends Controller
@@ -28,7 +28,7 @@ class GroupController extends Controller
     public function index(Request $request)
 
     {
-        // $this->authorize('viewAny',Group::class);
+        $this->authorize('viewAny',Group::class);
         $groups = $this->groupService->paginate($request);
         return view('admin.groups.index',compact('groups'));
        
@@ -100,20 +100,25 @@ class GroupController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Request $request ,$id)
     {
         $this->authorize('delete', Group::class);
         try {
             $this->groupService->forceDelete($id);
+            if($request->isAjax){
+                return new JsonResponse(['status' => 'success', 'message' => 'Nhóm Quyền Đã Được Xóa!']);
+            }
             toast('Nhóm Quyền Đã Được Xóa!', 'success', 'top-right');
             return redirect()->route('groups.index');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+            if($request->isAjax){
+                return new JsonResponse(['status' => 'error', 'message' => 'Có lỗi xảy ra!']);
+            }
             toast('Có lỗi xảy ra!', 'error', 'top-right');
             return redirect()->route('groups.index');
         }
     }
-    
     
     public function detail($id)
     {
@@ -134,6 +139,4 @@ class GroupController extends Controller
         }
     }
  
-
-   
 }

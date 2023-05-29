@@ -60,12 +60,12 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="card-footer">
+                                <nav class="float-right">
+                            {{ $customers->appends(request()->query()) }}
+                                </nav>
                         </div>
-                    </div>  
-                    <div class="card-footer">
-                        <nav class="float-right">
-                            {{ $customers->links() }}
-                        </nav>
+                        </div>
                     </div>              
                 </div>
             </div>

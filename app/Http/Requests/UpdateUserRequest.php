@@ -24,12 +24,13 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
+               'name' => 'required',
                 'email' => 'required',
-                'name' => 'required',
+                'password' => 'required',
                 'phone' => 'required',
+                // 'image' => 'required',
                 'gender' => 'required',
                 'group_id' => 'required',
-                // 'image' => 'required',
                 'address' => 'required',
                 'birthday' => 'required',
         ];
@@ -37,14 +38,15 @@ class UpdateUserRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.required' => 'Không được để trống!',
             'name.required' => 'Không được để trống!',
-            'phone.required' => 'Không được để trống!',
-            'gender.required' => 'Không được để trống!',
-            'group_id.required' => 'Không được để trống!',
-            'image.required' => 'Không được để trống!',
+            'email.required' => 'Không được để trống!',
+            'password.required' => 'Không được để trống!',
             'address.required' => 'Không được để trống!',
+            'phone.required' => 'Không được để trống!',
+            // 'image.required' => 'Không được để trống!',
+            'gender.required' => 'Không được để trống!',
             'birthday.required' => 'Không được để trống!',
+            'group_id.required' => 'Không được để trống!',
         ];
 }
 }

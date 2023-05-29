@@ -19,7 +19,7 @@
                             </div>
                             <div class="col">
                                 <button type="submit" class="btn btn-info"> Tìm </button>
-                                <a href="{{ route('orders.index') }}" type="submit" class="btn btn-secondary">Đặt lại</a>
+                                <a href="{{ route('orders.index')}}" type="submit" class="btn btn-secondary">Đặt lại</a>
                             </div>
                         </div>
                     </form><br/>

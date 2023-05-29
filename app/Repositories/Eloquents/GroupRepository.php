@@ -16,7 +16,7 @@ class GroupRepository extends EloquentRepository implements GroupRepositoryInter
     }
     public function paginate($request)
     {
-        $result = $this->model->paginate(3);
+        $result = $this->model->paginate(4);
         return $result;
     }
 

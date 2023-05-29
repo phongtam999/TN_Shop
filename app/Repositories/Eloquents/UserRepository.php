@@ -16,7 +16,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
 
     public function paginate($request)
     {
-        return $this->model->paginate(3);
+        return $this->model->paginate();
     }
 
     public function all($request)
@@ -48,7 +48,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
                 ->orWhere('address', 'LIKE', '%' . $key . '%');
         }
 
-        return $query->paginate(3);
+        return $query->paginate(4);
     }
 
     public function store($request)
@@ -81,24 +81,17 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
             'name' => $request->name,
             'pass' => $request->password,
         ];
-        // Mail::send('admin.emails.user', compact('data'), function ($email) use($user) {
-        //     $email->subject('3T Shop');
-        //     $email->to($user->email, $user->name);
-        // });
-
         return true;
     }
 
     public function update($request, $id)
     {
-        $user = $this->find($id);
+        $user = $this->model::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
-
         if ($request->password) {
             $user->password = bcrypt($request->password);
         }
-
         $user->address = $request->address;
         $user->phone = $request->phone;
         $user->birthday = $request->birthday;
@@ -112,7 +105,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
             $fileNameOrigin = pathinfo($fullFileNameOrigin, PATHINFO_FILENAME);
             $extenshion = $request->file($fieldName)->getClientOriginalExtension();
             $fileName = $fileNameOrigin . '-' . rand() . '_' . time() . '.' . $extenshion;
-            $path = 'storage/' . $request->file($fieldName)->storeAs('public/assets/images/user', $fileName);
+            $path = 'storage/' . $request->file($fieldName)->storeAs('public/assets/images/users', $fileName);
             $path = str_replace('public/', '', $path);
             $user->image = $path;
         }

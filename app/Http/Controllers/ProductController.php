@@ -18,35 +18,31 @@ use App\Services\Interfaces\CategoryServiceInterface;
 
 class ProductController extends Controller
 {
-    protected $productService;
-    protected $categoryService;
-    public function __construct(
+        protected $productService;
+        protected $categoryService;
+
+public function __construct(
         ProductServiceInterface $productService,
         CategoryServiceInterface $categoryService
-        )
+                            )
     {
         $this->productService = $productService;
         $this->categoryService = $categoryService;
     }
 
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(Request $request)
+    
+public function index(Request $request)
     {
-        // $this->authorize('viewAny', Product::class);
-    $products = $this->productService->all($request);
-    $categories = Category::get();
-    return view('admin.products.index', compact('products', 'categories'));
-    }
+        $this->authorize('viewAny', Product::class);
+        $products = $this->productService->all($request);
+        $categories = Category::get();
+        return view('admin.products.index', compact('products', 'categories'));
 
+     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Request $request)
+public function create(Request $request)
     {
-        // $this->authorize('create', Product::class);
+        $this->authorize('create', Product::class);
         $categories = $this->categoryService->all($request);
         $categories = Category::get();
         $param = [
@@ -54,11 +50,8 @@ class ProductController extends Controller
         ];
         return view('admin.products.create', $param);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreProductRequest $request)
+ 
+public function store(StoreProductRequest $request)
     {
         try {
             $this->productService->store($request);
@@ -69,26 +62,20 @@ class ProductController extends Controller
             toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
             return redirect()->route('products.index');
         }
-    }
+     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+public function show(string $id)
     {
         $this->authorize('view', Product::class);
         $productshow = $this->productService->find($id);
-        // $productshow = Product::findOrFail($id);
         $param = [
             'productshow' => $productshow,
         ];
         return view('admin.products.show',  $param);
-    }
+     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+  
+public function edit(string $id)
     {
         $this->authorize('update', Product::class);
         $products = $this->productService->find($id);
@@ -100,13 +87,9 @@ class ProductController extends Controller
         ];
         return view('admin.products.edit', $param);
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateProductRequest $request, string $id)
-    {
-       
+ 
+public function update(UpdateProductRequest $request, string $id)
+    {      
         try {
             $this->productService->update($request, $id);
             toast('Sửa Sản Phẩm Thành Công!', 'success', 'top-right');
@@ -116,14 +99,10 @@ class ProductController extends Controller
             toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
             return redirect()->route('products.index');
         }
-    }
+     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
-    {
-        
+     {       
        $this->authorize('delete', Product::class);
         try {
             $this->productService->destroy($id);
@@ -134,16 +113,16 @@ class ProductController extends Controller
             toast('Có Lỗi Xảy Ra', 'error', 'top-right');
             return redirect()->route('products.index');
         }
-    }
+     }
 
     public function getTrashed()
-    {
+     {
         $products = $this->productService->getTrashed();
         $softs = Product::onlyTrashed()->get();
         return view('admin.products.trash', compact('softs'));
-    }
+     }
     public function restore($id)
-    {
+     {
         $this->productService->restore($id);
         try {
             $softs = Product::withTrashed()->find($id);
@@ -155,10 +134,10 @@ class ProductController extends Controller
             toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
             return redirect()->route('products.index');
         }
-    }
+     }
     //xóa vĩnh viễn
     public function deleteforever($id)
-    {
+     {
         $this->authorize('deleteforever', Product::class);
         try {
             $softs = Product::withTrashed()->find($id);
@@ -170,9 +149,9 @@ class ProductController extends Controller
             toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
             return redirect()->route('products.index');
         }
-    }
+     }
     public function search(Request $request)
-    {
+     {
         $searchName = $request->input('name');
         $searchCategory = $request->input('category_id');
         $searchId = $request->input('id');
@@ -190,14 +169,13 @@ class ProductController extends Controller
             $query->where('id', $searchId);
         }
     
-        $products = $query->paginate(2);
+        $products = $query->paginate(4);
     
         return view('admin.products.index', compact('products'));
-    }
+     }
     
-
     public function exportExcel()
-    {
+     {
         return Excel::download(new ProductExport, 'products.xlsx');
-    }
+     }
 }

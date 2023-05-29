@@ -35,20 +35,12 @@ class CategoryController extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreCategoryRequest $request)
     {
      
         $this->categoryService->store($request);
         toast('Thêm danh mục thành công!', 'success', 'top-right');
         return redirect()->route('categories.index');
-    }
-
-    public function show(string $id)
-    {
-        //
     }
 
     public function edit(string $id)
@@ -68,7 +60,7 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         $category = $this->categoryService->find($id);
-        // $this->authorize('delete', $category);
+        $this->authorize('delete', $category);
         // if (!$category) {
         //     return redirect()->back()->with('error', 'Không tìm thấy danh mục');
         // }
@@ -85,7 +77,7 @@ class CategoryController extends Controller
     {
         $category = $this->categoryService->find($id, true);
         // dd($category);
-        // $this->authorize('restore', $category);
+        $this->authorize('restore', $category);
         try {
             $this->categoryService->restore($id);
             toast('Khôi Phục Danh Mục Thành Công!', 'success', 'top-right');
@@ -99,7 +91,7 @@ class CategoryController extends Controller
     public function deleteforever($id)
 {
     $category = $this->categoryService->find($id,true);
-    // $this->authorize('deleteforever', $category);
+    $this->authorize('deleteforever', $category);
     try {
         if ($category) {
             $category->forceDelete();
