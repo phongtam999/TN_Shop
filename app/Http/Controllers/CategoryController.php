@@ -22,7 +22,7 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
-        // $this->authorize('viewAny', Category::class);
+        $this->authorize('viewAny', Category::class);
         $categories = $this->categoryService->all($request);
         return view('admin.categories.index', compact('categories','request'));
     }
@@ -30,7 +30,7 @@ class CategoryController extends Controller
   
     public function create( Request $request)
     {
-        // $this->authorize('create', Category::class);
+        $this->authorize('create', Category::class);
         return view('admin.categories.create');
 
     }
@@ -54,7 +54,7 @@ class CategoryController extends Controller
     public function edit(string $id)
     {
         $item = $this->categoryService->find($id);
-        // $this->authorize('update',$item);
+        $this->authorize('update',$item);
         return view('admin.categories.edit',compact('item'));
     }
 
