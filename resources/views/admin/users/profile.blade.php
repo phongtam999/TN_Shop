@@ -58,12 +58,12 @@
                         <img src="{{ asset($user->image) }}" id="avtshow" alt="Avatar">
                     </a>
                     <div class="captn">
-                        <h4>Xem Avt</h4>
+                        <h4>Trang cá nhân</h4>
                     </div>
                 </div>
                 <div class="panel-body">
                     <hr>
-                    <h4  style="color: red">{{ $user->name }}</h4>
+                    <h4  style="color: red">{{ $user->name }}</h4><!--  -->
                     <ul class="nav nav-pills nav-stacked labels-info">
                         <li>
                             <h4>Vị Trí: {{ $user->group->name }}</h4>
@@ -161,8 +161,4 @@
             </div>
         </div>
     </div>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        // Code JavaScript của bạn có thể được đặt ở đây
-    </script>
 @endsection

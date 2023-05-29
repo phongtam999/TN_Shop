@@ -4,7 +4,7 @@
 @include('sweetalert::alert')
     <div class="row page-titles mx-0">
         <div class="col p-md-0">
-            <h3 class="page-title text">Danh sách </h3>
+            <h3 class="page-title text">Danh sách đơn hàng </h3>
         </div>
         <div class="col p-md-0">
             <ol class="breadcrumb">
@@ -19,25 +19,23 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">   
                     <div class="card-header">
-                        <form  class="navbar-form navbar-left" action="{{route('orders.index')}}" method="GET">
-                            <div class="row mb-2">
+                        <form  class="navbar-form navbar-left" action="{{route('orders.index')}}" method="GET">   
+                            <div class="row">
                                 <div class="col">
                                     <a class="btn btn-success" href="{{ route('orders.xuat') }}">Xuất Excel</a>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col">
                                     <input type="text" placeholder="Nhập ID" class="form-control" value="{{ request()->id }}" name="id">
                                 </div>
                                 <div class="col">
-                                    <input type="text" placeholder="Nhập Tên" class="form-control" value="{{ request()->name }}" name="name">
+                                    <input type="text" placeholder="Nhập tên" class="form-control" value="{{ request()->name }}" name="name">
                                 </div>
                                 <div class="col">
                                     <button type="submit" class="btn btn-info"> Tìm </button>
                                     <a href="{{ route('orders.index') }}" type="submit" class="btn btn-secondary">Đặt lại</a>
                                 </div>
                             </div>
-                        </form>
+                        </form><br/>
                     </div>                
                     <div class="card-body">
                         <div class="table-responsive">
@@ -54,18 +52,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($items as $key => $item)
+                                    @foreach ($orders as $key => $item)
                                     <tr>
                                         <th scope="row">{{ ++$key }}</th>
                                         <td>{{ $item->customer->name }}</td>
                                         <td>{{ $item->customer->email }}</td>
                                         <td>{{ $item->customer->phone }}</td>
                                         <td>{{ $item->customer->address }}</td>
-                                        <td>{{ $item->date_at}}</td>           
-                                            <!-- Đây là phần chỉnh sửa -->
-                                            <td>
+                                        <td>{{ $item->date_at}}</td>
+                                        <td>
                                                 <a  class="btn btn-info" href="{{route('orders.order_detail',$item->id)}}">Xem chi tiết</a>
-                                            </td> 
+                                        </td> 
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -81,29 +78,6 @@
             </div>
         </div> 
     </div>   
-    <script type="text/javascript">
-        $('.trangthai').change(function(){
-            const trangthai = $(this).val();
-            const order_id = $(this).data('order_id');
-            var _token = $('input[name="_token"]').val();
-            if(trangthai==0){
-                var thongbao = 'Thay đổi trạng thái thành đơn mới';
-            }else if(trangthai==1){
-                var thongbao = 'Thay đổi trạng thái thành đang giao';
-            }else{
-                var thongbao = 'Thay đổi trạng thái thành đã giao';
-            }
-            $.ajax({
-                url:"{{url('/orders/trangthaidon')}}",
-                method:"POST",
-                data:{trangthai:trangthai, order_id:order_id, _token:_token},
-                success:function(data)
-                    {
-                        alert(thongbao);
-                    }
-            });
-        });
-    </script> 
  @endsection  
 
 
@@ -111,3 +85,4 @@
 
 
  
+

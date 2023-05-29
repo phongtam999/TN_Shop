@@ -18,28 +18,30 @@ use App\Services\Interfaces\CategoryServiceInterface;
 
 class ProductController extends Controller
 {
-    protected $productService;
-    protected $categoryService;
-    public function __construct(
+        protected $productService;
+        protected $categoryService;
+
+public function __construct(
         ProductServiceInterface $productService,
         CategoryServiceInterface $categoryService
-        )
+                            )
     {
         $this->productService = $productService;
         $this->categoryService = $categoryService;
     }
 
-    public function index(Request $request)
-     {
+    
+public function index(Request $request)
+    {
         $this->authorize('viewAny', Product::class);
         $products = $this->productService->all($request);
-
         $categories = Category::get();
         return view('admin.products.index', compact('products', 'categories'));
+
      }
 
-    public function create(Request $request)
-     {
+public function create(Request $request)
+    {
         $this->authorize('create', Product::class);
         $categories = $this->categoryService->all($request);
         $categories = Category::get();
@@ -47,9 +49,10 @@ class ProductController extends Controller
             'categories' => $categories
         ];
         return view('admin.products.create', $param);
-     }
-    public function store(StoreProductRequest $request)
-     {
+    }
+ 
+public function store(StoreProductRequest $request)
+    {
         try {
             $this->productService->store($request);
             toast('Thêm Sản Phẩm Thành Công!', 'success', 'top-right');
@@ -61,8 +64,8 @@ class ProductController extends Controller
         }
      }
 
-    public function show(string $id)
-     {
+public function show(string $id)
+    {
         $this->authorize('view', Product::class);
         $productshow = $this->productService->find($id);
         $param = [
@@ -71,8 +74,9 @@ class ProductController extends Controller
         return view('admin.products.show',  $param);
      }
 
-    public function edit(string $id)
-     {
+  
+public function edit(string $id)
+    {
         $this->authorize('update', Product::class);
         $products = $this->productService->find($id);
         $products = Product::find($id);
@@ -82,11 +86,10 @@ class ProductController extends Controller
             'categories' => $categories
         ];
         return view('admin.products.edit', $param);
-     }
-
-    public function update(UpdateProductRequest $request, string $id)
-     {
-       
+    }
+ 
+public function update(UpdateProductRequest $request, string $id)
+    {      
         try {
             $this->productService->update($request, $id);
             toast('Sửa Sản Phẩm Thành Công!', 'success', 'top-right');

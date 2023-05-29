@@ -29,8 +29,8 @@ class ProductRepository extends EloquentRepository implements ProductRepositoryI
             $query->where('id',$request->id);
         }
         if ($request->category_id) {
-                    $query->where('category_id', '=', $request->category_id);
-              }
+            $query->where('category_id', '=', $request->category_id);
+        }
         return $query->orderBy('id','DESC')->paginate(4);
     }
 

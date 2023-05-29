@@ -21,20 +21,19 @@ use App\Http\Controllers\DashboardController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/dasboard', [DashboardController::class, 'index'])->name('dashboard');;
 //login
 
-// Route::prefix('/')->middleware(['auth', 'preventBackHistory'])->group(function () {
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/checkLogin', [AuthController::class, 'postLogin'])->name('checkLogin');
-// Route::post('/postlogin', [AuthController::class, 'postlogin'])->name('postlogin');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-// quên mật khẩu gửi đến mail
 Route::get('/forget-password', [UserController::class, 'forget_password'])->name('forget-password');
-Route::post('/sendmail', [UserController::class, 'sendMail'])->name('sendmail');
 // Route::post('/post_forgot_password', [AuthController::class, 'post_forgot_password'])->name('post_forgot_password');
 
+
 Route::prefix('/')->middleware(['auth', 'PreventBackHistory'])->group(function () {
+Route::get('/dasboard', [DashboardController::class, 'index'])->name('dashboard');;
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+// quên mật khẩu gửi đến mail
+Route::post('/sendmail', [UserController::class, 'sendMail'])->name('sendmail');
 
 //Đây là phần categories
   // thùng rác 
@@ -57,23 +56,28 @@ Route::get('products/deleteforever/{id}', [ProductController::class, 'deletefore
 Route::get('products/xuatexcel', [ProductController::class, 'exportExcel'])->name('products.export');
 Route::resource('products', ProductController::class);
 
-
 // Đây là phần User
 Route::get('users/profile', [UserController::class, 'profile'])->name('users.profile');
-Route::get('users/search', [UserController::class, 'search'])->name('users.search');
 Route::resource('users', UserController::class);
+
+Route::get('users/search', [UserController::class, 'search'])->name('users.search');
 // Đây là phần Group
+Route::resource('groups', GroupController::class);
+
 Route::get('groups/detail/{id}', [GroupController::class, 'detail'])->name('groups.detail');
 Route::put('groups/group_detail/{id}', [GroupController::class, 'group_detail'])->name('groups.group_detail');
 Route::get('groups/search', [GroupController::class, 'search'])->name('groups.search');
-Route::resource('groups', GroupController::class);
+Route::get('groups/{id}', [GroupController::class, 'destroy'])->name('groups.destroy');
+
+
 // Đây là phần Customer
 Route::get('customers/search', [CustomerController::class, 'search'])->name('customers.search');
 Route::resource('customers', CustomerController::class);
 // Đây là Orderssearch
 Route::get('orders/index', [OrderController::class, 'index'])->name('orders.index');
 Route::get('orders/xuat', [OrderController::class, 'exportOrder'])->name('orders.xuat');
-Route::get('orders/search', [OrderController::class, 'search'])->name('orders.search');
-Route::get('orders/show/{id}',[OrderController::class, 'show'])->name('orders.order_detail');
+Route::get('orders/detail/{id}', [OrderController::class, 'show'])->name('orders.order_detail');
+
+
 });
 

@@ -1,11 +1,21 @@
 <?php
+
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
-use App\Models\Order;
+
 use App\Exports\OrderExport;
-use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\Product;
+use Illuminate\Http\Request;
 use App\Services\Interfaces\OrderServiceInterface;
+use GuzzleHttp\Psr7\Response;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
+
+
 
 class OrderController extends Controller
 {
@@ -15,32 +25,35 @@ class OrderController extends Controller
     {
         $this->orderService = $orderService;
     }
+    //
+    public function index(Request $request)
+    {
+        $this->authorize('viewAny', Order::class);
 
-public function index(Request $request)
-{
-// $this->authorize('viewAny', Order::class);
-$items = $this->orderService->all($request);
-return view('admin.orders.index', compact('items'));
-
-}
+            $orders = $this->orderService->all($request);
+            return view('admin.orders.index', compact('orders'));
+    }
 
 
-public function show(string $id)
-{
-// $this->authorize('view', Order::class);
-// $order = $this->orderService->find($id);
-
-$items = DB::table('orderdetail')
-->join('orders','orderdetail.order_id','=','orders.id')
-->join('products','orderdetail.product_id','=','products.id')
-->select('products.*', 'orderdetail.*','orders.id')
-->where('orders.id','=',$id)->get();
-// foreach($items as $key => $order_Detail){
-//     dd($order_Detail->id);
-$order =Order::find($id);
-// }
-return view('admin.orders.order_detail',compact('items','order'));
-}
+    public function show(string $id)
+    {
+        // $this->authorize('view', Order::class);
+        // $order = $this->orderService->find($id);
+        $order = Order::find($id);
+        $items = DB::table('orderdetail')
+            ->join('orders', 'orderdetail.order_id', '=', 'orders.id')
+            ->join('products', 'orderdetail.product_id', '=', 'products.id')
+            ->select('products.*', 'orderdetail.*', 'orders.id')
+            ->where('orders.id', '=', $id)
+            ->get();
+        
+        // Kiểm tra và xử lý khi không tìm thấy đơn hàng
+        if (!$order) {
+            // Xử lý khi không tìm thấy đơn hàng
+        }
+        
+        return view('admin.orders.order_detail', compact('items', 'order'));
+    }
 
 public function find($id)
 {
@@ -49,7 +62,7 @@ public function find($id)
     $order_Details = $order->orderDetails;
     $params = [
         'order' => $order,
-        'orderdetail' => $order_detail,
+        // 'orderdetail' => $order_detail,
     ];  
     return view('admin.orders.order_detail',$params);
 }
@@ -58,5 +71,4 @@ public function exportOrder()
     {
         return Excel::download(new OrderExport, 'orders.xlsx');
     }
-    
 }

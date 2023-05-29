@@ -84,7 +84,8 @@ a#\32 {
                                 <input type="text" name="name" value = "{{request()->name}}" placeholder="Nhập tên" class="form-control form-control-sm">
                             </div>
                             <div class="col">
-                                <button type="submit" class="btn btn-primary btn-xm">Tìm kiếm</button>
+                                <button type="submit" class="btn btn-info"> Tìm </button>
+                                    <a href="{{ route('users.index') }}" type="submit" class="btn btn-secondary">Đặt lại</a>
                             </div>
                         </div>
                         

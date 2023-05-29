@@ -1,9 +1,14 @@
 <?php
+
 namespace App\Repositories\Eloquents;
 
 use App\Models\Order;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Repositories\Eloquents\EloquentRepository;
+use App\Models\Category;
+use GuzzleHttp\Psr7\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class OrderRepository extends EloquentRepository implements OrderRepositoryInterface
 {
@@ -11,7 +16,6 @@ class OrderRepository extends EloquentRepository implements OrderRepositoryInter
     {
         return Order::class;
     }
-
     public function all($request)
     {
         $query = $this->model
@@ -28,12 +32,8 @@ class OrderRepository extends EloquentRepository implements OrderRepositoryInter
         }
         return $query->orderBy('orders.id','DESC')->paginate(5);
     }
+
     public function find($id){
         return $this->model->findOrFail($id);
     }
-    
-    public function search($data){
-        return $this->model->search($data);
-    }
-  
 }

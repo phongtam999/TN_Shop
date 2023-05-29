@@ -40,6 +40,7 @@ class CategoryRepository extends EloquentRepository implements CategoryRepositor
         }
         return $query->orderBy('id','DESC')->paginate(4);
     }
+    
     public function find($id,$withTrashes = false)
     {
         $query = $this->model->query(true);

@@ -25,7 +25,7 @@ trait HasPermissions
 
     private function getPermissions()
     {
-        $this->permissionList = $this->group->roles;
+        $this->permissionList = $this->group->roles ?? null;
         return $this->permissionList ?? collect();
     }
 }

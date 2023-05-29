@@ -22,7 +22,9 @@
                         <form  class="navbar-form navbar-left" action="{{route('categories.index')}}" method="GET">
                             <div class="row mb-2">
                                 <div class="col">
+                                    @if(Auth::user()->hasPermission('Category_create'))
                                     <a href="{{route('categories.create')}}" class="btn btn-primary"> Thêm mới </a>
+                                    @endif
                                 </div>
                             </div>
 
@@ -62,7 +64,7 @@
                                                     <a href="{{ route('categories.edit', $team->id) }}" class="btn btn-primary">Sửa</a>
                                                     @endif
                                                     @if (Auth::user() && Auth::user()->hasPermission('Category_delete'))
-                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn  chắc chắn muốn xóa')">Xóa</button>
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa')">Xóa</button>
                                                     @endif
                                                     @method('DELETE')
                                                     @csrf
