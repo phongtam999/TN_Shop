@@ -8,7 +8,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\GroupController;
-// use App\Http\Controllers\OrderController;
+use App\Http\Controllers\DashboardController;
 
 
 /*
@@ -21,9 +21,7 @@ use App\Http\Controllers\GroupController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/dasboard', function () {
-    return view('admin.includes.main');
-})->name('dashboard');;
+Route::get('/dasboard', [DashboardController::class, 'index'])->name('dashboard');;
 //login
 
 // Route::prefix('/')->middleware(['auth', 'preventBackHistory'])->group(function () {

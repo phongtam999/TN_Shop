@@ -27,24 +27,9 @@ class UserController extends Controller
     public function index(Request $request)
     {
         // $this->authorize('viewAny', User::class);
-        $users = User::paginate(2);
-
         $users = $this->userService->all($request);
-
-        $id = $request->id ?? '';
-        $key = $request->key ?? '';
-        $name = $request->name ?? '';
-        $phone = $request->phone ?? '';
-        $address = $request->address ?? '';
-        $position = $request->position ?? '';
-
         $param = [
-            'f_id' => $id,
-            'f_key' => $key,
-            'f_name' => $name,
-            'f_phone' => $phone,
-            'f_address' => $address,
-            'f_position' => $position,
+           
             'users' => $users,
         ];
 
@@ -143,8 +128,7 @@ class UserController extends Controller
 
         return view('admin.users.edit', $param);
     }
-
-    public function update(UpdateUserRequest $request, $id)
+    public function update(Request $request, $id)
     {
         try {
             $this->userService->update($request, $id);
@@ -159,12 +143,9 @@ class UserController extends Controller
             return redirect()->route('users.index');
 
         }
-
    
     }
-    /**
-     * Remove the specified resource from storage.
-     */
+   
     public function destroy($id)
     {
         $this->authorize('delete', User::class);

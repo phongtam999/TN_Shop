@@ -38,7 +38,7 @@ class CategoryRepository extends EloquentRepository implements CategoryRepositor
         if ( $request->id ) {
             $query->where('id',$request->id);
         }
-        return $query->orderBy('id','DESC')->paginate(5);
+        return $query->orderBy('id','DESC')->paginate(4);
     }
     public function find($id,$withTrashes = false)
     {

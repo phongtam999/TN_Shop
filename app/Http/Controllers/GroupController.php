@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 // use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-
 // use Illuminate\Support\Facades\Auth;
 
 class GroupController extends Controller
@@ -28,7 +27,7 @@ class GroupController extends Controller
     public function index(Request $request)
 
     {
-        // $this->authorize('viewAny',Group::class);
+        $this->authorize('viewAny',Group::class);
         $groups = $this->groupService->paginate($request);
         return view('admin.groups.index',compact('groups'));
        
@@ -134,6 +133,4 @@ class GroupController extends Controller
         }
     }
  
-
-   
 }

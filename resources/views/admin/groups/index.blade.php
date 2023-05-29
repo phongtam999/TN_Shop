@@ -33,8 +33,8 @@
     </div>
     <div class="col p-md-0">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
-            <li class="breadcrumb-item active"><a href="javascript:void(0)">Home</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Bảng điều khiển</a></li>
+            <li class="breadcrumb-item active"><a href="{{route('dashboard')}}">Trang chủ</a></li>
         </ol>
     </div>
 </div>
@@ -74,8 +74,12 @@
                                     <td>
                                         <div class="btn-group" role="group">
                                             <a class="btn btn-primary btn-success btn-cappquyen" href="{{ route('groups.detail', $group->id) }}">Cấp quyền</a>
+                                            @if (Auth::user()->hasPermission('Group_update'))
                                             <a class="btn btn-primary btn-info" href="{{ route('groups.edit', $group->id) }}">Sửa</a>
+                                            @endif
+                                            @if (Auth::user()->hasPermission('Group_delete'))
                                             <button class="btn btn-danger btn-lg delete-group" data-group-id="{{ $group->id }}">Xóa nhóm quyền</button>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -85,7 +89,6 @@
                         <div class="card-footer">
                             <nav class="float-right">
                                 {{ $groups->appends(request()->query()) }}
-
                             </nav>
                         </div>
                     </div>
@@ -101,6 +104,7 @@
 <script>
     $(document).ready(function() {
         $('.delete-group').click(function(e) {
+            alert(1);
             e.preventDefault();
             var groupId = $(this).data('group-id');
 

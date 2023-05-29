@@ -86,11 +86,11 @@
                                 </tr>
                                 <tr>
                                 <td>Ngày thêm:</td>
-                                <td>{{ $productshow->created_at}}</td>
+                                <td>{{date_format($productshow->created_at,"d/m/Y H:i:s"); }}</td>
                                 </tr>
                                 <tr>
                                 <td>Ngày sửa:</td>
-                                <td>{{ $productshow->updated_at}}</td>
+                                <td>{{date_format($productshow->updated_at,"d/m/Y H:i:s"); }}</td>
                                 </tr>
                                 <tr>
                                 <td>Ảnh:</td>

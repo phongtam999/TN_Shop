@@ -16,20 +16,22 @@ class ProductRepository extends EloquentRepository implements ProductRepositoryI
 
     public function paginate($request)
     {
-        $result = $this->model->paginate(2);
+        $result = $this->model->paginate();
         return $result;
     }
-
     public function all($request)
     {
-        $query = $this->model->select('*')->orderBy('id', 'DESC');
-        if ($request->name) {
-            $query->where('name', '=', '%'.$request->name.'%');
+        $query = $this->model->select('*');
+        if ( $request->name ) {
+            $query->where('name','like','%'.$request->name.'%');
+        }
+        if ( $request->id ) {
+            $query->where('id',$request->id);
         }
         if ($request->category_id) {
-            $query->where('category_id', '=', $request->category_id);
-        }
-        return $query->paginate(2);
+                    $query->where('category_id', '=', $request->category_id);
+              }
+        return $query->orderBy('id','DESC')->paginate(4);
     }
 
     public function find($id,$withTrashes = false)
@@ -63,22 +65,10 @@ class ProductRepository extends EloquentRepository implements ProductRepositoryI
         return $product->save();
     }
     
-    // public function store($data)
-    // {
-    //     $product = new Product();
-    //     $product->name = $data['name'];
-    //     $product->amount = $data['amount'];
-    //     $product->price = $data['price'];
-    //     $product->description = $data['description']; 
-    //     $product->image = $data['image'];// Thêm dòng này để cung cấp giá trị cho trường description
-    //     $product->save();
-    
-    //     return $product;
-    // }
-    
     public function update($request, $id)
     {
-        $product = new $this->model;
+        
+        $product = $this->model::find($id);
         $product->name = $request->name;
         $product->amount = $request->amount;
         $product->price = $request->price;

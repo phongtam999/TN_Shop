@@ -66,6 +66,7 @@
                         <div class="form-group">
                           <label >Ảnh</label>
                           <input type="file" class="form-control @error('image') is-invalid @enderror" name="image">
+                          <img width="90px" height="90px" src="{{ asset($products->image) }}" alt="">
                           @error('image')
                               <div class="invalid-feedback">{{ $message }}</div>
                           @enderror

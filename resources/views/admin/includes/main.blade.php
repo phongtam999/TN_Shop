@@ -50,10 +50,10 @@
         <div class="col-lg-3 col-md-6">
           <div class="card gradient-1">
             <div class="card-body">
-              <h3 class="card-title text-white">Products Sold</h3>
+              <h3 class="card-title text-white">Tổng doanh thu</h3>
               <div class="d-inline-block">
-                <h2 class="text-white">5775</h2>
-                <p class="text-white mb-0">Jan - March 2023</p>
+                <h2 class="text-white">{{$totalPrice}}.VNĐ</h2>
+                <p class="text-white mb-0">Tháng 5 - Tháng 6 năm 2023</p>
               </div>
               <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span>
             </div>
@@ -63,10 +63,10 @@
         <div class="col-lg-3 col-md-6">
           <div class="card gradient-2">
             <div class="card-body">
-              <h3 class="card-title text-white">Net Profit</h3>
+              <h3 class="card-title text-white">Tổng số đơn hàng</h3>
               <div class="d-inline-block">
-                <h2 class="text-white">$ 8541</h2>
-                <p class="text-white mb-0">Jan - March 2023</p>
+                <h2 class="text-white">{{$totalOrders}} đơn hàng</h2>
+                <p class="text-white mb-0">Tháng 5 - Tháng 6 năm 2023</p>
               </div>
               <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
             </div>
@@ -76,10 +76,10 @@
         <div class="col-lg-3 col-md-6">
           <div class="card gradient-3">
             <div class="card-body">
-              <h3 class="card-title text-white">New Customers</h3>
+              <h3 class="card-title text-white">Tổng khách hàng</h3>
               <div class="d-inline-block">
-                <h2 class="text-white">5775</h2>
-                <p class="text-white mb-0">Jan - March 2023</p>
+                <h2 class="text-white">{{$totalCustomer}} người</h2>
+                <p class="text-white mb-0">Tháng 5 - Tháng 6 năm 2023</p>
               </div>
               <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
             </div>
@@ -89,10 +89,10 @@
         <div class="col-lg-3 col-md-6">
           <div class="card gradient-4">
             <div class="card-body">
-              <h3 class="card-title text-white">Old Customers </h3>
+              <h3 class="card-title text-white">Tổng sản phẩm</h3>
               <div class="d-inline-block">
-                <h2 class="text-white">99%</h2>
-                <p class="text-white mb-0">Jan - March 2023</p>
+                <h2 class="text-white">{{$totalProduct}} </h2>
+                <p class="text-white mb-0">Tháng 5 - Tháng 6 năm 2023</p>
               </div>
               <span class="float-right display-5 opacity-5"><i class="fa fa-heart"></i></span>
             </div>
@@ -107,15 +107,15 @@
                     <div class="card">
                         <div class="card-body pb-0 d-flex justify-content-between">
                             <div>
-                                <h4 class="mb-1">Product Sales</h4>
-                                <p>Total Earnings of the Month</p>
+                                <h4 class="mb-1">Bán sản phẩm</h4>
+                                <p>Tổng thu nhập trong tháng</p>
                                 <h3 class="m-0">$ 12,555</h3>
                             </div>
                             <div>
                                 <ul>
-                                    <li class="d-inline-block mr-3"><a class="text-dark" href="#">Day</a></li>
-                                    <li class="d-inline-block mr-3"><a class="text-dark" href="#">Week</a></li>
-                                    <li class="d-inline-block"><a class="text-dark" href="#">Month</a></li>
+                                    <li class="d-inline-block mr-3"><a class="text-dark" href="#">Ngày </a></li>
+                                    <li class="d-inline-block mr-3"><a class="text-dark" href="#">Tuần</a></li>
+                                    <li class="d-inline-block"><a class="text-dark" href="#">Tháng</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -125,13 +125,13 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <div class="w-100 mr-2">
-                                    <h6>Pixel 2</h6>
+                                    <h6>Điểm ảnh 2</h6>
                                     <div class="progress" style="height: 6px">
                                         <div class="progress-bar bg-danger" style="width: 40%"></div>
                                     </div>
                                 </div>
                                 <div class="ml-2 w-100">
-                                    <h6>iPhone X</h6>
+                                    <h6>Nước hoa cK</h6>
                                     <div class="progress" style="height: 6px">
                                         <div class="progress-bar bg-primary" style="width: 80%"></div>
                                     </div>
@@ -150,7 +150,7 @@
             <div class="col-lg-6 col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Order Summary</h4>
+                        <h4 class="card-title">Tóm tắt theo thứ tự</h4>
                         <div id="morris-bar-chart"></div>
                     </div>
                 </div>
@@ -159,30 +159,30 @@
             <div class="col-lg-3 col-md-6">
                 <div class="card card-widget">
                     <div class="card-body">
-                        <h5 class="text-muted">Order Overview </h5>
+                        <h5 class="text-muted">Tổng quan về đơn hàng </h5>
                         <h2 class="mt-4">5680</h2>
-                        <span>Total Revenue</span>
+                        <span>Tổng doanh thu</span>
                         <div class="mt-4">
                             <h4>30</h4>
-                            <h6>Online Order <span class="pull-right">30%</span></h6>
+                            <h6>Đặt hàng trực tuyến <span class="pull-right">30%</span></h6>
                             <div class="progress mb-3" style="height: 7px">
-                                <div class="progress-bar bg-primary" style="width: 30%;" role="progressbar"><span class="sr-only">30% Order</span>
+                                <div class="progress-bar bg-primary" style="width: 30%;" role="progressbar"><span class="sr-only">Đặt hàng 30%</span>
                                 </div>
                             </div>
                         </div>
                         <div class="mt-4">
                             <h4>50</h4>
-                            <h6 class="m-t-10 text-muted">Offline Order <span class="pull-right">50%</span></h6>
+                            <h6 class="m-t-10 text-muted">Đặt hàng ngoại tuyến <span class="pull-right">50%</span></h6>
                             <div class="progress mb-3" style="height: 7px">
-                                <div class="progress-bar bg-success" style="width: 50%;" role="progressbar"><span class="sr-only">50% Order</span>
+                                <div class="progress-bar bg-success" style="width: 50%;" role="progressbar"><span class="sr-only">Đặt hàng 50%</span>
                                 </div>
                             </div>
                         </div>
                         <div class="mt-4">
                             <h4>20</h4>
-                            <h6 class="m-t-10 text-muted">Cash On Develery <span class="pull-right">20%</span></h6>
+                            <h6 class="m-t-10 text-muted">Tiền mặt khi phát triển <span class="pull-right">20%</span></h6>
                             <div class="progress mb-3" style="height: 7px">
-                                <div class="progress-bar bg-warning" style="width: 20%;" role="progressbar"><span class="sr-only">20% Order</span>
+                                <div class="progress-bar bg-warning" style="width: 20%;" role="progressbar"><span class="sr-only">Đặt hàng 20%</span>
                                 </div>
                             </div>
                         </div>
@@ -193,15 +193,15 @@
             <div class="col-lg-3 col-md-6">
                 <div class="card">
                     <div class="card-body px-0">
-                        <h4 class="card-title px-4 mb-3">Todo</h4>
+                        <h4 class="card-title px-4 mb-3">Làm</h4>
                         <div class="todo-list">
                             <div class="tdl-holder">
                                 <div class="tdl-content">
                                     <ul id="todo_list">
-                                        <li><label><input type="checkbox"><i></i><span>Get up</span><a href='#' class="ti-trash"></a></label></li>
-                                        <li><label><input type="checkbox" checked><i></i><span>Stand up</span><a href='#' class="ti-trash"></a></label></li>
-                                        <li><label><input type="checkbox"><i></i><span>Don't give up the fight.</span><a href='#' class="ti-trash"></a></label></li>
-                                        <li><label><input type="checkbox" checked><i></i><span>Do something else</span><a href='#' class="ti-trash"></a></label></li>
+                                        <li><label><input type="checkbox"><i></i><span>Thức dậy</span><a href='#' class="ti-trash"></a></label></li>
+                                        <li><label><input type="checkbox" checked><i></i><span>Đứng lên</span><a href='#' class="ti-trash"></a></label></li>
+                                        <li><label><input type="checkbox"><i></i><span>Đừng từ bỏ cuộc chiến.</span><a href='#' class="ti-trash"></a></label></li>
+                                        <li><label><input type="checkbox" checked><i></i><span>Làm việc gì khác</span><a href='#' class="ti-trash"></a></label></li>
                                     </ul>
                                 </div>
                                 <div class="px-4">
@@ -220,8 +220,8 @@
                 <div class="card-body">
                     <div class="text-center">
                         <img src="./images/users/8.jpg" class="rounded-circle" alt="">
-                        <h5 class="mt-3 mb-1">Ana Liem</h5>
-                        <p class="m-0">Senior Manager</p>
+                        <h5 class="mt-3 mb-1">Nho Nguyễn</h5>
+                        <p class="m-0">Quản lý cấp cao</p>
                         <!-- <a href="javascript:void()" class="btn btn-sm btn-warning">Send Message</a> -->
                     </div>
                 </div>
@@ -232,8 +232,8 @@
                 <div class="card-body">
                     <div class="text-center">
                         <img src="./images/users/5.jpg" class="rounded-circle" alt="">
-                        <h5 class="mt-3 mb-1">John Abraham</h5>
-                        <p class="m-0">Store Manager</p>
+                        <h5 class="mt-3 mb-1">Phong Tâm</h5>
+                        <p class="m-0">Quản lý cửa hàng</p>
                         <!-- <a href="javascript:void()" class="btn btn-sm btn-warning">Send Message</a> -->
                     </div>
                 </div>
@@ -244,8 +244,8 @@
                 <div class="card-body">
                     <div class="text-center">
                         <img src="./images/users/7.jpg" class="rounded-circle" alt="">
-                        <h5 class="mt-3 mb-1">John Doe</h5>
-                        <p class="m-0">Sales Man</p>
+                        <h5 class="mt-3 mb-1">Quốc Khang</h5>
+                        <p class="m-0">Người bán hàng</p>
                         <!-- <a href="javascript:void()" class="btn btn-sm btn-warning">Send Message</a> -->
                     </div>
                 </div>
@@ -256,8 +256,8 @@
                 <div class="card-body">
                     <div class="text-center">
                         <img src="./images/users/1.jpg" class="rounded-circle" alt="">
-                        <h5 class="mt-3 mb-1">Mehedi Titas</h5>
-                        <p class="m-0">Online Marketer</p>
+                        <h5 class="mt-3 mb-1">Đình Phong</h5>
+                        <p class="m-0">Nhà tiếp thị trực tuyến</p>
                         <!-- <a href="javascript:void()" class="btn btn-sm btn-warning">Send Message</a> -->
                     </div>
                 </div>
@@ -275,12 +275,12 @@
                             <table class="table table-xs mb-0">
                                 <thead>
                                     <tr>
-                                        <th>Customers</th>
-                                        <th>Product</th>
-                                        <th>Country</th>
-                                        <th>Status</th>
-                                        <th>Payment Method</th>
-                                        <th>Activity</th>
+                                        <th>Khách hàng</th>
+                                        <th>Sản phẩm</th>
+                                        <th>Quốc gia</th>
+                                        <th>Trạng thái</th>
+                                        <th>Phương thức thanh toán</th>
+                                        <th>Hoạt động</th>
                                     </tr>
                                 </thead>
                                 <tbody>

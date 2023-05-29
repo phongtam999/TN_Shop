@@ -57,8 +57,8 @@ a#\32 {
     </div>
     <div class="col p-md-0">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
-            <li class="breadcrumb-item active"><a href="javascript:void(0)">Home</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Bảng điều khiển</a></li>
+            <li class="breadcrumb-item active"><a href="{{route('dashboard')}}">Trang chủ</a></li>
         </ol>
     </div>
 </div>
@@ -78,10 +78,10 @@ a#\32 {
                         </div>
                         <div class="row">
                             <div class="col">
-                                <input type="text" name="id" placeholder="Nhập ID" class="form-control form-control-sm">
+                                <input type="text" name="id"  value = "{{request()->id}}" placeholder="Nhập ID" class="form-control form-control-sm">
                             </div>
                             <div class="col">
-                                <input type="text" name="name" placeholder="Nhập tên" class="form-control form-control-sm">
+                                <input type="text" name="name" value = "{{request()->name}}" placeholder="Nhập tên" class="form-control form-control-sm">
                             </div>
                             <div class="col">
                                 <button type="submit" class="btn btn-primary btn-xm">Tìm kiếm</button>
@@ -120,8 +120,12 @@ a#\32 {
                                         </td>
                                         <td>
                                             <div class="btn-group d-flex justify-content-center" role="group">
+                                                @if (Auth::user()->hasPermission('User_update'))
                                                 <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info">Sửa</a>
+                                                @endif
+                                                @if (Auth::user()->hasPermission('User_delete'))
                                                 <a data-href="{{ route('users.destroy', $user->id) }}" id="{{ $user->id }}" class="btn btn-danger delete-button">Xóa</a>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>
@@ -135,8 +139,7 @@ a#\32 {
                 <div class="card-footer">
                     <nav class="float-right">
                         {{ $users->appends(request()->query())->links() }}
-                    </nav>
-                    
+                    </nav>          
                 </div>
             </div>
         </div>

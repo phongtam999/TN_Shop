@@ -35,10 +35,10 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <input type="text" value="{{request()->id}}" name="id" placeholder="Nhập ID" class="form-control form-control-sm">
+                                <input type="text" placeholder="Nhập ID" class="form-control" value="{{ request()->id }}" name="id">
                             </div>
                             <div class="col">
-                                <input type="text" value="{{request()->name}}" name="name" placeholder="Nhập tên" class="form-control form-control-sm">
+                                <input type="text" placeholder="Nhập tên" class="form-control" value="{{ request()->name }}" name="name">
                             </div>
                                 <div class="col">
                                     <select name="category_id" id="" class="form-control">
@@ -116,12 +116,11 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="card-footer">
+                            <nav class="float-right">
+                        {{ $products->appends(request()->query()) }}
+                            </nav>
                     </div>
-                </div>
-                <div class="card-footer">
-                    <nav class="float-right">
-                        {{ $products->links() }}
-                    </nav>
                 </div>
             </div>
         </div>

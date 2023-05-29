@@ -28,15 +28,15 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-                'email' => 'required',
-                'password' => 'required',
-                'name' => 'required',
-                'phone' => 'required',
-                'gender' => 'required',
-                'group_id' => 'required',
-                'image' => 'required',
-                'address' => 'required',
-                'birthday' => 'required',
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+            'image' => 'required',
+            'gender' => 'required',
+            'birthday' => 'required',
+            'group_id' => 'required',
         ];
     }
     public function messages()
