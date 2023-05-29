@@ -57,16 +57,6 @@ class ProductSeeder extends Seeder
             ],
 
             [
-                'name' => 'Iphone14',
-                'price' => 34000000,
-                'amount' => 5,
-                'category_id' => 1,
-                'description' => 'Iphone 14 pro chụp hình vẫn là đẹp',
-                'image' => 'anh'
-                // 'created_at' => '2022-12-17 04:02:10',
-            ],
-
-            [
                 'name' => 'Nước hoa Euphoria for woman',
                 'price' => 34000000,
                 'amount' => 12,

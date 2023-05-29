@@ -10736,10 +10736,9 @@ table.dataTable thead .sorting::after {
   border: 0 none;
   padding: 2px 10px; }
 
-  a#\33 {
-    color:white;
-  }
-
+a#\33 {
+    color: white;
+}
 
 #myTable a {
   font-size: 18px;

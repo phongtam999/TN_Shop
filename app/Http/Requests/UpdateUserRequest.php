@@ -27,12 +27,12 @@ class UpdateUserRequest extends FormRequest
                'name' => 'required',
                 'email' => 'required',
                 'password' => 'required',
-                'address' => 'required',
                 'phone' => 'required',
                 // 'image' => 'required',
                 'gender' => 'required',
-                'birthday' => 'required',
                 'group_id' => 'required',
+                'address' => 'required',
+                'birthday' => 'required',
         ];
     }
     public function messages()

@@ -32,6 +32,6 @@ class MailNotify extends Mailable
     {
         return $this->from('nho230204@gmail.com')
             ->view('admin.mails.mail-notify')
-            ->subject('Đưa lại mật khẩu cho bố mày cái');
+            ->subject('Cung cấp lại mật khẩu cho Shop Perfume');
     }
 }

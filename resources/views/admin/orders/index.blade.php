@@ -1,4 +1,3 @@
-
 @extends('admin.layouts.master')
 @section('content')
 @include('sweetalert::alert')
@@ -79,7 +78,6 @@
         </div> 
     </div>   
  @endsection  
-
 
 
 
