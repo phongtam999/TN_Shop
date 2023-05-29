@@ -26,7 +26,6 @@ class StoreProductRequest extends FormRequest
         // dd($this);
         return [
             'name' => 'required',
-            // 'quantity' => 'required|max:11',
             'price' => 'required|max:11',
             'amount' => 'required',
             'category_id' => 'required',
@@ -38,9 +37,8 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'name.required' => 'Không được để trống!',
-            'quantity.required' => 'Không được để trống!',
             'price.required' => 'Không được để trống!',
-            'amount.max' => 'Không được để trống!',
+            'amount.required' => 'Không được để trống!',
             'category_id.required' => 'Không được để trống!',
             'description.required' => 'Không được để trống!',
             'image.required' => 'Không được để trống!',

@@ -24,27 +24,29 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
+               'name' => 'required',
                 'email' => 'required',
-                'name' => 'required',
-                'phone' => 'required',
-                'gender' => 'required',
-                'group_id' => 'required',
-                // 'image' => 'required',
+                'password' => 'required',
                 'address' => 'required',
+                'phone' => 'required',
+                // 'image' => 'required',
+                'gender' => 'required',
                 'birthday' => 'required',
+                'group_id' => 'required',
         ];
     }
     public function messages()
     {
         return [
-            'email.required' => 'Không được để trống!',
             'name.required' => 'Không được để trống!',
-            'phone.required' => 'Không được để trống!',
-            'gender.required' => 'Không được để trống!',
-            'group_id.required' => 'Không được để trống!',
-            'image.required' => 'Không được để trống!',
+            'email.required' => 'Không được để trống!',
+            'password.required' => 'Không được để trống!',
             'address.required' => 'Không được để trống!',
+            'phone.required' => 'Không được để trống!',
+            // 'image.required' => 'Không được để trống!',
+            'gender.required' => 'Không được để trống!',
             'birthday.required' => 'Không được để trống!',
+            'group_id.required' => 'Không được để trống!',
         ];
 }
 }

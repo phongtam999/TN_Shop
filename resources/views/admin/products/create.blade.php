@@ -24,7 +24,7 @@
                 @csrf
                 <div class="form-group">
                   <label>Tên sản phẩm</label>
-                  <input type="text" class="form-control" name="name" placeholder="Tên">
+                  <input type="text" class="form-control" name="name" value="{{old('name')}}" placeholder="Tên">
                   @error('name')
                   <div class="text text-danger">{{ $message }}</div>
                   @enderror
@@ -46,7 +46,7 @@
 
                 <div class="form-group">
                   <label>Giá tiền</label>
-                  <input type="text" class="form-control" name="price" placeholder="Giá tiền">
+                  <input type="text" class="form-control" name="price" value="{{old('price')}}" placeholder="Giá tiền">
                   @error('price')
                   <div class="text text-danger">{{ $message }}</div>
                   @enderror
@@ -54,7 +54,7 @@
 
                 <div class="form-group">
                   <label>Số lượng</label>
-                  <input type="text" class="form-control" name="amount" placeholder="Số lượng">
+                  <input type="text" class="form-control" name="amount" value="{{old('amount')}}" placeholder="Số lượng">
                   @error('amount')
                   <div class="text text-danger">{{ $message }}</div>
                   @enderror
@@ -62,7 +62,7 @@
                 
                 <div class="form-group">
                   <label>Mô tả</label>
-                  <textarea class="form-control" name="description" placeholder="Mô tả"></textarea>
+                  <textarea class="form-control" name="description"  placeholder="Mô tả" >{{old('description')}}</textarea>
                   @error('description')
                   <div class="text text-danger">{{ $message }}</div>
                   @enderror

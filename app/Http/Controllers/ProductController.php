@@ -37,8 +37,8 @@ public function index(Request $request)
         $products = $this->productService->all($request);
         $categories = Category::get();
         return view('admin.products.index', compact('products', 'categories'));
-    }
 
+     }
 
 public function create(Request $request)
     {
@@ -48,7 +48,7 @@ public function create(Request $request)
         $param = [
             'categories' => $categories
         ];
-        return view('admin.products.create', $param,$categories);
+        return view('admin.products.create', $param);
     }
  
 public function store(StoreProductRequest $request)
@@ -62,7 +62,7 @@ public function store(StoreProductRequest $request)
             toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
             return redirect()->route('products.index');
         }
-    }
+     }
 
 public function show(string $id)
     {
@@ -72,7 +72,7 @@ public function show(string $id)
             'productshow' => $productshow,
         ];
         return view('admin.products.show',  $param);
-    }
+     }
 
   
 public function edit(string $id)
@@ -99,11 +99,10 @@ public function update(UpdateProductRequest $request, string $id)
             toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
             return redirect()->route('products.index');
         }
-    }
+     }
 
     public function destroy($id)
-    {
-        
+     {       
        $this->authorize('delete', Product::class);
         try {
             $this->productService->destroy($id);
@@ -114,16 +113,16 @@ public function update(UpdateProductRequest $request, string $id)
             toast('Có Lỗi Xảy Ra', 'error', 'top-right');
             return redirect()->route('products.index');
         }
-    }
+     }
 
     public function getTrashed()
-    {
+     {
         $products = $this->productService->getTrashed();
         $softs = Product::onlyTrashed()->get();
         return view('admin.products.trash', compact('softs'));
-    }
+     }
     public function restore($id)
-    {
+     {
         $this->productService->restore($id);
         try {
             $softs = Product::withTrashed()->find($id);
@@ -135,10 +134,10 @@ public function update(UpdateProductRequest $request, string $id)
             toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
             return redirect()->route('products.index');
         }
-    }
+     }
     //xóa vĩnh viễn
     public function deleteforever($id)
-    {
+     {
         $this->authorize('deleteforever', Product::class);
         try {
             $softs = Product::withTrashed()->find($id);
@@ -150,9 +149,9 @@ public function update(UpdateProductRequest $request, string $id)
             toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
             return redirect()->route('products.index');
         }
-    }
+     }
     public function search(Request $request)
-    {
+     {
         $searchName = $request->input('name');
         $searchCategory = $request->input('category_id');
         $searchId = $request->input('id');
@@ -170,14 +169,13 @@ public function update(UpdateProductRequest $request, string $id)
             $query->where('id', $searchId);
         }
     
-        $products = $query->paginate(2);
+        $products = $query->paginate(4);
     
         return view('admin.products.index', compact('products'));
-    }
+     }
     
-
     public function exportExcel()
-    {
+     {
         return Excel::download(new ProductExport, 'products.xlsx');
-    }
+     }
 }
