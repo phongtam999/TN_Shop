@@ -29,7 +29,7 @@ class UpdateProductRequest extends FormRequest
             'amount' => 'required',
             'category_id' => 'required',
             'description' => 'required',
-            'image' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
     public function messages()

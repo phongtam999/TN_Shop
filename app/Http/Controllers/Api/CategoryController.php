@@ -36,11 +36,16 @@ class CategoryController extends Controller
 
     public function show(string $id , Request $request)
     {
-        
+        $item = $this->categoryService->find($id);
+        return new ProductResource($item);
+    }
+
+    public function getProducts(string $id , Request $request)
+    {
         $request->category_id = $id;
         $request->id = 0;
-        $item = $this->productService->all($request);
-        return ProductResource::collection($item);
+        $items = $this->productService->all($request);
+        return ProductResource::collection($items);
     }
 
     public function update(Request $request, string $id)

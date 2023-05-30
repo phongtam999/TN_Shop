@@ -18,7 +18,6 @@ class OrderController extends Controller
         $name = $request->name;
         $note = $request->note;
         $phone = $request->phone;
-
         $order = new Order();
         $order->customer_id = 1;
         $order->total = 1;

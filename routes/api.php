@@ -44,7 +44,9 @@ Route::delete('carts/remove_cart/{id}',[CartController::class,'removeToCart']);
 Route::get('category_list',[ProductController::class,'category_list']);
 Route::get('products/{id}',[ProductController::class,'product_detail']);
 
+Route::get('categories/getProducts/{id}',[CategoryController::class,'getProducts']);
 Route::apiResource('categories',CategoryController::class);
+
 Route::apiResource('products',ProductController::class);
 Route::apiResource('users',UserController::class);
 Route::apiResource('customers',CustomerController::class);
