@@ -31,7 +31,7 @@ class ProductRepository extends EloquentRepository implements ProductRepositoryI
         if ($request->category_id) {
             $query->where('category_id', '=', $request->category_id);
         }
-        return $query->orderBy('id','DESC')->paginate(4);
+        return $query->orderBy('id','DESC')->paginate(12);
     }
 
     public function find($id,$withTrashes = false)
@@ -58,7 +58,7 @@ class ProductRepository extends EloquentRepository implements ProductRepositoryI
             $fileNameOrigin = pathinfo($fullFileNameOrigin, PATHINFO_FILENAME);
             $extenshion = $request->file($fieldName)->getClientOriginalExtension();
             $fileName = $fileNameOrigin . '-' . rand() . '_' . time() . '.' . $extenshion;
-            $path = 'storage/' . $request->file($fieldName)->storeAs('public/assets/images/user', $fileName);
+            $path = 'storage/' . $request->file($fieldName)->storeAs('public/assets/images/users', $fileName);
             $path = str_replace('public/', '', $path);
             $product->image = $path;
         }
