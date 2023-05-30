@@ -26,8 +26,10 @@ use App\Http\Controllers\DashboardController;
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/checkLogin', [AuthController::class, 'postLogin'])->name('checkLogin');
 Route::get('/forget-password', [UserController::class, 'forget_password'])->name('forget-password');
-Route::post('/post_forgot_password', [AuthController::class, 'post_forgot_password'])->name('post_forgot_password');
+// Route::post('/post_forgot_password', [AuthController::class, 'post_forgot_password'])->name('post_forgot_password');
 Route::post('/sendmail', [UserController::class, 'sendMail'])->name('sendmail');
+
+
 
 Route::prefix('/')->middleware(['auth', 'PreventBackHistory'])->group(function () {
 Route::get('/dasboard', [DashboardController::class, 'index'])->name('dashboard');;
