@@ -30,6 +30,7 @@ Route::get('/forget-password', [UserController::class, 'forget_password'])->name
 Route::post('/sendmail', [UserController::class, 'sendMail'])->name('sendmail');
 
 
+
 Route::prefix('/')->middleware(['auth', 'PreventBackHistory'])->group(function () {
 Route::get('/dasboard', [DashboardController::class, 'index'])->name('dashboard');;
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
