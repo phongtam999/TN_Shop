@@ -66,7 +66,7 @@
               <h3 class="card-title text-white">Tổng số đơn hàng</h3>
               <div class="d-inline-block">
                 <h2 class="text-white">{{$totalOrders}} đơn hàng</h2>
-                <p class="text-white mb-0">Tháng 5tainer-fluid mt-3 - Tháng 6 năm 2023</p>
+                <p class="text-white mb-0">Tháng 5 - Tháng 6 năm 2023</p>
               </div>
               <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
             </div>

@@ -58,7 +58,7 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="tf1">Số Điện Thoại<abbr name="Trường bắt buộc">*</abbr></label>
-                                    <input name="phone" type="number" class="form-control" value="{{ old('phone') }}">
+                                    <input name="phone" type="text" class="form-control" value="{{ old('phone') }}">
                                     <small id="" class="form-text text-muted"></small>
                                     @error('phone')
                                     <div class="text text-danger">{{ $message }}</div>
@@ -106,6 +106,7 @@
                                     <div class="col-lg-4">
                                         <input accept="image/*" type='file' id="inputFile" name="image" /><br>
                                         <img type="hidden" width="90px" height="90px" id="blah" src="#" alt="" />
+                                        {{-- <img width="90px" height="90px" src="{{ asset($group->image) }}" alt=""> --}}
                                         <br>
                                     </div>
                                     @error('image')

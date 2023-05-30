@@ -22,7 +22,7 @@ class GroupRepository extends EloquentRepository implements GroupRepositoryInter
 
     public function all($request)
     {
-        $groups =  $this->model->orderBy('id', 'DESC')->get();
+        $groups =  $this->model->orderBy('id', 'DESC')->paginate(4);
         return $groups;
     }
     public function find($id)

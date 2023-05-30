@@ -29,7 +29,7 @@ class GroupController extends Controller
 
     {
         $this->authorize('viewAny',Group::class);
-        $groups = $this->groupService->paginate($request);
+        $groups = $this->groupService->all($request);
         return view('admin.groups.index',compact('groups'));
        
     }

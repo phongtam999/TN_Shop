@@ -24,9 +24,7 @@
                                     <a href="{{route('users.profile')}}"><i class="icon-user"></i>
                                         <span>Thông Tin </span></a>
                                 </li>
-                                <li>
-                                    <a href="{{route('login')}}"><i class="ti-lock"></i> <span>Đăng Nhập</span></a>
-                                </li>
+                    
                                 <li><a href="{{route('logout')}}"><i class="ti-unlock"></i> <span>Đăng Xuất</span></a>
                                 </li>
                             </ul>
